@@ -17,7 +17,10 @@ class StedniRacunFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'tip_stednje'=>fake()->randomElement(['orocena','stednja po vidjenju']),
+            'kamata'=>fake()->randomFloat(2,0,100),
+            'stanje_racuna'=>fake()->randomFloat(2,0,100000),
+            'odrzavanje'=>fake()->randomFloat(2,0,500),
         ];
     }
 }

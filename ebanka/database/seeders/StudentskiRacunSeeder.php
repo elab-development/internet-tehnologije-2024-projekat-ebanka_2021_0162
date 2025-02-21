@@ -14,6 +14,6 @@ class StudentskiRacunSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \App\Models\StudentskiRacun::factory()->create();
     }
 }

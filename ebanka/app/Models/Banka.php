@@ -10,4 +10,13 @@ class Banka extends Model
     use HasFactory;
     
     protected $fillable = ['naziv', 'grad', 'broj_dozvole'];
+
+    public function racun(){
+        return $this->hasMany(Racun::class);
+    }
+
+    public function user(){
+        return $this->hasMany(User::class);
+    }
+
 }

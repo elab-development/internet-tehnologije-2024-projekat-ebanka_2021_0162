@@ -17,16 +17,9 @@ return new class extends Migration
             $table->id();
             $table->morphs('racunTip');
             $table->string('broj_racuna')->unique();
-            $table->double('stanje_racuna', 10, 2);
-            $table->double('odrzavanje', 10, 2);
-
             $table->timestamps();
-
-            $table->unsignedBigInteger('korisnik_id');
-            $table->foreign('korisnik_id')->references('id')->on('user')->onDelete('cascade')->onUpdate('cascade');
-            
-            $table->unsignedBigInteger('banka_id');
-            $table->foreign('banka_id')->references('id')->on('banka')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('user_id');
+            $table->foreignId('banka_id');
         });
     }
 

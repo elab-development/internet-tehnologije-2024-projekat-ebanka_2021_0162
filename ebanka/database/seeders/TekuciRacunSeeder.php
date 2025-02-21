@@ -14,6 +14,6 @@ class TekuciRacunSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \App\Models\TekuciRacun::factory()->create();
     }
 }

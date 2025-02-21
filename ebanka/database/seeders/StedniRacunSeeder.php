@@ -14,6 +14,6 @@ class StedniRacunSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \App\Models\StedniRacun::factory()->create();
     }
 }

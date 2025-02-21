@@ -14,10 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('transakcijas', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('id_posiljaoca');
-            $table->primary(['id', 'id_posiljaoca']);
-            $table->foreign('id_posiljaoca')->references('id')->on('racun')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('id');
+            $table->foreignId('racun_id');
+            $table->primary(['id', 'racun_id']);
             
             $table->string('broj_racuna_primaoca');
             $table->double('iznos', 10, 2);

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->timestamps();
             $table->string('tip_stednje');
             $table->double('kamata', 10, 2);
+            $table->double('stanje_racuna', 10, 2);
+            $table->double('odrzavanje', 10, 2);
         });
     }
 

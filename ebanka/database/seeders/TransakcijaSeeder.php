@@ -12,8 +12,19 @@ class TransakcijaSeeder extends Seeder
      *
      * @return void
      */
+
+   // protected $racunn;
+
+    /*public function __construst(RacunSeeder $racun){
+        $this->racunn=$racun;
+    }
+*/
+
+
     public function run()
     {
-        //
+        Transakcija::factory()->create([
+            'racun_id'=>$racunn->id,
+        ]);
     }
 }

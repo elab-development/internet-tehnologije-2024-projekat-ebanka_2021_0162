@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->double('odrzavanje', 10, 2)->default(0);
+            $table->double('stanje_racuna', 10, 2);
+            
         });
     }
 

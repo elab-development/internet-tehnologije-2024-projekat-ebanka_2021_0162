@@ -18,6 +18,8 @@ return new class extends Migration
             $table->timestamps();
             $table->double('dozvoljeni_minus', 8, 2);
             $table->double('kamata', 5, 2);
+            $table->double('stanje_racuna', 10, 2);
+            $table->double('odrzavanje', 10, 2);
         });
     }
 

@@ -17,7 +17,12 @@ class TransakcijaFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'id'=>fake()->unique()->bothify('###############'),
+            'iznos'=>fake()->randomFloat(2,10,10000),
+            'datum'=>fake()->date(),
+            'vreme'=>fake()->time(),
+            'opis_transakcije'=>fake()->sentence(),
+            'broj_racuna_primaoca'=>fake()->numerify('###') .'-'. fake()->numerify('#########') .'-'. fake()->numerify('###'),
         ];
     }
 }

@@ -17,7 +17,9 @@ class BankaFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'naziv'=>fake()->company(),
+            'grad'=>fake()->city(),
+            'broj_dozvole'=>fake()->numerify('#####'),
         ];
     }
 }

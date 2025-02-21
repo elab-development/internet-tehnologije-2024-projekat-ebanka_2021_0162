@@ -17,7 +17,7 @@ class StudentskiRacunFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'stanje_racuna'=>fake()->randomFloat(2,0,100000),
         ];
     }
 }

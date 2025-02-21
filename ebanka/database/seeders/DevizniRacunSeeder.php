@@ -14,6 +14,6 @@ class DevizniRacunSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \App\Models\DevizniRacun::factory()->create();
     }
 }

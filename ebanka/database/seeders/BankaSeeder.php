@@ -14,6 +14,6 @@ class BankaSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \App\Models\Banka::factory()->create();
     }
 }

@@ -14,4 +14,16 @@ class Racun extends Model
     public function racunTip() {
         return $this->morphTo();
     }
+
+    public function banka(){
+        return $this->belongsTo(Banka::class);
+    }
+
+    public function transakcija(){
+        return $this->hasMany(Transakcija::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }
