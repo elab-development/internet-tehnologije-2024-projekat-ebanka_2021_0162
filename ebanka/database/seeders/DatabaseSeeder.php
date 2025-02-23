@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         $u1=\App\Models\User::factory()->create();
         $b1=\App\Models\Banka::factory()->create();
+        \App\Models\Banka::factory(5)->create();
         $tekuci=\App\Models\TekuciRacun::factory()->create();
 
         $r1=\App\Models\Racun::factory()->create([
