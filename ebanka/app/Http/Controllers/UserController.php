@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Banka;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
-class BankController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +18,8 @@ class BankController extends Controller
      */
     public function index()
     {
-        $banke = Banka::all();
-        return response()->json($banke); // JSON odgovor za API
+        $korisnici = User::all();
+        return response()->json($korisnici);
     }
 
     /**
@@ -36,21 +38,35 @@ class BankController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+            
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'naziv' => 'required|string|max:100',
-            'grad' => 'required|string|max:50',
-            'broj_dozvole' => 'required|integer|digits:5'
+            'ime' => 'required|string|max:50',
+            'prezime' => 'required|string|max:50',
+            'datum_rođenja' => 'required|date',
+            'adresa' => 'required|string',
+            'grad' => 'required|string',
+            'jmbg' => 'required|string|size:13',
+            'email' => 'required|string|max:255',
+            'password' => 'required|string|min:8'
         ]);
 
-        $banka = Banka::create([
-            'naziv' => $validated['naziv'],
+        $korisnik = User::create([
+            'ime' => $validated['ime'],
+            'prezime' => $validated['prezime'],
+            'datum_rođenja' => $validated['datum_rođenja'],
+            'adresa' => $validated['adresa'],
             'grad' => $validated['grad'],
-            'broj_dozvole' => $validated['broj_dozvole']
+            'jmbg' => $validated['jmbg'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+            'remember_token' => Str::random(10),  // Generisanje random tokena
+            'email_verified_at' => null,  // Početno postavljamo kao null dok ne verifikujemo email
         ]);
-        return response()->json($banka, 201); // Vraća novo kreiranu banku kao JSON
-    }   
+
+        return response()->json($korisnik, 201);
+    }
 
     /**
      * Display the specified resource.
@@ -60,8 +76,8 @@ class BankController extends Controller
      */
     public function show($id)
     {
-        $banka = Banka::findOrFail($id);
-        return response()->json($banka); // JSON odgovor za detalje banke
+        $korisnik = User::findOrFail($id);
+        return response()->json($korisnik);
     }
 
     /**
@@ -84,30 +100,9 @@ class BankController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $banka = Banka::findOrFail($id);
-
-        if(!$banka)
-            return response()->json('greska pri promeni banke. banka nije pronadjena!', 404);
-
-        $validated = $request->validate([
-            'naziv' => 'required|string',
-            'grad' => 'required|string',
-            'broj_dozvole' => 'required|integer|digits:5',
-        ]);
-
-        // Ažuriraj podatke banke
-        $banka->naziv = $validated['naziv'];
-        $banka->grad = $validated['grad'];
-        $banka->broj_dozvole = $validated['broj_dozvole'];
-
-        // Sacuvaj promene u bazi
-        $banka->save();
-
-        // Vrati odgovor sa uspehom
-        return response()->json(['poruka' => 'Banka promenjena!']);
-
-        //$banka->update($request->all());
-        //return response()->json($banka); // Vraća ažuriranu banku kao JSON
+        $korisnik = User::findOrFail($id);
+        $korisnik->update($request->all());
+        return response()->json($korisnik);
     }
 
     /**
@@ -118,9 +113,15 @@ class BankController extends Controller
      */
     public function destroy($id)
     {
-        $banka = Banka::findOrFail($id);
-        $banka->delete();
-        return response()->json(null, 204); // Vraća prazan odgovor nakon brisanja banke
+        $korisnik = User::findOrFail($id);
+        $korisnik->delete();
+        return response()->json(null, 204);
     }
 
+    public function prikazi_racune() {
+        $korisnik = Auth::user();
+        $racuni = $korisnik->racun;
+    
+        return response()->json($racuni);
+    }
 }

@@ -20,7 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'ime',
         'prezime',
-        'datum_rodjenja',
+        'datum_rođenja',
         'adresa',
         'grad',
         'jmbg',
@@ -47,8 +47,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
     public function racun(){
-        return $this->belongsTo(Racun::class);
+        return $this->hasMany(Racun::class);
+        //return $this->belongsTo(Racun::class);
     }
 }
