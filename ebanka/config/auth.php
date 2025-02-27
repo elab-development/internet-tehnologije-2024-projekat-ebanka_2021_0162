@@ -44,6 +44,11 @@ return [
             'driver' => 'sanctum',  // Ovo mora biti 'sanctum' ako koristite Sanctum
             'provider' => 'users',
         ],
+
+        'admin' => [
+            'driver' => 'token', // or 'token' if you're using API tokens
+            'provider' => 'admins', // This should match the provider you define below
+        ],
     ],
 
     /*
@@ -67,6 +72,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\Admin::class),
         ],
 
         // 'users' => [

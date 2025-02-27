@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Admin;
 
 class AuthController extends Controller
 {
@@ -63,5 +65,23 @@ class AuthController extends Controller
 
         
         return response()->json(['data'=>$user,'access_token'=>$token,'token_type'=>'Bearer']);
+    }
+
+    public function logInAdmin(Request $request) {
+        $request->validate([
+            'email'=> 'required|email',
+            'password'=> 'required|string|min:8'
+        ]);
+
+        $admin = Admin::where('email', $request['email'])->firstOrFail();
+
+        if($admin && Hash::check($request->password, $admin->password)) {
+
+            $token = $admin->createToken('Admin Access Token')->plainTextToken;
+
+            return response()->json(['message' => 'Hi ' . $admin->name . ', welcome to admin home', 'access_token' => $token, 'token_type' => 'Bearer']);
+        }
+
+        return respone()->json("greska pri log in-u admina");
     }
 }

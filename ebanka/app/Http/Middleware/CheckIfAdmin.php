@@ -24,6 +24,6 @@ class CheckIfAdmin
         }
 
         // Ako korisnik nije admin, vratiti odgovarajući odgovor
-        return response()->json(['greska' => 'Nedozvoljen pristup'], 403);
+        return response()->json(['greska' => 'Nedozvoljen pristup korisnicima!'], 403);
     }
 }

@@ -25,7 +25,8 @@ class User extends Authenticatable
         'grad',
         'jmbg',
         'email',
-        'password'
+        'password',
+        'broj_licne_karte',
     ];
 
     /**

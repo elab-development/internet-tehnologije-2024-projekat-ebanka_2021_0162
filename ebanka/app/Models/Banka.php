@@ -19,4 +19,5 @@ class Banka extends Model
         return $this->hasMany(User::class);
     }
 
+    public $timestamps = false;
 }
