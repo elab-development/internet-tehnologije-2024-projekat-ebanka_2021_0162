@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Racun;
+use App\Models\DevizniRacun;
 use Illuminate\Http\Request;
+use App\Models\Racun;
+use App\Http\Resources\DevizniRacunResource;
+use Illuminate\Support\Facades\Auth;
 
-class RacunController extends Controller
+class DevizniRacunController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,44 +39,56 @@ class RacunController extends Controller
     public function store(Request $request)
     {
         $validate=$request->validate([
-            'broj_racuna'=>'required|regex:/^\d{3}-\d{8}-\d{3}$/',
             'user_id'=>'required|exists:users,id',
             'banka_id'=>'required|exists:bankas,id',
-            'racunTip_type'=>'required|morph:App\Models\TekuciRacun,App\Models\StudentskiRacun,App\Models\DevizniRacun,App\Models\StedniRacun',
-            'racunTip_id'=>'required|exists:tekuci_racuns,id|exists:stedni_racuns,id|exists:studentski_racuns,id|exists:devizni_racuns,id'
+            'broj_racuna'=>'required|regex:/^\d{3}-\d{8}-\d{3}$/',
+            'stanje_racuna'=>'required|max:100000|min:0',
+            'odrzavanje'=>'required|max:500|min:0',
+            'valuta'=>'required|string|max:3'
+            
         ]);
 
-
-        $racun=Racun::create([
-            'broj_racuna'=>$validate['broj_racuna'],
+        $r=Racun::create([
             'user_id'=>$validate['user_id'],
             'banka_id'=>$validate['banka_id'],
-            'racunTip_type'=>$validate['racunTip_type'],
-            'racunTip_id'=>$validate['racunTip_id']
+            'type'=>'devizni'
         ]);
 
-        return response()->json($racun,201);
+        $rd=DevizniRacun::create([
+            'racun_id'=>$r->id,
+            'broj_racuna'=>$validate['broj_racuna'],
+            'stanje_racuna'=>$validate['stanje_racuna'],
+            'odrzavanje'=>$validate['odrzavanje'],
+            'valuta'=>$validate['valuta']
+        ]);
+
+        return response()->json(new DevizniRacunResource($rd),201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Racun  $racun
+     * @param  \App\Models\DevizniRacun  $devizniRacun
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $racun=Racun::findOrFail($id);
-        return response()->json($racun);
+        $user=Auth::user();
+        $devizni=DevizniRacun::findOrFail($id);
+        if($user->id==$devizni->racun->user->id){
+            return new DevizniRacunResource($devizni);
+        }else{
+            return response()->json('Nedozvoljen pristup');
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Racun  $racun
+     * @param  \App\Models\DevizniRacun  $devizniRacun
      * @return \Illuminate\Http\Response
      */
-    public function edit(Racun $racun)
+    public function edit(DevizniRacun $devizniRacun)
     {
         //
     }
@@ -82,10 +97,10 @@ class RacunController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Racun  $racun
+     * @param  \App\Models\DevizniRacun  $devizniRacun
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Racun $racun)
+    public function update(Request $request, DevizniRacun $devizniRacun)
     {
         //
     }
@@ -93,13 +108,13 @@ class RacunController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Racun  $racun
+     * @param  \App\Models\DevizniRacun  $devizniRacun
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $zaBrisanje=Racun::findOrFail($id);
+        $zaBrisanje=DevizniRacun::findOrFail($id);
         $zaBrisanje->delete();
-        return response()->json(null,204);
+        return response()->json('Uspesno obrisano',204);
     }
 }

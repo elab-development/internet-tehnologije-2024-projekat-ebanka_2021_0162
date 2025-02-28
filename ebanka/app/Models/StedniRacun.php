@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Racun;
 
 class StedniRacun extends Model
 {
@@ -11,8 +12,12 @@ class StedniRacun extends Model
 
     protected $guarded = [];
 
-    public function account() {
+    /*public function account() {
         return 
         $this->morphOne(Racun::class, 'racunTip');
+    }*/
+
+    public function racun(){
+        return $this->belongsTo(Racun::class);
     }
 }

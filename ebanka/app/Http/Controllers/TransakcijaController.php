@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transakcija;
 use Illuminate\Http\Request;
 use App\Models\Racun;
+use App\Http\Resources\TransakcijaCollection;
 
 class TransakcijaController extends Controller
 {
@@ -68,7 +69,8 @@ class TransakcijaController extends Controller
     public function show($id)
     {
         $trans=Transakcija::findOrFail($id);
-        return response()->json($trans);
+        return new TransakcijaResource($trans);
+        //return response()->json($trans);
     }
 
     /**
@@ -108,6 +110,7 @@ class TransakcijaController extends Controller
     public function prikaz_transakcija($racun_id){
         $racun=Racun::findOrFail($racun_id);
         $t=$racun->transakcija;
-        return response()->json($t);
+        return new TransakcijaCollection($t);
+        //return response()->json($t);
     }
 }

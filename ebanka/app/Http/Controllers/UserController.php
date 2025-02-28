@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\RacunResource;
+use App\Http\Resources\UserCollection;
+use App\Http\Resources\RacunCollection;
 
 class UserController extends Controller
 {
@@ -19,7 +23,7 @@ class UserController extends Controller
     public function index()
     {
         $korisnici = User::all();
-        return response()->json($korisnici);
+        return new UserCollection($korisnici);
     }
 
     /**
@@ -76,8 +80,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $korisnik = User::findOrFail($id);
-        return response()->json($korisnik);
+        $korisnikk = User::findOrFail($id);
+        //return response()->json($korisnikk);
+        return new UserResource($korisnikk);
     }
 
     /**
@@ -102,7 +107,7 @@ class UserController extends Controller
     {
         $korisnik = User::findOrFail($id);
         $korisnik->update($request->all());
-        return response()->json($korisnik);
+        return new UserResource($korisnik);
     }
 
     /**
@@ -118,10 +123,12 @@ class UserController extends Controller
         return response()->json(null, 204);
     }
 
+
+
     public function prikazi_racune() {
         $korisnik = Auth::user();
         $racuni = $korisnik->racun;
-    
-        return response()->json($racuni);
+        return new RacunCollection($racuni);
+        //return response()->json($racuni);
     }
 }

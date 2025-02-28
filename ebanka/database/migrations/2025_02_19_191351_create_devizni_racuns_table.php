@@ -15,10 +15,12 @@ return new class extends Migration
     {
         Schema::create('devizni_racuns', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('racun_id');
+            $table->string('broj_racuna');
             $table->string('valuta');
             $table->double('stanje_racuna', 10, 2);
             $table->double('odrzavanje', 10, 2);
+            $table->timestamps();
         });
     }
 

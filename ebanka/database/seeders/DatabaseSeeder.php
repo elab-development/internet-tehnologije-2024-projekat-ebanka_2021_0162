@@ -24,66 +24,85 @@ class DatabaseSeeder extends Seeder
         $b3=\App\Models\Banka::factory()->create();
         \App\Models\Banka::factory(3)->create();
 
-        $tekuci=\App\Models\TekuciRacun::factory()->create();
-
-        $r1=\App\Models\Racun::factory()->create([
+        $r1=\App\Models\Racun::create([
             'user_id'=>$u1->id,
             'banka_id'=>$b1->id,
-            'racunTip_type'=>$tekuci,
-            'racunTip_id'=>$tekuci->id,
+            'type'=>'tekuci',
         ]);
+
+        $tekuci=\App\Models\TekuciRacun::factory()->create([
+            'racun_id'=>$r1->id
+        ]);
+
 
         \App\Models\Transakcija::factory(5)->create([
             'racun_id'=>$r1->id,
         ]);
 
-        $devizni=\App\Models\DevizniRacun::factory()->create();
+        
 
-        $r2=\App\Models\Racun::factory()->create([
+        $r2=\App\Models\Racun::create([
             'user_id'=>$u1->id,
             'banka_id'=>$b1->id,
-            'racunTip_type'=>$devizni,
-            'racunTip_id'=>$devizni->id,
+            'type'=>'devizni',
+        ]);
+
+        $devizni=\App\Models\DevizniRacun::factory()->create([
+            'racun_id'=>$r2->id
         ]);
 
         \App\Models\Transakcija::factory(2)->create([
             'racun_id'=>$r2->id,
         ]);
 
-        $tekuci_2=\App\Models\TekuciRacun::factory()->create();
+        
 
-        $r3=\App\Models\Racun::factory()->create([
+        $r3=\App\Models\Racun::create([
             'user_id'=>$u2->id,
             'banka_id'=>$b1->id,
-            'racunTip_type'=>$tekuci_2,
-            'racunTip_id'=>$tekuci_2->id,
+            'type'=>'tekuci',
         ]);
 
-        $studentski=\App\Models\StudentskiRacun::factory()->create();
+        $tekuci_2=\App\Models\TekuciRacun::factory()->create([
+            'racun_id'=>$r3->id
+        ]);
 
-        $r4=\App\Models\Racun::factory()->create([
+        
+
+        $r4=\App\Models\Racun::create([
             'user_id'=>$u3->id,
             'banka_id'=>$b2->id,
-            'racunTip_type'=>$studentski,
-            'racunTip_id'=>$studentski->id,
+            'type'=>'studentski',
         ]);
 
-        $stedni=\App\Models\StedniRacun::factory()->create();
 
-        $r5=\App\Models\Racun::factory()->create([
+        $studentski=\App\Models\StudentskiRacun::factory()->create([
+            'racun_id'=>$r4->id
+        ]);
+
+        
+
+        $r5=\App\Models\Racun::create([
             'user_id'=>$u3->id,
             'banka_id'=>$b1->id,
-            'racunTip_type'=>$stedni,
-            'racunTip_id'=>$stedni->id,
+            'type'=>'stedni',
         ]);
 
-        $studentski_2 = \App\Models\StudentskiRacun::factory()->create();
+        $stedni=\App\Models\StedniRacun::factory()->create([
+            'racun_id'=>$r5->id
+        ]);
 
-        $r6=\App\Models\Racun::factory()->create([
+        
+
+        $r6=\App\Models\Racun::create([
             'user_id'=>$u1->id,
             'banka_id'=>$b3->id,
-            'racunTip_type'=>$studentski_2,
-            'racunTip_id'=>$studentski_2->id,
+            'type'=>'studentski',
+        ]);
+
+
+        $studentski_2 = \App\Models\StudentskiRacun::factory()->create([
+            'racun_id'=>$r6->id
         ]);
 
         /*

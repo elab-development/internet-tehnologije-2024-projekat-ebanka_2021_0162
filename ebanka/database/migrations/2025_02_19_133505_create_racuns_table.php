@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('racuns', function (Blueprint $table) {
             $table->id();
-            $table->morphs('racunTip');
-            $table->string('broj_racuna')->unique();
-            $table->timestamps();
+           // $table->foreignId('id_podracun');
+            $table->string('type');
             $table->foreignId('user_id');
             $table->foreignId('banka_id');
+            $table->timestamps();
         });
     }
 

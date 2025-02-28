@@ -7,6 +7,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExchangeRatesController;
 use App\Http\Controllers\TransakcijaController;
 use App\Http\Controllers\RacunController;
+use App\Http\Controllers\TekuciRacunController;
+use App\Http\Controllers\StudentskiRacunController;
+use App\Http\Controllers\StedniRacunController;
+use App\Http\Controllers\DevizniRacunController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,15 +37,19 @@ Route::middleware(['auth:sanctum', 'isRegularUser'])->group( function() {
     Route::get("/korisnik/transakcija/{id}",[TransakcijaController::class,"show"]);
     Route::post("/korisnik/nova-transakcija",[TransakcijaController::class,"store"]);
 
-    Route::get("/korisnik/racun/{id}",[RacunController::class,"show"]);
-    Route::delete("/korisnik/racun/{id}",[RacunController::class,"destroy"]);
-    Route::post("/korisnik/kreiranje-racuna",[RacunController::class,"store"]);
-
+    Route::get("/korisnik/tekuci_racun/{id}",[TekuciRacunController::class,"show"]);
+    Route::get("/korisnik/studentski_racun/{id}",[StudentskiRacunController::class,"show"]);
+    Route::get("/korisnik/devizni_racun/{id}",[DevizniRacunController::class,"show"]);
+    Route::get("/korisnik/stedni_racun/{id}",[StedniRacunController::class,"show"]);
+    
     Route::get("/korisnik/bankovni-racuni", [UserController::class, "prikazi_racune"]);
 
     Route::get("/korisnik/kursna-lista", [ExchangeRatesController::class, "fetchRates"]);
     Route::get("/korisnik/informacije-o-nalogu", [AccountInfoController::class, "show"]);
     Route::post("/korisnik/logout", [AuthController::class, "logout"]);
+
+    Route::resource("/korisnik/korisnici", UserController::class);
+    Route::resource("/korisnik/banke", BankController::class);
 });
 
 // Adminska grupa ruta
@@ -50,6 +58,14 @@ Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
     Route::resource("/admin/korisnici", UserController::class);
     Route::get("/admin/informacije-o-nalogu", [AccountInfoController::class, "show"]);
     Route::get("/admin/kursna-lista", [ExchangeRatesController::class, "fetchRates"]);
+    Route::delete("/admin/tekuci_racun/{id}",[TekuciRacunController::class,"destroy"]);
+    Route::delete("/admin/stedni_racun/{id}",[StedniRacunController::class,"destroy"]);
+    Route::delete("/admin/studentski_racun/{id}",[StudentskiRacunController::class,"destroy"]);
+    Route::delete("/admin/devizni_racun/{id}",[DevizniRacunController::class,"destroy"]);
+    Route::post("/admin/kreiranje-tekuci_racun",[TekuciRacunController::class,"store"]);
+    Route::post("/admin/kreiranje-studentski_racun",[StudentskiRacunController::class,"store"]);
+    Route::post("/admin/kreiranje-devizni_racun",[DevizniRacunController::class,"store"]);
+    Route::post("/admin/kreiranje-stedni_racun",[StedniRacunController::class,"store"]);
     Route::post("/admin/logout", [AuthController::class, "logout"]);
 });
 
@@ -60,7 +76,7 @@ Route::middleware("guest")->group( function() {
     Route::post("/korisnik/login", [AuthController::class, "login"]);
     
     //nezasticena ruta za logovanje admina
-    Route::post('admin/login', [AuthController::class, "logInAdmin"]);
+    Route::post('/admin/login', [AuthController::class, "logInAdmin"]);
     
     // sign up ruta
     Route::post("/registracija",[AuthController::class,"register"]);    

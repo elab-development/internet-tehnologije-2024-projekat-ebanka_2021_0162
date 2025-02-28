@@ -17,6 +17,7 @@ class StedniRacunFactory extends Factory
     public function definition()
     {
         return [
+            'broj_racuna'=> fake()->numerify('###') .'-'. fake()->numerify('#########') .'-'. fake()->numerify('###'),
             'tip_stednje'=>fake()->randomElement(['orocena','stednja po vidjenju']),
             'kamata'=>fake()->randomFloat(2,0,100),
             'stanje_racuna'=>fake()->randomFloat(2,0,100000),

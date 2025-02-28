@@ -17,6 +17,7 @@ class StudentskiRacunFactory extends Factory
     public function definition()
     {
         return [
+            'broj_racuna'=> fake()->numerify('###') .'-'. fake()->numerify('#########') .'-'. fake()->numerify('###'),
             'stanje_racuna'=>fake()->randomFloat(2,0,100000),
         ];
     }

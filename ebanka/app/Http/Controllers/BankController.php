@@ -6,6 +6,8 @@ use App\Models\Banka;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\BankaResource;
+use App\Http\Resources\BankaCollection;
 
 class BankController extends Controller
 {
@@ -17,7 +19,8 @@ class BankController extends Controller
     public function index()
     {
         $banke = Banka::all();
-        return response()->json($banke); // JSON odgovor za API
+        return new BankaCollection($banke);
+       // return response()->json($banke); // JSON odgovor za API
     }
 
     /**
@@ -61,7 +64,8 @@ class BankController extends Controller
     public function show($id)
     {
         $banka = Banka::findOrFail($id);
-        return response()->json($banka); // JSON odgovor za detalje banke
+        return new BankaResource($banka);
+        //return response()->json($banka); // JSON odgovor za detalje banke
     }
 
     /**

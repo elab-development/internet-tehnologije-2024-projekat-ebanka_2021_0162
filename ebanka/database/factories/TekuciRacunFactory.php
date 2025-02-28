@@ -17,6 +17,7 @@ class TekuciRacunFactory extends Factory
     public function definition()
     {
         return [
+            'broj_racuna'=> fake()->numerify('###') .'-'. fake()->numerify('#########') .'-'. fake()->numerify('###'),
             'dozvoljeni_minus'=>fake()->randomFloat(2,0,10000),
             'kamata'=>fake()->randomFloat(2,0,100),
             'stanje_racuna'=>fake()->randomFloat(2,0,100000),

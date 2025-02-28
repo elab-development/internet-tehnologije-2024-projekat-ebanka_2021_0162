@@ -17,6 +17,7 @@ class DevizniRacunFactory extends Factory
     public function definition()
     {
         return [
+            'broj_racuna'=> fake()->numerify('###') .'-'. fake()->numerify('#########') .'-'. fake()->numerify('###'),
             'valuta'=>fake()->randomElement(['EUR', 'USD', 'CHF', 'JPY', 'CAD', 'RUB', 'CNY', 'GBP']),
             'stanje_racuna'=>fake()->randomFloat(2,0,100000),
             'odrzavanje'=>fake()->randomFloat(2,0,500),
