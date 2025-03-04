@@ -23,7 +23,9 @@ class StudentskiRacunResource extends JsonResource
             'broj_racuna'=>$this->resource->broj_racuna,
             'stanje_racuna'=>$this->resource->stanje_racuna,
             'odrzavanje'=>$this->resource->odrzavanje,
-            'racun'=>new RacunResource($this->resource->racun)
+            'racun'=>new RacunResource($this->resource->racun),
+            //'racun' => $this->whenLoaded('racun'),  
+
         ];
     }
 }

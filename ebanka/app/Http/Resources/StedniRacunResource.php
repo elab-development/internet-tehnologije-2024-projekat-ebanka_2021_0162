@@ -25,7 +25,9 @@ class StedniRacunResource extends JsonResource
             'odrzavanje'=>$this->resource->odrzavanje,
             'kamata'=>$this->resource->kamata,
             'tip_stednje'=>$this->resource->tip_stednje,
-            'racun'=> new RacunResource($this->resource->racun)
+            'racun'=> new RacunResource($this->resource->racun),
+            //'racun' => $this->whenLoaded('racun'),  
+
         ];
     }
 }

@@ -94,21 +94,26 @@ class BankController extends Controller
             return response()->json('greska pri promeni banke. banka nije pronadjena!', 404);
 
         $validated = $request->validate([
-            'naziv' => 'required|string',
-            'grad' => 'required|string',
-            'broj_dozvole' => 'required|integer|digits:5',
+            'naziv' => 'string',
+            'grad' => 'string',
+            'broj_dozvole' => 'integer|digits:5',
         ]);
 
         // Ažuriraj podatke banke
-        $banka->naziv = $validated['naziv'];
-        $banka->grad = $validated['grad'];
-        $banka->broj_dozvole = $validated['broj_dozvole'];
+        if(isset($validated['naziv']))
+            $banka->naziv = $validated['naziv'];
+        
+        if(isset($validated['grad']))
+            $banka->grad = $validated['grad'];
+
+        if(isset($validated['broj_dozvole']))
+            $banka->broj_dozvole = $validated['broj_dozvole'];
 
         // Sacuvaj promene u bazi
         $banka->save();
 
         // Vrati odgovor sa uspehom
-        return response()->json(['poruka' => 'Banka promenjena!']);
+        return response()->json(['poruka' => 'Banka promenjena!'],200);
 
         //$banka->update($request->all());
         //return response()->json($banka); // Vraća ažuriranu banku kao JSON
@@ -124,7 +129,7 @@ class BankController extends Controller
     {
         $banka = Banka::findOrFail($id);
         $banka->delete();
-        return response()->json(null, 204); // Vraća prazan odgovor nakon brisanja banke
+        return response()->json(['message'=>'Uspesno obrisano'],200); // Vraća prazan odgovor nakon brisanja banke
     }
 
 }

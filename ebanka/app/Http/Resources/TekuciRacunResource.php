@@ -25,7 +25,10 @@ class TekuciRacunResource extends JsonResource
             'odrzavanje'=>$this->resource->odrzavanje,
             'dozvoljeni_minus'=>$this->resource->dozvoljeni_minus,
             'kamata'=>$this->resource->kamata,
-            'racun'=>new RacunResource($this->resource->racun)
+            'racun'=>new RacunResource($this->resource->racun),
+
+            //'racun' => $this->whenLoaded('racun'),  
+
         ];
         //return parent::toArray($request);
     }

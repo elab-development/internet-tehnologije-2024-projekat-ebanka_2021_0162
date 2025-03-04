@@ -11,7 +11,7 @@ use GuzzleHttp\Client;
 class ExchangeRatesController extends Controller
 {
     public function fetchRates() {
-        $response = Http::get("https://kurs.resenje.org/api/v1/currencies");
+        $response = Http::get("https://kurs.resenje.org/api/v1/rates/today");
 
         return response()->json($response->json());
 

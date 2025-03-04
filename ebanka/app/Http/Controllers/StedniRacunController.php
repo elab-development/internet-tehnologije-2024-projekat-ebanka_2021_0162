@@ -117,6 +117,6 @@ class StedniRacunController extends Controller
     {
         $zaBrisanje=StedniRacun::findOrFail($id);
         $zaBrisanje->delete();
-        return response()->json('Uspesno obrisano',204);
+        return response()->json(['message'=>'Uspesno obrisano'],200);
     }
 }

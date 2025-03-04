@@ -23,7 +23,7 @@ class User extends Authenticatable
         'datum_rođenja',
         'adresa',
         'grad',
-        'jmbg',
+        'maticni_broj',
         'email',
         'password',
         'broj_licne_karte',

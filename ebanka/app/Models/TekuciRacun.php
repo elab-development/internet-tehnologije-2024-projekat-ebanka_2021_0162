@@ -20,4 +20,5 @@ class TekuciRacun extends Model
     public function racun(){
         return $this->belongsTo(Racun::class);
     }
+
 }

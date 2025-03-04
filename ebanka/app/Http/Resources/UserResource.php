@@ -19,7 +19,7 @@ class UserResource extends JsonResource
             'id'=>$this->resource->id,
             'ime'=>$this->resource->ime,
             'prezime'=>$this->resource->prezime,
-            'maticni broj'=>$this->resource->maticni_broj,
+            'maticni_broj'=>$this->resource->maticni_broj,
             'broj_licne_karte'=>$this->resource->broj_licne_karte,
             'datum_rođenja'=>$this->resource->datum_rođenja,
             'email'=>$this->resource->email,

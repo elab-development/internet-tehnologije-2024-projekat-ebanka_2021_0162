@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Transakcija extends Model
 {
     use HasFactory;
-
-    protected $fillable = ['broj_racuna_primaoca', 'iznos', 'opis_transakcije'];
-
+    public $timestamps=false;
+    protected $fillable = ['broj_racuna_primaoca', 'iznos', 'opis_transakcije','datum','vreme','id','racun_id'];
+    
 
     public function racun(){
         return $this->belongsTo(Racun::class);

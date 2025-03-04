@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
 
 class AccountInfoController extends Controller
 {
@@ -49,8 +50,8 @@ class AccountInfoController extends Controller
     public function show(User $user)
     {
         $korisnik = Auth::user();
-        
-        return response()->json($korisnik->toArray());
+        return new UserResource($korisnik);
+        //return response()->json($korisnik->toArray());
     }
 
     /**

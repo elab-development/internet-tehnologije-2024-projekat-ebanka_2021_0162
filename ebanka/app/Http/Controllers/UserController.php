@@ -51,7 +51,8 @@ class UserController extends Controller
             'datum_rođenja' => 'required|date',
             'adresa' => 'required|string',
             'grad' => 'required|string',
-            'jmbg' => 'required|string|size:13',
+            'maticni_broj' => 'required|string|size:13',
+            'broj_licne_karte'=>'required|string|regex:/^\d{3}-\d{2}-\d{4}$/',
             'email' => 'required|string|max:255',
             'password' => 'required|string|min:8'
         ]);
@@ -62,14 +63,15 @@ class UserController extends Controller
             'datum_rođenja' => $validated['datum_rođenja'],
             'adresa' => $validated['adresa'],
             'grad' => $validated['grad'],
-            'jmbg' => $validated['jmbg'],
+            'maticni_broj' => $validated['maticni_broj'],
+            'broj_licne_karte'=>$validated['broj_licne_karte'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
             'remember_token' => Str::random(10),  // Generisanje random tokena
             'email_verified_at' => null,  // Početno postavljamo kao null dok ne verifikujemo email
         ]);
 
-        return response()->json($korisnik, 201);
+        return response()->json(new UserResource($korisnik), 201);
     }
 
     /**
@@ -107,7 +109,8 @@ class UserController extends Controller
     {
         $korisnik = User::findOrFail($id);
         $korisnik->update($request->all());
-        return new UserResource($korisnik);
+        return response()->json(['poruka'=>'Uspesno izmenjen korisnik!','korisnik'=>new UserResource($korisnik)]);
+        //return new UserResource($korisnik);
     }
 
     /**
@@ -120,7 +123,7 @@ class UserController extends Controller
     {
         $korisnik = User::findOrFail($id);
         $korisnik->delete();
-        return response()->json(null, 204);
+        return response()->json(['message'=>'Uspesno obrisano'],200);
     }
 
 
@@ -128,6 +131,7 @@ class UserController extends Controller
     public function prikazi_racune() {
         $korisnik = Auth::user();
         $racuni = $korisnik->racun;
+
         return new RacunCollection($racuni);
         //return response()->json($racuni);
     }

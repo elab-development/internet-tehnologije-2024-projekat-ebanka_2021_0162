@@ -48,8 +48,6 @@ Route::middleware(['auth:sanctum', 'isRegularUser'])->group( function() {
     Route::get("/korisnik/informacije-o-nalogu", [AccountInfoController::class, "show"]);
     Route::post("/korisnik/logout", [AuthController::class, "logout"]);
 
-    Route::resource("/korisnik/korisnici", UserController::class);
-    Route::resource("/korisnik/banke", BankController::class);
 });
 
 // Adminska grupa ruta

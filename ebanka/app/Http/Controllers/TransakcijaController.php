@@ -6,6 +6,7 @@ use App\Models\Transakcija;
 use Illuminate\Http\Request;
 use App\Models\Racun;
 use App\Http\Resources\TransakcijaCollection;
+use App\Http\Resources\TransakcijaResource;
 
 class TransakcijaController extends Controller
 {
@@ -38,26 +39,38 @@ class TransakcijaController extends Controller
     public function store(Request $request)
     {
         $validate=$request->validate([
-            'iznos'=>'required|numeric|max:100000|min:0',
-            'datum'=>'required|date',
-            'vreme'=>'required|date_format:H:M:S',
-            'opis'=>'required|string|max:255',
-            'broj_racuna_primaoca'=>'required|regex:/^\d{3}-\d{8}-\d{3}$/',
-            'racun_id'=>'required|exists:racuns,id',
-            'id'=>'required|regex:/^\d{6}$/'
+            'iznos'=>'required',
+            'datum'=>'required',
+            'vreme'=>'required',
+            'opis_transakcije'=>'required',
+            'broj_racuna_primaoca'=>'required',
+            'racun_id'=>'required'
+            
         ]);
 
         $transakcija=Transakcija::create([
             'iznos'=>$validate['iznos'],
             'datum'=>$validate['datum'],
             'vreme'=>$validate['vreme'],
-            'opis'=>$validate['opis'],
+            'opis_transakcije'=>$validate['opis_transakcije'],
             'broj_racuna_primaoca'=>$validate['broj_racuna_primaoca'],
             'racun_id'=>$validate['racun_id'],
-            'id'=>$validate['id']
+            'id'=>rand(100000000000000, 999999999999999)
         ]);
 
-        return response()->json($transakcija,201);
+        //dd($validate);
+
+        /*$transakcija=Transakcija::create([
+            'iznos'=>$request->iznos,
+            'datum'=>$request->datum,
+            'vreme'=>$request->vreme,
+            'opis_transakcije'=>$request->opis_transakcije,
+            'broj_racuna_primaoca'=>$request->broj_racuna_primaoca,
+            'racun_id'=>$request->racun_id,
+            'id'=>rand(100000000000000, 999999999999999)
+        ]);*/
+    
+        return response()->json(new TransakcijaResource($transakcija),201);
     }
 
     /**

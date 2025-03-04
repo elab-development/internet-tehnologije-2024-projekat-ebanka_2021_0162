@@ -24,7 +24,9 @@ class DevizniRacunResource extends JsonResource
             'stanje_racuna'=>$this->resource->stanje_racuna,
             'valuta'=>$this->resource->valuta,
             'odrzavanje'=>$this->resource->odrzavanje,
-            'racun'=> new RacunResource($this->resource->racun)
+            'racun'=> new RacunResource($this->resource->racun),
+            //'racun' => $this->whenLoaded('racun'),  
+
         ];
     }
 }
