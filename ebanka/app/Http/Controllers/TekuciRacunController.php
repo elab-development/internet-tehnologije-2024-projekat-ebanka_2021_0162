@@ -42,7 +42,7 @@ class TekuciRacunController extends Controller
             'user_id'=>'required|exists:users,id',
             'banka_id'=>'required|exists:bankas,id',
             'broj_racuna'=>'required|regex:/^\d{3}-\d{8}-\d{3}$/',
-            'stanje_racuna'=>'required|max:100000|min:0',
+            'stanje_racuna'=>'required|max:1000000|min:0',
             'odrzavanje'=>'required|max:500|min:0',
             'kamata'=>'required|max:100|min:0',
             'dozvoljeni_minus'=>'required|max:10000|min:0'

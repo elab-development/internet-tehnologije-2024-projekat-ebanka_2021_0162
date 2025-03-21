@@ -60,10 +60,12 @@ Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
     Route::delete("/admin/stedni_racun/{id}",[StedniRacunController::class,"destroy"]);
     Route::delete("/admin/studentski_racun/{id}",[StudentskiRacunController::class,"destroy"]);
     Route::delete("/admin/devizni_racun/{id}",[DevizniRacunController::class,"destroy"]);
+
     Route::post("/admin/kreiranje-tekuci_racun",[TekuciRacunController::class,"store"]);
     Route::post("/admin/kreiranje-studentski_racun",[StudentskiRacunController::class,"store"]);
     Route::post("/admin/kreiranje-devizni_racun",[DevizniRacunController::class,"store"]);
     Route::post("/admin/kreiranje-stedni_racun",[StedniRacunController::class,"store"]);
+    
     Route::post("/admin/logout", [AuthController::class, "logout"]);
 });
 
