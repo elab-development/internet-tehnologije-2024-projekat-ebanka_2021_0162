@@ -1,10 +1,23 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 import '../css/RegisterPageUser.css';
 import { useState } from 'react';
 import axios from 'axios';
 
 const RegisterPageUser = () => {
+    const navigate = useNavigate();
+
+    // Ako ulogovan korisnik/admin pristupi ruti za registraciju
+    useEffect( () => {
+      let user = window.sessionStorage.getItem("user_auth_token");
+      let admin = window.sessionStorage.getItem("admin_auth_token");
+
+      if(user != null) 
+        navigate("/user/home");
+      else if(admin != null)
+        navigate("/admin/home");
+
+    }, [navigate]);
 
     const [userData, setUserData] = useState({
         ime: "",
@@ -18,8 +31,6 @@ const RegisterPageUser = () => {
         broj_licne_karte: "",
     });
 
-    const navigate = useNavigate();
-    
     function handleReset() {
         let input_elems = document.getElementsByTagName("input");
 
@@ -46,7 +57,7 @@ const RegisterPageUser = () => {
         .then( (res) => {
             console.log("success");
             console.log(res.data);
-            navigate('/login');
+            navigate('/user/login');
         })
         .catch( (e) => {
             console.log(e);

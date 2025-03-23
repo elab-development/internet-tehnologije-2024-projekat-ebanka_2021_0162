@@ -1,49 +1,50 @@
 import React, {useEffect} from 'react'
 import { useState } from 'react'
 import axios from 'axios';
-import {BrowserRouter, Router, Routes, Route, useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const LoginPageUser = () => {
+const LogInPageAdmin = () => {
     const navigate = useNavigate();
 
-    // Ukoliko je admin ulogovan, pri pokusaju logina kao regularan => automatsko preusmeravanje
+    // Ukoliko je korisnik ulogovan kao regularan => automatsko preusmeravanje
     useEffect( () => {
-      let user = window.sessionStorage.getItem("user_auth_token");
-      let admin = window.sessionStorage.getItem("admin_auth_token");
+        let user = window.sessionStorage.getItem("user_auth_token");
+        let admin = window.sessionStorage.getItem("admin_auth_token");
 
-      if(user != null)
-        navigate("/user/home");
-      else if(admin != null)
-        navigate('/admin/home');
-
+        if(admin != null)
+            navigate("/admin/home");
+        else if(user != null)
+            navigate('/user/home');
+        
     }, [navigate]);
 
-    const [userData, setUserData] = useState({
+    const [adminData, setAdminData] = useState({
         email: "",
-        password: "",
+        password: "",    
     });
-
-    function handleInput(e) {
-        let newUserData = userData;
-        newUserData[e.target.name] = e.target.value;
-        setUserData(newUserData);
-    }
 
     function handleLogin(e) {
         e.preventDefault();
 
-        axios.post("http://127.0.0.1:8000/api/korisnik/login", userData).then( (res) => {
-            if(res.data.token) {
+        axios.post("http://127.0.0.1:8000/api/admin/login", adminData)
+        .then( (res) => {
+            if(res.data.access_token) {
                 console.log("success");
                 console.log(res.data);
-                window.sessionStorage.setItem("user_auth_token", res.data.token);
-                navigate('/user/home');
+                window.sessionStorage.setItem("admin_auth_token", res.data.access_token);
+                navigate('/admin/home');
             }
         })
         .catch( (e) => {
-            alert("Neispravan email i/ili lozinka!");
+            alert("Neispravna email adresa i/ili lozinka!");
             console.log(e);
-        })
+        });      
+    }
+
+    function handleInput(e) {
+        let newAdminData = adminData;
+        newAdminData[e.target.name] = e.target.value;
+        setAdminData(newAdminData);
     }
 
   return (
@@ -64,12 +65,11 @@ const LoginPageUser = () => {
             <div className="col-md-6 col-lg-7 d-flex align-items-center">
               <div className="card-body p-4 p-lg-5 text-black">
                 <form onSubmit={handleLogin}>
-                
                   <h5
                     className="fw-normal mb-3 pb-3"
                     style={{ letterSpacing: 1 }}
                   >
-                    Prijavite se na svoj nalog
+                    Dobrodošli na prijavu admina
                   </h5>
                   <div data-mdb-input-init="" className="form-outline mb-4">
                     <input onInput={handleInput}
@@ -102,19 +102,13 @@ const LoginPageUser = () => {
                     >
                       Prijava
                     </button>
-                  </div> <br/>
-                  
-                  <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>
-                    Još uvek nemate nalog?
-                    <a href="#!" style={{ color: "#393f81" }}>
-                      Registrujte se
-                    </a> 
-                  </p>
-
-                  <a className="small text-muted" href="#!">
+                  </div><br/>
+                  <a className="small text-muted" href="#!"> 
                     Zaboravljena lozinka?
+                  </a> <br/>
+                  <a href="#!" className="small text-muted">
+                    Politika privatnosti
                   </a>
-
                 </form>
               </div>
             </div>
@@ -124,8 +118,7 @@ const LoginPageUser = () => {
     </div>
   </div>
 </section>
-
-  )
+    )
 }
 
-export default LoginPageUser
+export default LogInPageAdmin
