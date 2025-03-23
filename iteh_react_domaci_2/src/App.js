@@ -1,24 +1,20 @@
-import logo from './logo.svg';
+import { BrowserRouter, Router, Routes, Route } from 'react-router-dom';
 import './App.css';
+import LogInPageUser from './components/LogInPageUser';
+import RegisterPageUser from './components/RegisterPageUser';
+import LogInPageAdmin from './components/LogInPageAdmin';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<LogInPageUser/>}/>
+          <Route path="/register" element={<RegisterPageUser/>} />
+          <Route path="/home" element={<><h1>Dobrodosli!</h1></>} />
+          <Route path="/admin/login" element={<LogInPageAdmin/>} />
+          <Route path="*" element={<div>404 Not Found</div>} /> {/* Fallback ruta */}
+        </Routes>
+      </BrowserRouter>
   );
 }
 
