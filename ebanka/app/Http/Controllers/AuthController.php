@@ -14,7 +14,7 @@ class AuthController extends Controller
     public function login(Request $request) {
         $request->validate([
             'email' => 'required|string',
-            'password' => 'required'
+            'password' => 'required|string|min:8'
         ]);
 
         if (Auth::attempt($request->only('email', 'password'))) {
@@ -47,7 +47,8 @@ class AuthController extends Controller
             'datum_rođenja'=>'required|date',
             'adresa'=>'required|string',
             'grad'=>'required|string',
-            'jmbg'=>'required|string|size:13',
+            'maticni_broj'=>'required|string|size:13',
+            'broj_licne_karte'=>'required|string|regex:/^\d{3}-\d{2}-\d{4}$/',
             'email'=>'required|string|max:255',
             'password'=>'required|string|min:8'
         ]);
@@ -58,11 +59,13 @@ class AuthController extends Controller
             'datum_rođenja'=>$validate['datum_rođenja'],
             'adresa'=>$validate['adresa'],
             'grad'=>$validate['grad'],
-            'jmbg'=>$validate['jmbg'],
+            'maticni_broj'=>$validate['maticni_broj'],
+            'broj_licne_karte'=>$validate['broj_licne_karte'],
             'email'=>$validate['email'],
             'password'=>bcrypt($validate['password'])
         ]);
 
+        $token = $user->createToken('ebanka')->plainTextToken;
         
         return response()->json(['data'=>$user,'access_token'=>$token,'token_type'=>'Bearer']);
     }

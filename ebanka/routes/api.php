@@ -11,6 +11,7 @@ use App\Http\Controllers\TekuciRacunController;
 use App\Http\Controllers\StudentskiRacunController;
 use App\Http\Controllers\StedniRacunController;
 use App\Http\Controllers\DevizniRacunController;
+use App\Http\Controllers\TransactionsExportController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,7 +34,7 @@ Route::middleware("auth:sanctum")->get("/user", function (Request $request) {
 // Rute za autentifikovane korisnike 
 Route::middleware(['auth:sanctum', 'isRegularUser'])->group( function() {
     //nove rute
-    Route::get("/korisnik/izvrsene-transakcije/{banka_id}",[TransakcijaController::class,"prikaz_transakcija"]);
+    Route::get("/korisnik/izvrsene-transakcije/{racun_id}",[TransakcijaController::class,"prikaz_transakcija"]);
     Route::get("/korisnik/transakcija/{id}",[TransakcijaController::class,"show"]);
     Route::post("/korisnik/nova-transakcija",[TransakcijaController::class,"store"]);
 
@@ -43,6 +44,8 @@ Route::middleware(['auth:sanctum', 'isRegularUser'])->group( function() {
     Route::get("/korisnik/stedni_racun/{id}",[StedniRacunController::class,"show"]);
     
     Route::get("/korisnik/bankovni-racuni", [UserController::class, "prikazi_racune"]);
+
+    Route::get("/korisnik/export/{racun_id}", [TransactionsExportController::class, "export"]);
 
     Route::get("/korisnik/kursna-lista", [ExchangeRatesController::class, "fetchRates"]);
     Route::get("/korisnik/informacije-o-nalogu", [AccountInfoController::class, "show"]);
@@ -82,5 +85,5 @@ Route::middleware("guest")->group( function() {
     Route::post("/registracija",[AuthController::class,"register"]);    
     
     //ruta za ucitavanje kursnih lista
-    Route::get("kursna-lista", [ExchangeRatesController::class, "fetchRates"]);
+    Route::get("/kursna-lista", [ExchangeRatesController::class, "fetchRates"]);
 });
