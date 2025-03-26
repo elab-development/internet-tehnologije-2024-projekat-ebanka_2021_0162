@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import { Link, useNavigate } from 'react-router-dom';
+import Racuni from './Racuni';
 
 const UserHome = () => {
     const navigate = useNavigate();
@@ -17,7 +18,7 @@ const UserHome = () => {
 
   return (
     <div>
-      <h1>Dobrodosli, korisnice!</h1>
+      <Racuni/>
       <Link to="/user/logout">Odjavite se</Link>
     </div>
   )

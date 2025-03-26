@@ -103,12 +103,6 @@ const LogInPageAdmin = () => {
                       Prijava
                     </button>
                   </div><br/>
-                  <a className="small text-muted" href="#!"> 
-                    Zaboravljena lozinka?
-                  </a> <br/>
-                  <a href="#!" className="small text-muted">
-                    Politika privatnosti
-                  </a>
                 </form>
               </div>
             </div>

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import { useState } from 'react'
 import axios from 'axios';
-import {BrowserRouter, Router, Routes, Route, useNavigate} from 'react-router-dom';
+import {BrowserRouter, Router, Routes, Route, Link, useNavigate} from 'react-router-dom';
 
 const LoginPageUser = () => {
     const navigate = useNavigate();
@@ -106,14 +106,13 @@ const LoginPageUser = () => {
                   
                   <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>
                     Još uvek nemate nalog?
-                    <a href="#!" style={{ color: "#393f81" }}>
+                    <Link to="/user/register" style={{ color: "#393f81" }}>
+                    
                       Registrujte se
-                    </a> 
+                     
+                    </Link>
                   </p>
 
-                  <a className="small text-muted" href="#!">
-                    Zaboravljena lozinka?
-                  </a>
 
                 </form>
               </div>

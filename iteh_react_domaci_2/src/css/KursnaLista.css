@@ -1,0 +1,28 @@
+.table {
+    display: table;
+    width: 60%;
+    height: 10%;
+    color: #212529;
+    border-collapse: collapse;
+   
+  }
+  
+  .table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+  }
+
+  .body {
+    
+    margin: 0; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    background-color: rgb(229, 170, 183);
+}
+
+.card {
+  margin-left: 20px;
+  margin-bottom: 30px;
+  background-color: rgb(199, 228, 228);
+}
+  
