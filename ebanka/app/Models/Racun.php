@@ -13,7 +13,7 @@ class Racun extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $guarded=[];
 
     public function podracun_tekuci(){
         return $this->hasMany(TekuciRacun::class);

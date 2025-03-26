@@ -62,6 +62,13 @@ class DevizniRacunController extends Controller
             'valuta'=>$validate['valuta']
         ]);
 
+        $racun2=Racun::findOrFail($r->id);
+        if($racun2){
+            $racun2->update([
+                'id_podtipa'=>$rd->id,
+            ]);
+        }
+
         return response()->json(new DevizniRacunResource($rd),201);
     }
 

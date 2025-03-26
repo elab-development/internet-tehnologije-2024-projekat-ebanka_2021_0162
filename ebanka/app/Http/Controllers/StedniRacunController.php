@@ -64,6 +64,13 @@ class StedniRacunController extends Controller
             'tip_stednje'=>$validate['tip_stednje']
         ]);
 
+        $ra2=Racun::findOrFail($r->id);
+        if($ra2){
+            $ra2->update([
+                'id_podtipa'=>$rst->id,
+            ]);
+        }
+
         return response()->json(new StedniRacunResource($rst),201);
     }
 

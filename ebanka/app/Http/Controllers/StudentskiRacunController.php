@@ -57,6 +57,13 @@ class StudentskiRacunController extends Controller
             'stanje_racuna'=>$validate['stanje_racuna'],
         ]);
 
+        $r2=Racun::findOrFail($r->id);
+        if($r2){
+            $r2->update([
+                'id_podtipa'=>$rs->id,
+            ]);
+        }
+
         return response()->json(new StudentskiRacunResource($rs),201);
     }
 

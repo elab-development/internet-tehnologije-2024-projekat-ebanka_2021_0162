@@ -63,6 +63,13 @@ class TekuciRacunController extends Controller
             'dozvoljeni_minus'=>$validate['dozvoljeni_minus']
         ]);
 
+        $rac2=Racun::findOrFail($r->id);
+        if($rac2){
+            $rac2->update([
+                'id_podtipa'=>$rt->id,
+            ]);
+        }
+
         return response()->json(new TekuciRacunResource($rt),201);
     }
 

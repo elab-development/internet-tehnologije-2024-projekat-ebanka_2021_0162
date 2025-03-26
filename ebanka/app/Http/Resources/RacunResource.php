@@ -13,7 +13,8 @@ use App\Models\StedniRacun;
 use App\Http\Resources\TekuciRacunResource;
 use App\Http\Resources\StudentskiRacunResource;
 use App\Http\Resources\DevizniRacunResource;
-use App\Htpp\Resources\StedniRacunResource;
+use App\Http\Resources\StedniRacunResource;
+use App\Http\Controllers\Controller;
 
 class RacunResource extends JsonResource
 {
@@ -28,13 +29,21 @@ class RacunResource extends JsonResource
     public function toArray($request)
     {
         //return parent::toArray($request);
+        
+        $myController=new Controller();
+
 
         return [
 
             'id'=>$this->resource->id,
             'tip'=>$this->resource->type,
             'user'=>new UserResource($this->resource->user),
-            'banka'=>new BankaResource($this->resource->banka)
+            'banka'=>new BankaResource($this->resource->banka),
+            'detalji'=>$myController->pronadji_podtip($this->resource->id_podtipa,$this->resource->type),
+            /*'detalji'=>($this->resource->type=='tekuci') ? new TekuciRacunResource(TekuciRacun::findOrFail($this->resource->id_podtipa)) : 
+            (($this->resource->type=='stedni') ? new StedniRacunResource(StedniRacun::findOrFail($this->resource->id_podtipa)) : 
+            (($this->resource->type=='devizni') ? new DevizniRacunResource(DevizniRacun::findOrFail($this->resource->id_podtipa)) :
+            (($this->resource->type=='studentski') ? new StudentskiRacunResource(StudentskiRacun::findOrFail($this->resource->id_podtipa)): ' ')))*/
          
         ];
 
