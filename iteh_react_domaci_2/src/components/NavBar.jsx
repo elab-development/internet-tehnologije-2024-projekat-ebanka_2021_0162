@@ -36,7 +36,7 @@ const NavBar = ({login}) => {
             className="nav-link"
             href="/kursna-lista"
           >
-            Kurnsa lista
+            Kursna lista
           </a>
         </li>)}
         {login===1 ? (<li className="nav-item">

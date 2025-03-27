@@ -1,0 +1,210 @@
+.carousel-container {
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    margin : 0.7em auto;
+    width: 95vw;
+    height : 45vh;
+    background-color: beige;
+    border-radius: 1em;
+    background: #2980B9;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #FFFFFF, #6DD5FA, #2980B9);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-top: 0.1em solid black;
+    border-bottom : 0.1em solid black;
+    overflow-x: hidden;
+}
+
+.carousel-item-active {
+    width: 40vw;
+    transform: scale(1.1);
+    height : 35vh;
+    margin-right: -10em;
+    font-size : 1.2em;
+    background-color: lightblue;
+    padding : 1em;
+    text-align: left;
+    border-radius: 1em;
+    color : #00264d;
+    border : 1px solid black;
+    box-shadow : 10px 10px 5px lightblue;
+    opacity: 0.75;
+    cursor: pointer;
+}
+
+.carousel-item-active:hover {
+    opacity : 1;
+    transition : all 0.55s;
+    transform: scale(1.15);
+}
+
+.carousel-item-next {
+    width: 25vw;
+    height : 25vh;
+    margin-right : 30em;
+    font-size : 0.7em;
+    padding : 0.6em;
+    text-align: left;
+    border-radius: 2em;
+    color : white;
+    border : 2px solid white;
+    filter: blur(3px);
+    cursor: pointer;
+    background: #373B44;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #4286f4, #373B44);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #4286f4, #373B44); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  }
+
+  .two-col-container-layout {
+    display: grid;
+    grid-template-columns: 3fr 1fr; /* Two equal-width columns */
+    gap: 20px;
+  }
+
+.carousel-item-next:hover {
+    transition : all 0.4s;
+    filter: blur(0);
+    width: 25.5vw;
+}
+
+.arrow {
+    position: relative;
+    left : 7em;
+    font-size: 3em;
+    color: white; /* Bela boja strelice */
+    cursor: pointer;
+    transition: transform 0.5s ease;
+  }
+  
+  .arrow:hover {
+    transform: scale(1.5); 
+    color : darkblue;  
+  }
+
+  .broj-racuna {
+    font-size : 1.1em;
+    font-weight: 700;
+  }
+
+  .tip-racuna {
+    text-transform: capitalize;
+    font-weight: 550;
+    font-size: 1.4em;
+  }
+
+  .korisnik {
+    font-weight: 700;
+    font-size: 1em;
+    text-transform: uppercase;
+  }
+
+  .raspolozivo-stanje-naslov {
+    font-weight: 750;
+    font-size: .75em;
+    text-transform: uppercase;
+  }
+
+  .stanje-racuna {
+    font-weight: 700;
+    font-size: 1.4em;
+    text-transform: capitalize;
+  }
+
+  .valuta {
+    font-size: 0.75em;
+  }
+
+  .banka-naziv {
+    font-weight : 600;
+    font-size: 1em;
+  }
+
+  .banka-logo {
+    width : 10vw;
+    height : 10vh;
+    border-radius : 50%;
+    display : inline-block;
+    margin : 1em 1em 1em 5em;
+  }
+
+  .Erste {
+    width : 5vw;
+    height : 8vh;
+    border-radius : 50%;
+    background-size: 100% 100%;
+    background-image: url("../../banke/banka_intessa.png");
+  }
+
+  .Banca {
+    width : 5vw;
+    height : 8vh;
+    border-radius : 50%;
+    background-size: 100% 100%;
+    background-image: url("../../banke/banka_intessa.png");
+  }
+
+  .Unicredit {
+    width : 5vw;
+    height : 8vh;
+    border-radius : 50%;
+    background-size: 100% 100%;
+    background-image: url("../../banke/unicredit_banka.png");
+  }
+
+  .NLB {
+    width : 5vw;
+    height : 8vh;
+    border-radius : 50%;
+    background-size: 100% 100%;
+    background-image: url("../../banke/nlb_banka.png");
+  }
+
+  .Raiffeisen {
+    width : 5vw;
+    height : 8vh;
+    border-radius : 50%;
+    background-size: 100% 100%;
+    background-image: url("../../banke/raiffeisen_banka.png");
+  }
+
+  .Banka {
+    width : 5vw;
+    height : 8vh;
+    border-radius : 50%;
+    background-size: 100% 100%;
+    background-image: url("../../banke/banka_postanska.png");
+  }
+
+  .Societe {
+    width : 5vw;
+    height : 8vh;
+    border-radius : 50%;
+    background-size: 100% 100%;
+    background-image: url("../../banke/societe_banka.png");
+  }
+
+  .OTP {
+    width : 5vw;
+    height : 8vh;
+    border-radius : 50%;
+    background-size: 100% 100%;
+    background-image: url("../../banke/otp_banka.png");
+  }
+
+  .left-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align items to the top of the column */
+  }
+  
+  .right-column {
+    display: grid;
+    grid-template-rows: 65% 35%;
+    gap : 1em;
+  }
+
+  .new-transaction {
+    margin-left : 5em;
+    margin-top: 1em;
+  }

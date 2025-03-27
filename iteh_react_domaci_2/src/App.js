@@ -18,7 +18,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<NavBar login={1}/>}>
-            <Route path="user/home" element={<Racuni /> } />
+            <Route path="user/home" element={<UserHome /> } />
             <Route path="unauthorised_access" element={ <UnauthorisedAccessPage /> } />
           </Route>
           <Route path="/" element={<NavBar login={0}/>} >
@@ -31,7 +31,6 @@ function App() {
             <Route path="admin/logout" element={<AdminLogout />} />
             <Route path="unauthorised_access" element={ <UnauthorisedAccessPage /> } />
           </Route>
-
 
           <Route path="*" element={<div>404 Not Found</div>} /> {/* Fallback ruta */}
           

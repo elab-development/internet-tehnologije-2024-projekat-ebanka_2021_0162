@@ -9,18 +9,18 @@ const UserHome = () => {
         let user = window.sessionStorage.getItem("user_auth_token");
         let admin = window.sessionStorage.getItem("admin_auth_token");
 
+        if(admin != null)
+          navigate("/admin/home");
+
         if(user == null)
             navigate("/user/login");
-        else if(admin != null)
-            navigate("/admin/home");
-        
     }, [navigate]);
 
   return (
-    <div>
-      <Racuni/>
-      <Link to="/user/logout">Odjavite se</Link>
-    </div>
+      <>
+        <Racuni/>
+        <Link to="/user/logout">Odjavite se</Link>
+      </>
   )
 }
 

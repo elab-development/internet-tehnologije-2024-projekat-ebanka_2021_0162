@@ -1,22 +1,30 @@
-import React from 'react';
-import '../css/KursnaLista.css';
+import React, { useEffect } from 'react';
+import '../css/AccountsCarousel.css';
+import {IoCashOutline} from 'react-icons/io5';
+import {Link} from 'react-router-dom';
 
 const OneRacun = ({racun}) => {
-  return (
-    <div className="row row-cols-1 row-cols-sm-2 g-3">
-    <div className="col">
-      <div className="card">
-        <div className="card-body">
-          <h4 className="card-title">{racun.detalji.broj_racuna}</h4>
-          <p className="card-text">{racun.tip}</p>
-          <p className="card-text">{racun.user.ime} {racun.user.prezime}</p>
-          <h5 className="card-text">{racun.detalji.stanje_racuna}</h5>
-          <p className="card-text">{racun.banka.naziv}</p>
-        </div>
-      </div>
-    </div>
-  </div>
 
+  return (
+    <>
+    <div className="left-column">
+        <p className="broj-racuna">{racun.detalji.broj_racuna}</p>
+        <p className="tip-racuna">{racun.tip} račun</p>
+        <p className="korisnik">{racun.user.ime} {racun.user.prezime}</p>
+        <p className="raspolozivo-stanje-naslov">RASPOLOŽIVO STANJE:</p>
+        <p className="stanje-racuna">{racun.detalji.stanje_racuna} {racun.detalji.valuta == null ? <><span className="valuta">RSD</span></> :<span className="valuta">{racun.detalji.valuta}</span>}</p>
+        <p className="banka-naziv">Banka: {racun.banka.naziv}</p>
+        </div>
+       <div className="right-column">
+         <div className={`${racun.banka.naziv.split(" ")[0]}`}></div> 
+         <div className="new-transaction">
+          <Link to="UserNovaTransakcija">
+          <IoCashOutline style={{   color: 'green',width: '2.5em',
+    height: '2.5em'}}/>
+         </Link>
+         </div>
+       </div>
+    </>
   )
 }
 
