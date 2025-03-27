@@ -55,8 +55,6 @@ class DatabaseSeeder extends Seeder
             'racun_id'=>$r2->id,
         ]);
 
-        
-
         $r3=\App\Models\Racun::create([
             'user_id'=>$u2->id,
             'banka_id'=>$b1->id,
@@ -66,8 +64,6 @@ class DatabaseSeeder extends Seeder
         $tekuci_2=\App\Models\TekuciRacun::factory()->create([
             'racun_id'=>$r3->id
         ]);
-
-        
 
         $r4=\App\Models\Racun::create([
             'user_id'=>$u3->id,
