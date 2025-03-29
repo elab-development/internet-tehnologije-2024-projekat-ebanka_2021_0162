@@ -19,7 +19,6 @@ const UserHome = () => {
   return (
       <>
         <Racuni/>
-        <Link to="/user/logout">Odjavite se</Link>
       </>
   )
 }

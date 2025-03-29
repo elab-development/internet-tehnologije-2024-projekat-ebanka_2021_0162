@@ -1,0 +1,177 @@
+.user-data {
+    /*border: 1px solid #4A90E2; */
+    border-radius: 10px; 
+    margin-top : .5em;
+    padding: 20px; 
+    text-align: center;
+    background-color: #E6F1FB; 
+    color: #1C3A61; 
+     font-family: serif;
+    font-size: 1.2em;
+    font-weight: 750;
+    
+  }
+
+  
+  .user-data:hover {
+    border-color: #357ABD; 
+    background-color: #D0E4F9; 
+  }
+  
+  .container-info {
+    width: 70%; 
+    margin: 2% auto; 
+     
+    padding: 20px; 
+    border: 2px solid #4A90E2; 
+    border-radius: 10px; 
+    background-color: #F9FBFE;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .container-info-2 {
+    width: 70%; 
+    margin: 2% auto; 
+     
+    padding: 20px; 
+    border: 2px solid #4A90E2; 
+    border-radius: 10px; 
+    background-color: #F9FBFE;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1);
+    gap: 30px;
+  }
+
+  
+
+  @media (max-width: 1000px) {
+    .container-info {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns */
+        grid-template-rows: auto; /* Allow items to adjust based on content */
+    }
+}
+
+/* Small screens (e.g., mobile) - 1 column */
+@media (max-width: 700px) {
+    .container-info {
+        grid-template-columns: 1fr; /* 1 column */
+        grid-template-rows: auto; /* Allow items to adjust based on content */
+    }
+  }
+
+
+  
+
+  .navbar {
+    background-color: #fff !important;
+  }
+
+  .account-info-body {
+    height: 94vh;
+    overflow-y : hidden;
+    background: #78CDEC;
+    background: linear-gradient(135deg, #78CDEC, #B78A80);
+   
+  }
+
+
+  .container-image-edit{
+    width: 75%; 
+    margin: 2% auto; 
+    padding: 20px; 
+    border-radius: 10px; 
+    display:grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: repeat(1);
+    gap: 20px;
+  }
+
+  .container-image {
+   /* display: flex;
+    align-items: center;
+    justify-content: flex-end;*/
+    justify-self: end; /* Poravnanje drugog diva desno */
+
+
+  }
+
+  .profile-image{
+    border-radius: 50%;
+    width: 8em;
+    height: 8em;
+    border: 1px solid #4A90E2;
+    margin-right: 2em;
+    background-image: url("../../slike/placeholder.jpg");
+    background-size: 100% 100%;
+  }
+
+
+  .file-upload {
+    padding: 10px 20px;
+    font-size: 16px;
+    opacity: 0.4;
+    color: black;
+    border-radius: 5px;
+    cursor: pointer;    
+  }
+
+  .file-upload:hover{
+    opacity: 1;
+  }
+
+  .container-edit {
+    margin: 0 auto; 
+    padding: 20px; 
+    border-radius: 10px; 
+    justify-self: end; /* Poravnanje drugog diva desno */
+
+  }
+
+  .btn-edit {
+    width: 10vw;
+    padding: 1.2em;
+    border-radius: 10px;
+    border: 1px solid #4A90E2;
+    opacity: 0.8;
+    background: transparent;
+
+  }
+
+  .btn-edit:hover{
+    background-color: lightblue;
+    opacity: 1;
+    transition: all .6s;
+    box-shadow : 2px 2px 10px#fff;
+    border : 1px solid white;
+    animation: shake 0.5s ease-in-out; /* Shake for 0.5 seconds */
+    background-color: #fff;
+    
+  }
+
+  @keyframes shake {
+    0% {
+      transform: translateX(0); /* Start at the original position */
+    }
+    25% {
+      transform: translateX(-5px); /* Move to the left */
+    }
+    50% {
+      transform: translateX(5px); /* Move to the right */
+    }
+    75% {
+      transform: translateX(-5px); /* Move to the left */
+    }
+    100% {
+      transform: translateX(0); /* Return to the original position */
+    }
+  }
+
+
+
+  

@@ -1,10 +1,11 @@
-import React from 'react'
+import React from 'react';
+import '../css/KursnaLista.css';
 
 const Valuta = ({val}) => {
  
   return (
     <tr>
-        <th scope="row" ></th>
+        <th scope="row" ><span className={`${val.code}`}></span></th>
         <td>
         <p>{val.parity} {val.code}</p>
         </td>

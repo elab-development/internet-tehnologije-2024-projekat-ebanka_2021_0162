@@ -10,7 +10,8 @@ import UserLogout from './components/UserLogout';
 import AdminLogout from './components/AdminLogout';
 import NavBar from './components/NavBar';
 import KursnaLista from './components/KursnaLista';
-import Racuni from './components/Racuni';
+import AccountInfo from './components/AccountInfo';
+import ProfileImageUpload from './components/ProfileImageUpload';
 
 function App() {
 
@@ -19,6 +20,8 @@ function App() {
         <Routes>
           <Route path="/" element={<NavBar login={1}/>}>
             <Route path="user/home" element={<UserHome /> } />
+            <Route path="user/detalji-naloga" element={<AccountInfo/>}/>
+            <Route path="user/upolad-photo" element={<ProfileImageUpload/>}/>
             <Route path="unauthorised_access" element={ <UnauthorisedAccessPage /> } />
           </Route>
           <Route path="/" element={<NavBar login={0}/>} >
@@ -31,6 +34,7 @@ function App() {
             <Route path="admin/logout" element={<AdminLogout />} />
             <Route path="unauthorised_access" element={ <UnauthorisedAccessPage /> } />
           </Route>
+
 
           <Route path="*" element={<div>404 Not Found</div>} /> {/* Fallback ruta */}
           

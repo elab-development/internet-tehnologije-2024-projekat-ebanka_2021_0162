@@ -29,7 +29,7 @@ const NavBar = ({login}) => {
         <li className="nav-item">
             {window.sessionStorage.getItem("user_auth_token")==null ? 
             (<a className="nav-link" href="/user/login">Login</a>) : 
-            (<a className="nav-link" href="/user/logout"><ImSwitch/>Logout</a>)}
+            (<></>)}
         </li>
         {login===1 ? (<></>) : (<li className="nav-item">
           <a
@@ -51,9 +51,14 @@ const NavBar = ({login}) => {
         </li>) : (<></> )}
         {login===1 ? (<li className="nav-item">
           <Link to="user/detalji-naloga" className="nav-link" >
-          <MdPeopleAlt/>
+          <MdPeopleAlt style={{width: '1.4em', height: '1.4em'}}/>
           </Link>
         </li>) : (<></> )}
+        <li className="nav-item">
+            {window.sessionStorage.getItem("user_auth_token")==null ? 
+            (<></>) : 
+            (<a className="nav-link" href="/user/logout"><ImSwitch style={{ width: '1.4em', height: '1.4em'}}/></a>)}
+        </li>
       </ul>
     </div>
   </div>
