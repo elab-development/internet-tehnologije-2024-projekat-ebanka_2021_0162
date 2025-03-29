@@ -12,6 +12,7 @@ use App\Http\Controllers\StudentskiRacunController;
 use App\Http\Controllers\StedniRacunController;
 use App\Http\Controllers\DevizniRacunController;
 use App\Http\Controllers\TransactionsExportController;
+use App\Http\Controllers\ProfilePhoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -45,7 +46,12 @@ Route::middleware(['auth:sanctum', 'isRegularUser'])->group( function() {
     
     Route::get("/korisnik/bankovni-racuni", [UserController::class, "prikazi_racune"]);
 
+    Route::patch("/korisnik/izmena-naloga", [UserController::class, 'update']);
+
     Route::get("/korisnik/export/{racun_id}", [TransactionsExportController::class, "export"]);
+
+    Route::post("/korisnik/postavljanje-slike",[ProfilePhoto::class,"uploadProfilePhoto"]);
+    Route::get("/korisnik/uzimanje-slike",[ProfilePhoto::class,"getProfilePhoto"]);
 
     Route::get("/korisnik/kursna-lista", [ExchangeRatesController::class, "fetchRates"]);
     Route::get("/korisnik/informacije-o-nalogu", [AccountInfoController::class, "show"]);

@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('broj_licne_karte', 11);
+            $table->string('broj_telefona');
+            $table->string('drzava');
+            $table->text('profile_photo')->nullable();
         });
     }
 
@@ -27,6 +30,9 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('broj_licne_karte');
+            $table->dropColumn('broj_telefona');
+            $table->dropColumn('drzava');
+            $table->text('profile_photo');
         });
     }
 };

@@ -12,6 +12,7 @@ use App\Http\Resources\UserResource;
 use App\Http\Resources\RacunResource;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\RacunCollection;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -54,6 +55,8 @@ class UserController extends Controller
             'maticni_broj' => 'required|string|size:13',
             'broj_licne_karte'=>'required|string|regex:/^\d{3}-\d{2}-\d{4}$/',
             'email' => 'required|string|max:255',
+            'broj_telefona'=>'required|string|regex:/^\d{3}-\d{3} \d{4}$/',
+            'drzava'=>'required|string|max:255',
             'password' => 'required|string|min:8'
         ]);
 
@@ -66,6 +69,8 @@ class UserController extends Controller
             'maticni_broj' => $validated['maticni_broj'],
             'broj_licne_karte'=>$validated['broj_licne_karte'],
             'email' => $validated['email'],
+            'broj_telefona'=>$validate['broj_telefona'],
+            'drzava'=>$validate['drzava'],
             'password' => Hash::make($validated['password']),
             'remember_token' => Str::random(10),  // Generisanje random tokena
             'email_verified_at' => null,  // Početno postavljamo kao null dok ne verifikujemo email
@@ -105,12 +110,27 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $korisnik = User::findOrFail($id);
-        $korisnik->update($request->all());
+        $korisnik = Auth::User();
+
+        $validated = $request->validate([
+            'adresa' => 'string',
+            'grad' => 'string',
+            'email' => 'string|max:255',
+        ]);
+        
+        
+        if(isset($validated['adresa']) ) 
+            $korisnik->adresa = $validated['adresa'];
+        if(isset($validated['grad'])) 
+            $korisnik->grad = $validated['grad'];
+        if(isset($validated['email']))
+            $korisnik->email = $validated['email'];
+
+        $korisnik->save();
+
         return response()->json(['poruka'=>'Uspesno izmenjen korisnik!','korisnik'=>new UserResource($korisnik)]);
-        //return new UserResource($korisnik);
     }
 
     /**
@@ -133,6 +153,7 @@ class UserController extends Controller
         $racuni = $korisnik->racun;
 
         return new RacunCollection($racuni);
-        //return response()->json($racuni);
     }
+
+
 }

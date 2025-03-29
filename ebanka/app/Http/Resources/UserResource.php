@@ -24,7 +24,9 @@ class UserResource extends JsonResource
             'datum_rođenja'=>$this->resource->datum_rođenja,
             'email'=>$this->resource->email,
             'adresa'=>$this->resource->adresa,
-            'grad'=>$this->resource->grad
+            'grad'=>$this->resource->grad,
+            'drzava'=>$this->resource->drzava,
+            'broj_telefona'=>$this->resource->broj_telefona
         ];
         
         
