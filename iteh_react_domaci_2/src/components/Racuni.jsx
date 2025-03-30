@@ -4,9 +4,17 @@ import OneRacun from './OneRacun';
 import axios from 'axios';
 import '../css/AccountsCarousel.css';
 
-const Racuni = () => {
+const Racuni = ({onAccountFocus}) => {
     const [racuni,setRacuni]=useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
+
+    const [isHovered, setIsHovered] = useState(false);
+    const [zeroAccountsHook, setZeroAccountsHook] = useState(false);
+
+    const handleAccountFocus = (acc) => {
+      if(onAccountFocus) 
+        onAccountFocus(acc);
+    }
 
     useEffect(()=>{
         const fetchRacuni = async () => {
@@ -22,8 +30,9 @@ const Racuni = () => {
               
               axios.request(config)
               .then((response) => {
-                console.log(JSON.stringify(response.data));
                 setRacuni(response.data.racuni);
+                response.data.racuni.length === 0 ? setZeroAccountsHook(true) :
+                handleAccountFocus(response.data.racuni[0]);
               })
               .catch((error) => {
                 console.log(error);
@@ -41,6 +50,7 @@ const Racuni = () => {
 
       const handleNext = () => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % racuni.length);
+        handleAccountFocus(racuni[(currentIndex+1) %racuni.length]);
       };
 
       let carouselItems = [];
@@ -50,11 +60,14 @@ const Racuni = () => {
      })
 
   return (
-   
     <div className="carousel-container">
-      <div className="carousel-item-active two-col-container-layout">{carouselItems[currentIndex]}</div>
-      <div className="arrow" onClick={handleNext}>&#8594;</div>
-      <div className="carousel-item-next two-col-container-layout">{carouselItems[(currentIndex+1)%racuni.length ]}</div>
+      {!zeroAccountsHook && ( <><div className={`carousel-item-active two-col-container-layout ${isHovered ? "arrow_hovered_active" : "arrow_unhovered"}`}>{carouselItems[currentIndex]}</div>
+      <div className="arrow" onMouseEnter={() => {setIsHovered(true)}} onMouseLeave={() => {setIsHovered(false)}} onClick={handleNext}>&#8594;</div>
+      <div className={`carousel-item-next two-col-container-layout ${isHovered ? "arrow_hovered_next" : "arrow_unhovered"}`} onClick={handleNext}>{carouselItems[(currentIndex+1)%racuni.length ]}</div>
+      </>)}
+      {zeroAccountsHook && (<> {document.querySelector(".carousel-container").classList.add("no-bank-accounts-background")}
+        <h1>Nema računa za prikaz.</h1>
+      </>)}
     </div>
   )
 }

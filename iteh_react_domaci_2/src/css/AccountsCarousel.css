@@ -17,7 +17,6 @@
 
 .carousel-item-active {
     width: 40vw;
-    transform: scale(1.1);
     height : 35vh;
     margin-right: -10em;
     font-size : 1.2em;
@@ -53,7 +52,6 @@
     background: #373B44;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #4286f4, #373B44);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #4286f4, #373B44); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
   }
 
   .two-col-container-layout {
@@ -208,3 +206,35 @@
     margin-left : 5em;
     margin-top: 1em;
   }
+
+  .arrow_hovered_active {
+    transition : all 0.66s;
+    transform: translateX(-60px) scale(.9);
+  }
+
+  .arrow_hovered_next {
+    width : 28vw;
+    height : 28vh;
+    margin-left: -5em;
+    filter : blur();
+    transition: all .66s;
+  }
+
+  .arrow_unhovered {
+    transition: all .6s;
+  }
+
+  .no-bank-accounts-background {
+    background-image: linear-gradient(to top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+    color:#fff;
+    animation : 2s pulse infinite ease-out;
+  }
+
+  @keyframes pulse {
+    0% {opacity:1;}
+    25% {opacity: .925;}
+    50% {opacity: .875;}
+    75% {opacity: .925;}
+    100% {opacity : 1;}
+  }
+
