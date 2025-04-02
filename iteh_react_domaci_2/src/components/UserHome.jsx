@@ -11,31 +11,32 @@ const UserHome = () => {
     const [focusedAcc, setFocusedAcc] = useState(null);
     let [transactions, setTransactions] = useState([]);
 
-    const [isFocusedTab_1, setIsFocusedTab_1] = useState(false);
-    const [isFocusedTab_2, setIsFocusedTab_2] = useState(true);
-    const [isFocusedTab_3, setIsFocusedTab_3] = useState(false);
+    const [tabFocused, setTabFocused]=useState({
+      tab1: false,
+      tab2: true,
+      tab3: false
+    });
 
-    function handleTab_1() {
-      setIsFocusedTab_1(true);
-      setIsFocusedTab_2(false);
-      setIsFocusedTab_3(false);
+    function handleTabFocus(tab){
+      switch(tab){
+        case 'tab1':
+          setTabFocused({tab1:true,tab2:false,tab3:false});
+          getAccountDetails(focusedAcc);
+          break;
+        case 'tab2':
+          setTabFocused({tab1:false,tab2:true,tab3:false});
+          break;
+        case 'tab3':
+          setTabFocused({tab1:false,tab2:false,tab3:true});
+          break;
+      }
     }
 
-    function handleTab_2() {
-      setIsFocusedTab_1(false);
-      setIsFocusedTab_2(true);
-      setIsFocusedTab_3(false);
-    }
-    
-    function handleTab_3() {
-      setIsFocusedTab_1(false);
-      setIsFocusedTab_2(false);
-      setIsFocusedTab_3(true);
-    }
+  
 
     const handleAccountFocus = (acc) => {
       setFocusedAcc(acc);
-      console.log(acc);
+      getAccountDetails(acc);
       prepareTransactions(acc);
     }
 
@@ -57,7 +58,98 @@ const UserHome = () => {
         console.log(error);
       });
 
-    }    
+    }
+    
+    const [detailsAccount,setDetailsAccount]=useState();
+
+    function getAccountDetails(account){
+
+      let config;
+      
+      switch(account.tip){
+        case "tekuci":
+          config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `http://127.0.0.1:8000/api/korisnik/tekuci_racun/${account.detalji.id}`,
+            headers: { 
+              'Authorization': 'Bearer '+window.sessionStorage.getItem('user_auth_token'), 
+            },
+          };
+
+          axios.request(config)
+          .then((response) => {
+            
+            setDetailsAccount(response.data.tekuci_racun);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+          break;
+
+        case "stedni":
+          config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `http://127.0.0.1:8000/api/korisnik/stedni_racun/${account.detalji.id}`,
+            headers: { 
+              'Authorization': 'Bearer '+window.sessionStorage.getItem('user_auth_token'), 
+            },
+          };
+
+          axios.request(config)
+          .then((response) => {
+          
+            setDetailsAccount(response.data.stedni_racun);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+          break;
+
+        case "studentski":
+          config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `http://127.0.0.1:8000/api/korisnik/studentski_racun/${account.detalji.id}`,
+            headers: { 
+              'Authorization': 'Bearer '+window.sessionStorage.getItem('user_auth_token'), 
+            },
+          };
+
+          axios.request(config)
+          .then((response) => {
+      
+            setDetailsAccount(response.data.studentski_racun);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+          break;
+
+        case "devizni":
+          config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `http://127.0.0.1:8000/api/korisnik/devizni_racun/${account.detalji.id}`,
+            headers: { 
+              'Authorization': 'Bearer '+window.sessionStorage.getItem('user_auth_token'), 
+            },
+          };
+
+          axios.request(config)
+          .then((response) => {
+        
+            setDetailsAccount(response.data.devizni_racun);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+          break;
+      }
+
+    }
+
 
     useEffect( () => {
         let user = window.sessionStorage.getItem("user_auth_token");
@@ -76,14 +168,14 @@ const UserHome = () => {
 
         <div className="main-container">
           <div className="tabs-container">
-            <div onClick={handleTab_1} className={`${isFocusedTab_1 ? "focused-tab" : ""} bank-account tab`}>Detalji Računa</div>
-            <div onClick={handleTab_2} className={`${isFocusedTab_2 ? "focused-tab" : ""} transactions tab`}>Transakcije</div>
-            <div onClick={handleTab_3} className={`${isFocusedTab_3 ? "focused-tab" : ""} transactions-export tab`}>Izvodi Transakcija</div>
+            <div onClick={()=>{handleTabFocus('tab1')}} className={`${tabFocused.tab1 ? "focused-tab" : ""} bank-account tab`}>Detalji Računa</div>
+            <div onClick={()=>{handleTabFocus('tab2')}} className={`${tabFocused.tab2 ? "focused-tab" : ""} transactions tab`}>Transakcije</div>
+            <div onClick={()=>{handleTabFocus('tab3')}} className={`${tabFocused.tab3 ? "focused-tab" : ""} transactions-export tab`}>Izvodi Transakcija</div>
           </div>
 
           <div className="data-container"> 
 
-            {isFocusedTab_2 && (<><div className="list-of-transactions-container">
+            {tabFocused.tab2 && (<><div className="list-of-transactions-container">
               <div className="lista-trans-icon-headline">
                 <div><PiVaultBold style={{fontSize:'1.8em', marginBottom:'3px', color:'darkBlue'}} /></div>
                 <div><h2>Lista Transakcija Za {focusedAcc == null ? <></> : focusedAcc.tip} Račun:</h2></div>
@@ -119,7 +211,57 @@ const UserHome = () => {
           </table>
           </>
             )}
+
+
+
+            {tabFocused.tab1 && (<>
+              <div className="list-of-transactions-container">
+              <div className="lista-trans-icon-headline">
+                <div></div>
+                <div><h2>Detalji za {focusedAcc == null ? <></> : focusedAcc.tip} Račun</h2></div>
+              </div>
+            </div>
+              {console.log(detailsAccount)}
+            <div className="invoice-details">
+            <div className="invoice-row">
+              <span className="label">Broj računa:</span>
+              <span className="value">{detailsAccount==null ? <></> : detailsAccount.broj_racuna}</span>
+            </div>
+            <div className="invoice-row">
+              <span className="label">Stanje računa:</span>
+              <span className="value">{detailsAccount==null ? <></> : detailsAccount.stanje_racuna} {detailsAccount==null ? <></> : (detailsAccount.hasOwnProperty("valuta") ? detailsAccount.valuta : "RSD") }</span>
+            </div>
+            <div className="invoice-row">
+              <span className="label">Održavanje:</span>
+              <span className="value">{detailsAccount==null ? <></> : (detailsAccount.hasOwnProperty("valuta") ? (detailsAccount.odrzavanje + " " + detailsAccount.valuta) : ( detailsAccount.odrzavanje+" RSD"))} </span>
+            </div>
+            <div className="invoice-row">
+              <span className="label">Dozvoljeni minus:</span>
+              <span className="value">{detailsAccount==null ? <></> : (detailsAccount.racun.tip === 'tekuci' ? detailsAccount.dozvoljeni_minus + " RSD" : "/")}</span>
+            </div>
+            <div className="invoice-row">
+              <span className="label">Kamata:</span>
+              <span className="value">{detailsAccount==null ? <></> : (detailsAccount.kamata != null ? detailsAccount.kamata + "%" : "/")}</span>
+            </div>
+            <div className="invoice-row">
+              <span className="label">Valuta:</span>
+              <span className="value">{detailsAccount==null ? <></> : (detailsAccount.hasOwnProperty("valuta") ? detailsAccount.valuta : "/")}</span>
+            </div>
+            <div className="invoice-row">
+              <span className="label">Tip štednje:</span>
+              <span className="value">{detailsAccount==null ? <></> : (detailsAccount.hasOwnProperty("tip_stednje") ? detailsAccount.tip_stednje : "/")}</span>
+            </div>
+            <div className="invoice-row">
+              <span className="label">Banka u kojoj je otvoren račun:</span>
+              <span className="value">{detailsAccount==null ? <></> : detailsAccount.racun.banka.naziv},{detailsAccount==null ? <></> : detailsAccount.racun.banka.grad}</span>
+            </div>
+            </div>
+            </>)}
+
         </div>
+            
+            
+            
       </div> 
       </>
   )

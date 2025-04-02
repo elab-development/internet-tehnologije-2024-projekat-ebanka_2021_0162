@@ -1,4 +1,5 @@
-import { BrowserRouter, Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Router, Routes, Route, Navigate } from 'react-router-dom';
+import {useState, useEffect} from "react";
 import './App.css';
 import LogInPageUser from './components/LogInPageUser';
 import RegisterPageUser from './components/RegisterPageUser';
@@ -15,9 +16,22 @@ import ProfileImageUpload from './components/ProfileImageUpload';
 
 function App() {
 
+  const [logInStatusUser, setLogInStatusUser]=useState(false);
+
+  useEffect( () => {
+    if(window.sessionStorage.getItem("user_auth_token") != null)
+      setLogInStatusUser(true);
+  },[]);
+
+  const handleLogInStatus = (status) => {
+    setLogInStatusUser(status);
+  }
+
   return (
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Navigate to="/user/login"/>} />
+
           <Route path="/" element={<NavBar login={1}/>}>
             <Route path="user/home" element={<UserHome /> } />
             <Route path="user/detalji-naloga" element={<AccountInfo/>}/>
@@ -25,9 +39,9 @@ function App() {
             <Route path="unauthorised_access" element={ <UnauthorisedAccessPage /> } />
           </Route>
           <Route path="/" element={<NavBar login={0}/>} >
-            <Route path="user/login" element={<LogInPageUser/>}/>
+            <Route path="user/login" element={<LogInPageUser handleLogInStatus={handleLogInStatus}/>}/>
             <Route path="user/register" element={<RegisterPageUser/>} />
-            <Route path="user/logout" element={<UserLogout/> } />
+            <Route path="user/logout" element={<UserLogout handleLogInStatus={handleLogInStatus}/>} />
             <Route path="kursna-lista" element={<KursnaLista/>}/>
             <Route path="admin/home" element={<AdminHome /> } />
             <Route path="admin/login" element={<LogInPageAdmin/>} />

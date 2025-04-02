@@ -23,7 +23,7 @@ const Racuni = ({onAccountFocus}) => {
                 maxBodyLength: Infinity,
                 url: 'http://127.0.0.1:8000/api/korisnik/bankovni-racuni',
                 headers: { 
-                  'Authorization': 'Bearer '+window.sessionStorage.getItem("user_auth_token")
+                  'Authorization': 'Bearer ' + window.sessionStorage.getItem("user_auth_token")
                 }
             
               };

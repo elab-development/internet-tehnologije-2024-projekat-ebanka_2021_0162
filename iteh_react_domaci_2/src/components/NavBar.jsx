@@ -1,71 +1,84 @@
-import React from 'react'
+import {React} from 'react'
 import { Outlet } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import {ImSwitch} from 'react-icons/im';
 import {MdPeopleAlt} from 'react-icons/md';
-
+import "../css/Navbar.css";
 
 const NavBar = ({login}) => {
+
   return (
-    <div>
-    <nav className="navbar navbar-expand-xl navbar-light bg-light" >
-  <div className="container-fluid" >
-    <a className="navbar-brand" href="/">
-      E-banka
-    </a>
-    <button
-      className="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarTogglerDemo2"
-      aria-controls="navbarTogglerDemo2"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span className="navbar-toggler-icon" />
-    </button>
-    <div className="collapse navbar-collapse show" id="navbarTogglerDemo2">
-      <ul className="navbar-nav me-auto mb-2 mb-xl-0">
-        <li className="nav-item">
-            {window.sessionStorage.getItem("user_auth_token")==null ? 
-            (<a className="nav-link" href="/user/login">Login</a>) : 
-            (<></>)}
-        </li>
-        {login===1 ? (<></>) : (<li className="nav-item">
-          <a
-            className="nav-link"
-            href="/kursna-lista"
-          >
-            Kursna lista
-          </a>
-        </li>)}
-        {login===1 ? (<li className="nav-item">
-          <Link to="user/home" className="nav-link" >
-          Računi
-          </Link>
-        </li>) : (<></> )}
-        {login===1 ? (<li className="nav-item">
-          <Link to="user/menjacnica" className="nav-link" >
-          Menjacnica
-          </Link>
-        </li>) : (<></> )}
-        {login===1 ? (<li className="nav-item">
-          <Link to="user/detalji-naloga" className="nav-link" >
-          <MdPeopleAlt style={{width: '1.4em', height: '1.4em'}}/>
-          </Link>
-        </li>) : (<></> )}
-        <li className="nav-item">
-            {window.sessionStorage.getItem("user_auth_token")==null ? 
-            (<></>) : 
-            (<a className="nav-link" href="/user/logout"><ImSwitch style={{ width: '1.4em', height: '1.4em'}}/></a>)}
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<Outlet/>
-</div>
-  )
+    <>
+      <div className={`${login===1 ? "container-nav-logged-in" : "container-nav-logged-out"}`} >
+
+        <div className={`${login === 1 ? "container-first-group-logged-in" : "container-first-group-logged-out"}`}>
+            
+            <div className="app-logo">
+              <a className="navbar-brand" href="/">
+                E-Banka
+              </a>
+            </div>
+
+            <div className={`${login === 1 ? "nav-items-logged-in" : "nav-items-logged-out"}`}>
+              
+                { login !== 1 ? 
+                (<div className="nav-item-log-in"><a className="nav-link" href="/user/login">Login</a></div>) : 
+                (<></>)}
+            
+            {login===1 ? (<></>) : (<div className="nav-item-kursna-lista ">
+              <a
+                className="nav-link"
+                href="/kursna-lista"
+              >
+                Kursna lista
+              </a>
+            </div>)}
+
+            </div>
+
+        </div>
+
+        <div className={`${login === 1 ? "container-second-group-logged-in" : "container-second-group-logged-out"}`}>
+          <div className="second-group-first-subgroup">
+                {login===1 ? (<div className="nav-item">
+                  <Link to="user/home" className="nav-link" >
+                  Računi
+                  </Link>
+                </div>) : (<></> )}
+
+                {login===1 ? (<div className="nav-item">
+                  <Link to="user/new-transaction" className="nav-link" >
+                  Novo Plaćanje
+                  </Link>
+
+                </div>) : (<></> )}
+
+                {login===1 ? (<div className="nav-item">
+                  <Link to="user/menjacnica" className="nav-link" >
+                  Menjacnica
+                  </Link>
+
+                </div>) : (<></> )}
+            </div>
+
+              <div className="second-group-second-subgroup">
+                  {login===1 ? (<div className="nav-item">
+                    <Link to="user/detalji-naloga" className="nav-link" >
+                    <MdPeopleAlt style={{width: '1.4em', height: '1.4em'}}/>
+                    </Link>
+                  </div>) : (<></> )}
+                  <div className="nav-item">
+                    {window.sessionStorage.getItem("user_auth_token")==null ? 
+                    (<></>) : 
+                    (<a className="nav-link" href="/user/logout"><ImSwitch style={{ width: '1.4em', height: '1.4em'}}/></a>)}
+                  </div>
+              </div>
+        </div>
+      
+      </div>
+
+      <Outlet/>
+    </>)
 }
 
 export default NavBar

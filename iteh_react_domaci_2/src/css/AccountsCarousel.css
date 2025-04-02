@@ -34,7 +34,7 @@
 .carousel-item-active:hover {
     opacity : 1;
     transition : all 0.55s;
-    transform: scale(1.15);
+    transform: scale(1.075);
 }
 
 .carousel-item-next {
@@ -83,6 +83,7 @@
   .broj-racuna {
     font-size : 1.1em;
     font-weight: 700;
+    margin-bottom: 2.5em;
   }
 
   .tip-racuna {
@@ -193,9 +194,9 @@
   .left-column {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    margin-left: 1.5em;
   }
-  
+
   .right-column {
     display: grid;
     grid-template-rows: 65% 35%;
@@ -238,3 +239,22 @@
     100% {opacity : 1;}
   }
 
+@media (max-width: 1050px) {
+    .carousel-item-next {
+      display: none;
+    }
+
+    .carousel-container {
+      justify-content: space-evenly;
+      flex-direction: row;
+    }
+
+    .carousel-item-active {
+      width: 50vw;
+    }
+
+    .arrow {
+      left : 3em;
+      color: darkblue;      
+    }
+}

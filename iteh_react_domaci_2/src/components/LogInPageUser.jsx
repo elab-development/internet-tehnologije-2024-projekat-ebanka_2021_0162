@@ -3,8 +3,13 @@ import { useState } from 'react'
 import axios from 'axios';
 import {BrowserRouter, Router, Routes, Route, Link, useNavigate} from 'react-router-dom';
 
-const LoginPageUser = () => {
+const LoginPageUser = ({handleLogInStatus}) => {
     const navigate = useNavigate();
+
+    const handleLoginState = (status) => {
+      if(handleLogInStatus)
+        handleLogInStatus(true);
+    }
 
     // Ukoliko je admin ulogovan, pri pokusaju logina kao regularan => automatsko preusmeravanje
     useEffect( () => {
@@ -37,6 +42,7 @@ const LoginPageUser = () => {
                 console.log("success");
                 console.log(res.data);
                 window.sessionStorage.setItem("user_auth_token", res.data.token);
+                handleLoginState(true);
                 navigate('/user/home');
             }
         })
@@ -47,7 +53,7 @@ const LoginPageUser = () => {
     }
 
   return (
-    <section className="vh-94" style={{ backgroundColor: "#9A616D", height: '94vh' }}>
+    <section className="vh-94" style={{ backgroundColor: "#ba919b", height: '94vh', marginTop: '0px' }}>
   <div className="container py-5 h-100">
     <div className="row d-flex justify-content-center align-items-center h-100">
       <div className="col col-xl-10">
@@ -123,7 +129,6 @@ const LoginPageUser = () => {
     </div>
   </div>
 </section>
-
   )
 }
 

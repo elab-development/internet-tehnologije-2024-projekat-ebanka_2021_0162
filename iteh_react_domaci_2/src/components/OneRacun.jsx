@@ -13,7 +13,6 @@ const OneRacun = ({racun}) => {
         <p className="korisnik">{racun.user.ime} {racun.user.prezime}</p>
         <p className="raspolozivo-stanje-naslov">RASPOLOŽIVO STANJE:</p>
         <p className="stanje-racuna">{racun.detalji.stanje_racuna} {racun.detalji.valuta == null ? <><span className="valuta">RSD</span></> :<span className="valuta">{racun.detalji.valuta}</span>}</p>
-        <p className="banka-naziv">Banka: {racun.banka.naziv}</p>
         </div>
        <div className="right-column">
          <div className={`${racun.banka.naziv.split(" ")[0]}`}></div> 
