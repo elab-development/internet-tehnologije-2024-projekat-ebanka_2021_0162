@@ -42,12 +42,6 @@ const Racuni = ({onAccountFocus}) => {
         fetchRacuni();
     },[])
 
-    /*
-    {racuni==null ? (<><h1>Nema racuna za prikaz.</h1></>) : (racuni.map((racun)=>{
-        return <OneRacun racun={racun}/>
-      }))}
-    */
-
       const handleNext = () => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % racuni.length);
         handleAccountFocus(racuni[(currentIndex+1) %racuni.length]);

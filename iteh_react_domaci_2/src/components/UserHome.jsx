@@ -4,6 +4,7 @@ import Racuni from './Racuni';
 import axios from 'axios';
 import "../css/HomePageData.css";
 import { PiVaultBold } from "react-icons/pi";
+import TransactionDetails from './TransactionDetails';
 
 const UserHome = () => {
     const navigate = useNavigate();
@@ -16,6 +17,9 @@ const UserHome = () => {
       tab2: true,
       tab3: false
     });
+
+    const [selectedTransaction, setSelectedTransaction] = useState(null);  
+    const [showDetails, setShowDetails] = useState(false);
 
     function handleTabFocus(tab){
       switch(tab){
@@ -32,10 +36,15 @@ const UserHome = () => {
       }
     }
 
-  
-
     const handleAccountFocus = (acc) => {
       setFocusedAcc(acc);
+
+      if(showDetails) {
+        setShowDetails(false);
+        setSelectedTransaction(null);
+        document.querySelector("body").classList.remove("lock-background");
+      }
+
       getAccountDetails(acc);
       prepareTransactions(acc);
     }
@@ -152,6 +161,16 @@ const UserHome = () => {
 
 
     useEffect( () => {
+        const handleEscKeyPress = (event) => {
+          if(event.key == "Escape") {
+              setSelectedTransaction(null);
+              setShowDetails(false);
+              document.querySelector("body").classList.remove("lock-background");
+          }
+        }
+
+        window.addEventListener("keydown", handleEscKeyPress);
+
         let user = window.sessionStorage.getItem("user_auth_token");
         let admin = window.sessionStorage.getItem("admin_auth_token");
 
@@ -160,7 +179,41 @@ const UserHome = () => {
 
         if(user == null)
             navigate("/user/login");
-    }, [navigate]);
+
+        return () => {
+          window.addEventListener("keydown", handleEscKeyPress);
+        }
+
+    }, []);
+
+    const showTransactionDetails = async(trans_id) => {
+      document.querySelector("body").classList.add("lock-background");
+      
+      let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `http://127.0.0.1:8000/api/korisnik/transakcija/${trans_id}`,
+        headers: { 
+          'Authorization': 'Bearer ' + window.sessionStorage.getItem("user_auth_token")
+        }
+      };
+      
+      axios.request(config)
+      .then( (res) => {
+        console.log(res.data.transakcija);  
+        setSelectedTransaction(res.data.transakcija);
+        setShowDetails(true);
+      })
+      .catch((e)=> {
+        console.log("Greska pri ucitavanju detalja o transakciji: " + e);
+      })
+    }
+    
+    const closeDetails = () => {
+      setShowDetails(false);
+      setSelectedTransaction(null);
+      document.querySelector("body").classList.remove("lock-background");
+    }
 
   return (
       <>
@@ -212,8 +265,6 @@ const UserHome = () => {
           </>
             )}
 
-
-
             {tabFocused.tab1 && (<>
               <div className="list-of-transactions-container">
               <div className="lista-trans-icon-headline">
@@ -259,8 +310,6 @@ const UserHome = () => {
             </>)}
 
         </div>
-            
-            
             
       </div> 
       </>
