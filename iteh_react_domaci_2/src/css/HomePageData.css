@@ -53,6 +53,7 @@
 
 .data-container {
     width: 100%;
+    height: auto;
     display: grid;
     align-items: start;
     background-color: lightgray;
@@ -66,6 +67,7 @@ tr {
     border-bottom: 1px solid black;
     height : 6vh;
     text-align: center;
+    cursor: pointer;
 }
 
 .data-row-no-trans-msg {
@@ -147,9 +149,110 @@ th:first-child {
   }
 
   .invoice-details .invoice-row:nth-child(even){
-    background-color: #b3b3b3;
+    background-color: hsl(0, 0%, 88%);
   }
   
+.lock-background {
+    overflow-y: hidden;
+}
 
- 
-  
+
+.exp-container {
+    display: grid;
+    gap : 2.5em;
+}
+
+.exports-headers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 7vh;
+}
+
+.exp-header {
+    display: grid;
+    justify-content: center;
+    font-size: 1.4em;
+    font-weight: 500;
+}
+
+@media (max-width: 800px) {
+
+    .single-export-container {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .exports-headers {display: none;}
+
+    .single-export-container .generated {
+        display: none;
+    }
+
+    .export-download-button {
+        width: 7em !important; 
+    }
+
+}
+
+.exports-container {
+    height: auto;
+    background-color: lightgray;
+    display: grid;
+    overflow-x : hidden;
+    gap : 1.5em;
+}
+
+.exports-container .single-export-container:nth-child(odd){
+    background-color: hsl(0, 0%, 88%);
+  }
+
+.single-export-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.export-column {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    border-right : 1px solid black;
+}
+
+.export-download-button {
+    background-color: #9A616D;
+    border: none;
+    outline: none;
+    border-radius : 1em;
+    height: 2.5em;
+    width: 10em;
+    color: #000;
+}
+
+.export-download-button:hover {
+    color : #fff;
+    animation : shake .5s ease-in;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+      }
+      25% {
+        transform: translateX(-5px); 
+      }
+      50% {
+        transform: translateX(5px); 
+      }
+      75% {
+        transform: translateX(-5px);
+      }
+      100% {
+        transform: translateX(0); 
+      }
+}

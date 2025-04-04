@@ -5,12 +5,13 @@ import axios from 'axios';
 import "../css/HomePageData.css";
 import { PiVaultBold } from "react-icons/pi";
 import TransactionDetails from './TransactionDetails';
+import ExportEmptyPopUp from './ExportEmptyPopUp';
 
 const UserHome = () => {
     const navigate = useNavigate();
 
     const [focusedAcc, setFocusedAcc] = useState(null);
-    let [transactions, setTransactions] = useState([]);
+    const [transactions, setTransactions] = useState([]);
 
     const [tabFocused, setTabFocused]=useState({
       tab1: false,
@@ -21,7 +22,19 @@ const UserHome = () => {
     const [selectedTransaction, setSelectedTransaction] = useState(null);  
     const [showDetails, setShowDetails] = useState(false);
 
+    const [isExportEmpty, setIsExportEmpty] = useState(false);
+
     function handleTabFocus(tab){
+      if(showDetails) {
+        setShowDetails(false);
+        setSelectedTransaction(null);
+        document.querySelector("body").classList.remove("lock-background");
+      }
+
+      if(isExportEmpty) {
+        closeMessageBox();
+      }
+      
       switch(tab){
         case 'tab1':
           setTabFocused({tab1:true,tab2:false,tab3:false});
@@ -36,6 +49,43 @@ const UserHome = () => {
       }
     }
 
+    function retrieveExports(exportDateRange) {
+      let mesec = exportDateRange.split(' ')[0];
+      let godina = exportDateRange.split(' ')[1];
+
+      let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `http://127.0.0.1:8000/api/korisnik/export/${focusedAcc.id}/${mesec}/${godina}`,
+        headers: { 
+          'Authorization': 'Bearer ' + window.sessionStorage.getItem("user_auth_token")
+        },
+        responseType: 'blob'
+      }
+
+      axios.request(config)
+      .then( (res) => {
+        if(res.data.size === 0) {
+          setIsExportEmpty(true);
+          return;
+        }
+
+       const file = new Blob([res.data], {type: 'application/pdf'});
+       const fileURL = URL.createObjectURL(file);
+       const link = document.createElement('a');
+ 
+       link.href = fileURL;
+       link.download = "Mesečni_Izvod_" + godina + "_" + mesec;
+ 
+       link.click();
+ 
+       URL.revokeObjectURL(fileURL);
+      })
+      .catch( (e) => {
+        console.log("Nastala je greska: " + e);
+      })
+    }
+
     const handleAccountFocus = (acc) => {
       setFocusedAcc(acc);
 
@@ -43,6 +93,10 @@ const UserHome = () => {
         setShowDetails(false);
         setSelectedTransaction(null);
         document.querySelector("body").classList.remove("lock-background");
+      }
+
+      if(isExportEmpty) {
+        closeMessageBox();
       }
 
       getAccountDetails(acc);
@@ -72,7 +126,6 @@ const UserHome = () => {
     const [detailsAccount,setDetailsAccount]=useState();
 
     function getAccountDetails(account){
-
       let config;
       
       switch(account.tip){
@@ -87,8 +140,7 @@ const UserHome = () => {
           };
 
           axios.request(config)
-          .then((response) => {
-            
+          .then((response) => {    
             setDetailsAccount(response.data.tekuci_racun);
           })
           .catch((error) => {
@@ -108,7 +160,6 @@ const UserHome = () => {
 
           axios.request(config)
           .then((response) => {
-          
             setDetailsAccount(response.data.stedni_racun);
           })
           .catch((error) => {
@@ -128,7 +179,6 @@ const UserHome = () => {
 
           axios.request(config)
           .then((response) => {
-      
             setDetailsAccount(response.data.studentski_racun);
           })
           .catch((error) => {
@@ -148,7 +198,6 @@ const UserHome = () => {
 
           axios.request(config)
           .then((response) => {
-        
             setDetailsAccount(response.data.devizni_racun);
           })
           .catch((error) => {
@@ -156,35 +205,57 @@ const UserHome = () => {
           });
           break;
       }
-
     }
 
+    const [months, setMonths] = useState([]);
+    const [randomStartOfMonth, setRandomStartOfMonth] = useState([]);
 
     useEffect( () => {
-        const handleEscKeyPress = (event) => {
-          if(event.key == "Escape") {
-              setSelectedTransaction(null);
-              setShowDetails(false);
-              document.querySelector("body").classList.remove("lock-background");
-          }
+      const monthNames = [
+        'Januar', 'Februar', 'Mart', 'April', 'Maj', 'Jun',
+        'Jul', 'Avgust', 'Septembar', 'Oktobar', 'Novembar', 'Decembar'
+      ];
+      
+      const arr = [];
+      
+      for(let i = 0; i < 12; i++)
+        arr.push(Math.floor(Math.random()*6) + 1);
+      setRandomStartOfMonth(arr);
+
+      const monthsList = [];
+
+      const currentDate = new Date();
+      let year = currentDate.getFullYear();
+      let monthIndex = currentDate.getMonth()-1;
+
+      if (monthIndex < 0) {
+        monthIndex = 11; 
+        year -= 1;
+      }
+
+      for (let i = 0; i < 12; i++) {
+        monthsList.push(`${monthNames[monthIndex]} ${year}`);
+
+        monthIndex -= 1;
+
+        if (monthIndex < 0) {
+          monthIndex = 11; 
+          year -= 1;
         }
+    }
 
-        window.addEventListener("keydown", handleEscKeyPress);
+    setMonths(monthsList.reverse());
 
-        let user = window.sessionStorage.getItem("user_auth_token");
-        let admin = window.sessionStorage.getItem("admin_auth_token");
+      let user = window.sessionStorage.getItem("user_auth_token");
+      let admin = window.sessionStorage.getItem("admin_auth_token");
 
-        if(admin != null)
-          navigate("/admin/home");
+      if(admin != null)
+        navigate("/admin/home");
 
-        if(user == null)
-            navigate("/user/login");
+      if(user == null)
+        navigate("/user/login");
 
-        return () => {
-          window.addEventListener("keydown", handleEscKeyPress);
-        }
-
-    }, []);
+    }, [navigate]);
 
     const showTransactionDetails = async(trans_id) => {
       document.querySelector("body").classList.add("lock-background");
@@ -208,22 +279,43 @@ const UserHome = () => {
         console.log("Greska pri ucitavanju detalja o transakciji: " + e);
       })
     }
-    
+
     const closeDetails = () => {
       setShowDetails(false);
       setSelectedTransaction(null);
       document.querySelector("body").classList.remove("lock-background");
     }
 
+    const closeMessageBox = () => {
+      setIsExportEmpty(false);
+    }
+
+    const mapOfMonths = {
+      'Januar' : '01.',
+      'Februar' : '02.',
+      'Mart': '03.',
+      'April': '04.',
+      'Maj': '05.',
+      'Jun': '06.',
+      'Jul': '07.',
+      'Avgust': '08.',
+      'Septembar': '09.',
+      'Oktobar': '10.',
+      'Novembar': '11.',
+      'Decembar': '12.'
+    }
+
   return (
       <>
         <Racuni onAccountFocus={handleAccountFocus} />
+
+        {showDetails && <TransactionDetails details={selectedTransaction} closeDetails={closeDetails}/>}
 
         <div className="main-container">
           <div className="tabs-container">
             <div onClick={()=>{handleTabFocus('tab1')}} className={`${tabFocused.tab1 ? "focused-tab" : ""} bank-account tab`}>Detalji Računa</div>
             <div onClick={()=>{handleTabFocus('tab2')}} className={`${tabFocused.tab2 ? "focused-tab" : ""} transactions tab`}>Transakcije</div>
-            <div onClick={()=>{handleTabFocus('tab3')}} className={`${tabFocused.tab3 ? "focused-tab" : ""} transactions-export tab`}>Izvodi Transakcija</div>
+            <div onClick={()=>{handleTabFocus('tab3')}} className={`${tabFocused.tab3 ? "focused-tab" : ""} transactions-export tab`}>Izvodi</div>
           </div>
 
           <div className="data-container"> 
@@ -235,25 +327,22 @@ const UserHome = () => {
               </div>
               <div className="lista-trans-br-racuna">{focusedAcc == null ? <>/</>:focusedAcc.detalji.broj_racuna}</div>
             </div>
+
             <table>
               <thead>
                 <tr>
-                  <th className="transactions-tbl-heading">ID Transakcije</th>
-                  <th className="transactions-tbl-heading">Datum</th>
-                  <th className="transactions-tbl-heading">Vreme</th>
-                  <th className="transactions-tbl-heading">Iznos</th>
-                  <th className="transactions-tbl-heading">Opis Transakcije</th>
-                  <th className="transactions-tbl-heading">Broj Računa Primaoca</th>
+                  <th>Datum</th>
+                  <th>Iznos</th>
+                  <th>Opis Transakcije</th>
+                  <th>Broj Računa Primaoca</th>
                 </tr>
               </thead>
               <tbody>
                 {transactions.length === 0 ? <tr style={{borderBottom : 'none'}}><td>/</td><td>/</td><td>/</td><td>/</td><td>/</td><td>/</td></tr>: <></>}
             {transactions == null ? <></> : transactions.map( (transakcija) => {
              return (
-                <tr className="data-row" key={transakcija.id}>
-                  <td>{transakcija.id}</td>
+                <tr onClick={()=>{showTransactionDetails(transakcija.id)}} className="data-row" key={transakcija.id}>
                   <td>{transakcija.datum}</td>
-                  <td>{transakcija.vreme}</td>
                   <td>{transakcija.iznos} <span>{focusedAcc.detalji.valuta == null ? "RSD" : focusedAcc.detalji.valuta}</span></td>
                   <td>{transakcija.opis_transakcije}</td>
                   <td>{transakcija.broj_racuna_primaoca}</td>
@@ -272,7 +361,6 @@ const UserHome = () => {
                 <div><h2>Detalji za {focusedAcc == null ? <></> : focusedAcc.tip} Račun</h2></div>
               </div>
             </div>
-              {console.log(detailsAccount)}
             <div className="invoice-details">
             <div className="invoice-row">
               <span className="label">Broj računa:</span>
@@ -309,7 +397,32 @@ const UserHome = () => {
             </div>
             </>)}
 
-        </div>
+            {tabFocused.tab3 && (
+              <div className="exp-container">
+                <div className="exports-headers">
+                  <div className='exp-header'>Izvod Za</div>
+                  <div className='exp-header'>Generisano</div>
+                  <div className='exp-header'>Akcija</div>
+                </div>
+
+                <div className="exports-container">
+                  
+                  { months.map( (month, index) => (
+                      <div className="single-export-container" key={index}>
+                        <div className="month export-column" key={index}>{month}</div>
+                        <div className="generated export-column">{`0${randomStartOfMonth[index]}. ${month.split(' ')[0]} ${month.split(' ')[1]}.`}</div>
+                        <div className="download export-column" style={{borderRight:'none'}}><button download onClick={()=>{retrieveExports(month)}} className="export-download-button">Preuzmi</button></div>
+                      </div>
+                    
+                  ))}
+
+                </div>
+              </div>
+            )}
+
+            {isExportEmpty && <ExportEmptyPopUp closeMessageBox={closeMessageBox}/>}
+
+        </div>  
             
       </div> 
       </>
