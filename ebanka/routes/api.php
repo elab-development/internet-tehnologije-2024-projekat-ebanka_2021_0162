@@ -48,7 +48,7 @@ Route::middleware(['auth:sanctum', 'isRegularUser'])->group( function() {
 
     Route::patch("/korisnik/izmena-naloga", [UserController::class, 'update']);
 
-    Route::get("/korisnik/export/{racun_id}", [TransactionsExportController::class, "export"]);
+    Route::get("/korisnik/export/{racun_id}/{mesec}/{godina}", [TransactionsExportController::class, "export"]);
 
     Route::post("/korisnik/postavljanje-slike",[ProfilePhoto::class,"uploadProfilePhoto"]);
     Route::get("/korisnik/uzimanje-slike",[ProfilePhoto::class,"getProfilePhoto"]);
