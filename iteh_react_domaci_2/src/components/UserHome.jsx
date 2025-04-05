@@ -6,6 +6,7 @@ import "../css/HomePageData.css";
 import { PiVaultBold } from "react-icons/pi";
 import TransactionDetails from './TransactionDetails';
 import ExportEmptyPopUp from './ExportEmptyPopUp';
+import {IoIosArrowDown, IoIosArrowUp} from 'react-icons/io';
 
 const UserHome = () => {
     const navigate = useNavigate();
@@ -22,7 +23,42 @@ const UserHome = () => {
     const [selectedTransaction, setSelectedTransaction] = useState(null);  
     const [showDetails, setShowDetails] = useState(false);
 
+    const [sortiraniNiz, setSortiraniNiz]=useState(null);
+    const [sortOrderIznos, setSortOrderIznos] = useState('asc');
+    const [sortOrderDatum, setSortOrderDatum] = useState('asc');
+
+    const [detailsAccount,setDetailsAccount]=useState();
+
     const [isExportEmpty, setIsExportEmpty] = useState(false);
+
+    const sortDataIznos=()=>{
+      let newDataOrder=[...transactions].sort((a,b)=>{
+        if(sortOrderIznos==='asc'){
+          return a.iznos - b.iznos;
+        }else{
+          return b.iznos - a.iznos;
+        }
+      });
+    
+      setSortiraniNiz(newDataOrder);
+      setSortOrderIznos(sortOrderIznos==='asc' ? 'desc' : 'asc');
+      
+    }
+
+    const sortDataDatum=()=>{
+      let newDataOrder=[...transactions].sort((a,b)=>{
+        if(sortOrderDatum==='asc'){
+          return new Date(a.datum) - new Date(b.datum);
+        }else{
+          return new Date(b.datum) - new Date(a.datum);
+        }
+      });
+    
+      setSortiraniNiz(newDataOrder);
+      setSortOrderDatum(sortOrderDatum==='asc' ? 'desc' : 'asc');
+      
+    }
+
 
     function handleTabFocus(tab){
       if(showDetails) {
@@ -123,7 +159,6 @@ const UserHome = () => {
 
     }
     
-    const [detailsAccount,setDetailsAccount]=useState();
 
     function getAccountDetails(account){
       let config;
@@ -330,25 +365,35 @@ const UserHome = () => {
 
             <table>
               <thead>
-                <tr>
-                  <th>Datum</th>
-                  <th>Iznos</th>
-                  <th>Opis Transakcije</th>
-                  <th>Broj Računa Primaoca</th>
+              <tr>
+                  <th className="transactions-tbl-heading">Datum  {sortOrderDatum === 'asc' ? <IoIosArrowDown onClick={sortDataDatum}/> : <IoIosArrowUp onClick={sortDataDatum}/>}</th>
+                  <th className="transactions-tbl-heading">Iznos  {sortOrderIznos === 'asc' ? <IoIosArrowDown onClick={sortDataIznos}/> : <IoIosArrowUp onClick={sortDataIznos}/>}</th>
+                  <th className="transactions-tbl-heading">Opis Transakcije</th>
+                  <th className="transactions-tbl-heading">Broj Računa Primaoca</th>
                 </tr>
               </thead>
               <tbody>
-                {transactions.length === 0 ? <tr style={{borderBottom : 'none'}}><td>/</td><td>/</td><td>/</td><td>/</td><td>/</td><td>/</td></tr>: <></>}
-            {transactions == null ? <></> : transactions.map( (transakcija) => {
+                {transactions.length === 0 ? <tr style={{borderBottom : 'none'}}><td>/</td><td>/</td><td>/</td><td>/</td></tr>: <></>}
+                {transactions == null  ? <></> : (sortiraniNiz==null ? (transactions.map( (transakcija) => {
              return (
-                <tr onClick={()=>{showTransactionDetails(transakcija.id)}} className="data-row" key={transakcija.id}>
+                <tr onClick={() => {showTransactionDetails(transakcija.id)}} className="data-row" key={transakcija.id}>
                   <td>{transakcija.datum}</td>
-                  <td>{transakcija.iznos} <span>{focusedAcc.detalji.valuta == null ? "RSD" : focusedAcc.detalji.valuta}</span></td>
+                  <td >{transakcija.iznos} <span>{focusedAcc.detalji.valuta == null ? "RSD" : focusedAcc.detalji.valuta}</span></td>
                   <td>{transakcija.opis_transakcije}</td>
                   <td>{transakcija.broj_racuna_primaoca}</td>
                 </tr>
              );
-            })}
+            })) : (sortiraniNiz.map((trans)=>{
+              return(
+                <tr onClick={() => {showTransactionDetails(trans.id)}} className="data-row" key={trans.id}>
+                  <td>{trans.datum}</td>
+                  <td>{trans.iznos} <span>{focusedAcc.detalji.valuta == null ? "RSD" : focusedAcc.detalji.valuta}</span></td>
+                  <td>{trans.opis_transakcije}</td>
+                  <td>{trans.broj_racuna_primaoca}</td>
+                </tr>
+              );
+            })) )
+            }
             </tbody>
           </table>
           </>

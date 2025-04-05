@@ -6,7 +6,7 @@ import '../css/AccountInfo.css';
 
 
 
-const ProfileImageUpload = () => {
+const ProfileImageUpload = ({update}) => {
 
     const [image,setImage]=useState(null);
     const [preview,setPreview]=useState(null);
@@ -28,7 +28,6 @@ const ProfileImageUpload = () => {
             
             axios.request(config)
             .then((response) => {
-                console.log(JSON.stringify(response.data));
                 setImagePath("storage/"+response.data.imagePath);  
                 
             })
@@ -73,7 +72,7 @@ const ProfileImageUpload = () => {
               
               axios.request(config)
               .then((response) => {
-                console.log(JSON.stringify(response.data));
+
                 setMessage(response.data.message);
               })
               .catch((error) => {
@@ -94,16 +93,23 @@ const ProfileImageUpload = () => {
         handleClick();
     }
 
-   console.log(imagePath);
-
 
   return (
     <div>
-        {imagePath && <img className="profile-image" alt="profile_image" src={"http://127.0.0.1:8000/"+imagePath} />}
+      {update===false ? 
+      <>
+      {(imagePath!=null && preview==null) ? <img className="profile-image" src={"http://127.0.0.1:8000/" + imagePath} alt="preview"/> : <></>}
+      {(imagePath==null && preview==null) ? <img className="profile-image"  src="../../slike/placeholder.jpg"/> : <></>}
+      {((preview==null && imagePath!=null) || (preview==null && imagePath==null)) ? <input type="file" accept="image/*" onChange={handleFileChange}/> : <></>}
+      {preview && <img className="profile-image" src={preview} alt="Preview" />} 
+      {((imagePath!=null && preview!=null) || (imagePath==null && preview!=null)) && !isClicked && <button onClick={allFunctions} className="btn-upload">Potvrdite izmene</button>}
+      </> : 
+      <>
+      {imagePath && <img className="profile-image" alt="profile_image" src={"http://127.0.0.1:8000/"+imagePath} />}
        {(imagePath==null && preview==null) ? <img className="profile-image"  src="../../slike/placeholder.jpg"/> : <></>}
-       {(imagePath==null && preview==null) ? <input type="file" accept="image/*" onChange={handleFileChange}/> : <></>} 
        {preview && <img className="profile-image" src={preview} alt="Preview" />}
-       {imagePath==null && preview!=null && !isClicked && <button onClick={allFunctions} className="btn-upload">Potvrdite izmene</button>}
+      </>}
+      
     </div>
   )
 }
