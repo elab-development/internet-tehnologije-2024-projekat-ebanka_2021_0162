@@ -23,6 +23,8 @@ return new class extends Migration
             $table->date('datum');
             $table->time('vreme');
             $table->text('opis_transakcije');
+            $table->integer('sifra_placanja');
+            $table->string('naziv_primaoca');
             $table->timestamps();
         });
     }

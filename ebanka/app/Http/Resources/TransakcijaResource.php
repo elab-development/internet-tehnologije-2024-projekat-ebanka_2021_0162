@@ -24,7 +24,9 @@ class TransakcijaResource extends JsonResource
             'broj_racuna_primaoca'=>$this->resource->broj_racuna_primaoca,
             'datum'=>$this->resource->datum,
             'vreme'=>$this->resource->vreme,
-            'opis_transakcije'=>$this->resource->opis_transakcije
+            'opis_transakcije'=>$this->resource->opis_transakcije,
+            'sifra_placanja'=>$this->resource->sifra_placanja,
+            'naziv_primaoca'=>$this->resource->naziv_primaoca
         ];
     }
 }

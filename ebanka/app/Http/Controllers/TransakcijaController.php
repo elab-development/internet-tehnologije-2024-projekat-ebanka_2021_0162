@@ -44,7 +44,9 @@ class TransakcijaController extends Controller
             'vreme'=>'required',
             'opis_transakcije'=>'required',
             'broj_racuna_primaoca'=>'required',
-            'racun_id'=>'required'
+            'racun_id'=>'required',
+            'sifra_placanja'=>'required',
+            'naziv_primaoca'=>'required'
             
         ]);
 
@@ -54,11 +56,13 @@ class TransakcijaController extends Controller
             'vreme'=>$validate['vreme'],
             'opis_transakcije'=>$validate['opis_transakcije'],
             'broj_racuna_primaoca'=>$validate['broj_racuna_primaoca'],
+            'sifra_placanja'=>$validate['sifra_placanja'],
+            'naziv_primaoca'=>$validate['naziv_primaoca'],
             'racun_id'=>$validate['racun_id'],
             'id'=>rand(100000000000000, 999999999999999)
         ]);
 
-        //dd($validate);
+        
 
         /*$transakcija=Transakcija::create([
             'iznos'=>$request->iznos,

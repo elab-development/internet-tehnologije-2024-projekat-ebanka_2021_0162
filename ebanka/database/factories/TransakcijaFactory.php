@@ -23,6 +23,8 @@ class TransakcijaFactory extends Factory
             'vreme'=>fake()->time(),
             'opis_transakcije'=>fake()->sentence(),
             'broj_racuna_primaoca'=>fake()->numerify('###') .'-'. fake()->numerify('#########') .'-'. fake()->numerify('###'),
+            'sifra_placanja'=>fake()->randomElement(['289', '222', '254', '221', '229', '230', '240', '253','281','287','288','290']),
+            'naziv_primaoca'=>fake()->name()
         ];
     }
 }
