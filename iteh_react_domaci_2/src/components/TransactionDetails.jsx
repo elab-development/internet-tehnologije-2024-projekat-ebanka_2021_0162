@@ -12,9 +12,11 @@ const TransactionDetails = ({details, closeDetails}) => {
             <p><strong>ID:</strong> {details.id}</p>
             <p><strong>Datum:</strong> {details.datum}</p>
             <p><strong>Iznos:</strong> {details.iznos} {details.posiljaoc.detalji.hasOwnProperty("valuta") ? details.posiljaoc.detalji.valuta : "RSD"}</p>
+            <p><strong>Naziv primaoca:</strong> {details.naziv_primaoca}</p>
             <p><strong>Broj računa primaoca:</strong> {details.broj_racuna_primaoca}</p>
             <p><strong>Broj računa pošiljaoca:</strong> {details.posiljaoc.detalji.broj_racuna}</p>
             <p><strong>Opis:</strong> {details.opis_transakcije}</p>
+            <p><strong>Sifra plaćanja:</strong> {details.sifra_placanja}</p>
             <p><strong>Vreme:</strong> {details.vreme}</p>
             <p><strong>Status:</strong> Izvršeno </p>
         </div>

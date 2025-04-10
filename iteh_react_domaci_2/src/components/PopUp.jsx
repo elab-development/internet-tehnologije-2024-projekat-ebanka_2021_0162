@@ -1,11 +1,11 @@
 import React from 'react'
 import '../css/ExportEmptyPopUp.css';
 
-const ExportEmpty = ({closeMessageBox}) => {
+const ExportEmpty = ({closeMessageBox, messageText}) => {
   return (
     <div className="message-box">
       <div>
-        <h2>Za izabrani mesec <span className="empty-export-span">nema</span> transakcija za dati nalog.</h2>
+        <h2>{messageText}</h2>
       </div>
       
       <div>

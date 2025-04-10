@@ -1,0 +1,82 @@
+
+.label-transaction{
+    color: #007bff; 
+    display: block; 
+    margin-bottom: 2px; 
+    font-size: 18px; 
+    font-weight: 600; 
+}
+
+.input-transaction{
+    width: 100%; 
+    padding: 10px; 
+    margin-bottom: 12px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    background-color: #f8f9fa; 
+    font-size: 18px; 
+    color: black; 
+    transition: border-color 0.3s ease;
+}
+
+.input-transaction-error{
+    width: 100%; 
+    padding: 10px; 
+    margin-bottom: 12px; 
+    border: 2px solid red;
+    border-radius: 5px; 
+    background-color: #f8f9fa; 
+    font-size: 18px; 
+    color: black; 
+}
+
+.input-transaction:hover{
+    border-color: #007bff; 
+    outline: none;
+}
+
+.form-body{
+    display: flex;
+    justify-content: center;
+    background: #E7E9BB;
+    background: linear-gradient(135deg, #E7E9BB, #A2E3D9);
+}
+
+.main{
+    width: 65vw;
+    margin-top: 5em;
+    margin-bottom: 5em;
+    background-color: white;
+}
+
+
+.each-container{
+   margin: .5em;
+}
+
+.sub-container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1);
+    gap: 20px;
+}
+
+.btn-transaction{
+    border: 1px solid  #007bff;
+    font-size: 20px;
+    padding-left: 80px;
+    padding-right: 80px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-top: 15px;
+    margin-left: 39%;
+    font-weight: 400;
+    border-radius: 5px;
+    background-color: #007bff ;
+    color: #ccc;
+}
+
+.btn-transaction:hover{
+    background-color: white;
+    color: black;
+}

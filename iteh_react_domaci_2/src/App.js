@@ -13,10 +13,13 @@ import NavBar from './components/NavBar';
 import KursnaLista from './components/KursnaLista';
 import AccountInfo from './components/AccountInfo';
 import ProfileImageUpload from './components/ProfileImageUpload';
+import NewTransaction from './components/NewTransaction';
 
 function App() {
 
   const [logInStatusUser, setLogInStatusUser]=useState(false);
+  const [focusedAcc, setFocusedAcc] = useState(null);
+
 
   useEffect( () => {
     if(window.sessionStorage.getItem("user_auth_token") != null)
@@ -27,15 +30,20 @@ function App() {
     setLogInStatusUser(status);
   }
 
+  const handleAccountFocus = (acc) => {
+    setFocusedAcc(acc);
+  }
+
   return (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to="/user/login"/>} />
 
           <Route path="/" element={<NavBar login={1}/>}>
-            <Route path="user/home" element={<UserHome /> } />
+            <Route path="user/home" element={<UserHome accountFocus={handleAccountFocus} focusedAcc={focusedAcc}/> }/> } />
             <Route path="user/detalji-naloga" element={<AccountInfo/>}/>
             <Route path="user/upolad-photo" element={<ProfileImageUpload/>}/>
+            <Route path="user/new-transaction" element={<NewTransaction focusedAcc={focusedAcc}/>}/>
             <Route path="unauthorised_access" element={ <UnauthorisedAccessPage /> } />
           </Route>
           <Route path="/" element={<NavBar login={0}/>} >

@@ -5,13 +5,12 @@ import axios from 'axios';
 import "../css/HomePageData.css";
 import { PiVaultBold } from "react-icons/pi";
 import TransactionDetails from './TransactionDetails';
-import ExportEmptyPopUp from './ExportEmptyPopUp';
+import PopUp from './PopUp';
 import {IoIosArrowDown, IoIosArrowUp} from 'react-icons/io';
 
-const UserHome = () => {
+const UserHome = ({accountFocus, focusedAcc}) => {
     const navigate = useNavigate();
 
-    const [focusedAcc, setFocusedAcc] = useState(null);
     const [transactions, setTransactions] = useState([]);
 
     const [tabFocused, setTabFocused]=useState({
@@ -123,7 +122,8 @@ const UserHome = () => {
     }
 
     const handleAccountFocus = (acc) => {
-      setFocusedAcc(acc);
+      if(accountFocus)
+        accountFocus(acc);
 
       if(showDetails) {
         setShowDetails(false);
@@ -325,6 +325,8 @@ const UserHome = () => {
       setIsExportEmpty(false);
     }
 
+    const messageText='Za izabrani mesec nema transakcija za dati nalog!';
+
     const mapOfMonths = {
       'Januar' : '01.',
       'Februar' : '02.',
@@ -465,7 +467,7 @@ const UserHome = () => {
               </div>
             )}
 
-            {isExportEmpty && <ExportEmptyPopUp closeMessageBox={closeMessageBox}/>}
+            {isExportEmpty && <PopUp closeMessageBox={closeMessageBox} messageText={messageText}/>}
 
         </div>  
             

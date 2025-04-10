@@ -48,7 +48,7 @@ const NavBar = ({login}) => {
 
                 {login===1 ? (<div className="nav-item">
                   <Link to="user/new-transaction" className="nav-link" >
-                  Novo Plaćanje
+                  Plaćanja
                   </Link>
 
                 </div>) : (<></> )}
