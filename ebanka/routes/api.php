@@ -44,6 +44,9 @@ Route::middleware(['auth:sanctum', 'isRegularUser'])->group( function() {
     Route::get("/korisnik/devizni_racun/{id}",[DevizniRacunController::class,"show"]);
     Route::get("/korisnik/stedni_racun/{id}",[StedniRacunController::class,"show"]);
     
+    Route::patch("/korisnik/devizni_racun/{broj_racuna}/{novo_stanje}",[DevizniRacunController::class,"changeBalance"]);
+    Route::patch("/korisnik/tekuci_racun/{broj_racuna}/{novo_stanje}",[TekuciRacunController::class,"changeBalance"]);
+
     Route::get("/korisnik/bankovni-racuni", [UserController::class, "prikazi_racune"]);
 
     Route::patch("/korisnik/izmena-naloga", [UserController::class, 'update']);
@@ -53,7 +56,7 @@ Route::middleware(['auth:sanctum', 'isRegularUser'])->group( function() {
     Route::post("/korisnik/postavljanje-slike",[ProfilePhoto::class,"uploadProfilePhoto"]);
     Route::get("/korisnik/uzimanje-slike",[ProfilePhoto::class,"getProfilePhoto"]);
 
-    Route::get("/korisnik/kursna-lista", [ExchangeRatesController::class, "fetchRates"]);
+    Route::get("/korisnik/kursna-lista/{date}", [ExchangeRatesController::class, "fetchRates"]);
     Route::get("/korisnik/informacije-o-nalogu", [AccountInfoController::class, "show"]);
     Route::post("/korisnik/logout", [AuthController::class, "logout"]);
 

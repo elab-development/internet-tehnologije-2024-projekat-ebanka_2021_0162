@@ -126,4 +126,18 @@ class TekuciRacunController extends Controller
         $zaBrisanje->delete();
         return response()->json(['message'=>'Uspesno obrisano'],200);
     }
+
+    public function changeBalance(Request $request, $broj_racuna, $novo_stanje) {
+        $tekuci = TekuciRacun::where('broj_racuna', $broj_racuna)->first();
+
+        if(!$tekuci)
+            return response()->json('greska pri promeni tekuceg racuna. tekuci racun nije pronadjen!', 404);
+
+        $tekuci->stanje_racuna = $novo_stanje;
+        
+        $tekuci->save();
+
+        return response()->json(['poruka' => 'Stanje tekuceg racuna promenjeno!'],200);
+    }
+   
 }

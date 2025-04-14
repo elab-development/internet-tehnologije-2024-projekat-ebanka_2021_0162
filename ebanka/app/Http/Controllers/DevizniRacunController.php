@@ -124,4 +124,17 @@ class DevizniRacunController extends Controller
         $zaBrisanje->delete();
         return response()->json(['message'=>'Uspesno obrisano'],200);
     }
+
+    public function changeBalance(Request $request, $broj_racuna, $novo_stanje) {
+        $devizni = DevizniRacun::where('broj_racuna', $broj_racuna)->first();
+
+        if(!$devizni)
+            return response()->json('greska pri promeni deviznog racuna. devizni racun nije pronadjen!', 404);
+
+        $devizni->stanje_racuna = $novo_stanje;
+        
+        $devizni->save();
+
+        return response()->json(['poruka' => 'Stanje deviznog racuna promenjeno!'],200);
+    }
 }

@@ -62,18 +62,6 @@ class TransakcijaController extends Controller
             'id'=>rand(100000000000000, 999999999999999)
         ]);
 
-        
-
-        /*$transakcija=Transakcija::create([
-            'iznos'=>$request->iznos,
-            'datum'=>$request->datum,
-            'vreme'=>$request->vreme,
-            'opis_transakcije'=>$request->opis_transakcije,
-            'broj_racuna_primaoca'=>$request->broj_racuna_primaoca,
-            'racun_id'=>$request->racun_id,
-            'id'=>rand(100000000000000, 999999999999999)
-        ]);*/
-    
         return response()->json(new TransakcijaResource($transakcija),201);
     }
 
@@ -87,7 +75,6 @@ class TransakcijaController extends Controller
     {
         $trans=Transakcija::findOrFail($id);
         return new TransakcijaResource($trans);
-        //return response()->json($trans);
     }
 
     /**
@@ -128,6 +115,5 @@ class TransakcijaController extends Controller
         $racun=Racun::findOrFail($racun_id);
         $t=$racun->transakcija;
         return new TransakcijaCollection($t);
-        //return response()->json($t);
     }
 }
