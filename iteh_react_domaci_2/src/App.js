@@ -14,6 +14,8 @@ import KursnaLista from './components/KursnaLista';
 import AccountInfo from './components/AccountInfo';
 import ProfileImageUpload from './components/ProfileImageUpload';
 import NewTransaction from './components/NewTransaction';
+import Menjacnica from './components/Menjacnica';
+import MenjKupovinaProdaja from './components/MenjKupovinaProdaja';
 
 function App() {
 
@@ -40,17 +42,20 @@ function App() {
           <Route path="/" element={<Navigate to="/user/login"/>} />
 
           <Route path="/" element={<NavBar login={1}/>}>
-            <Route path="user/home" element={<UserHome accountFocus={handleAccountFocus} focusedAcc={focusedAcc}/> }/> } />
+            <Route path="user/home" element={<UserHome accountFocus={handleAccountFocus} focusedAcc={focusedAcc}/> }/>
             <Route path="user/detalji-naloga" element={<AccountInfo/>}/>
             <Route path="user/upolad-photo" element={<ProfileImageUpload/>}/>
             <Route path="user/new-transaction" element={<NewTransaction focusedAcc={focusedAcc}/>}/>
             <Route path="unauthorised_access" element={ <UnauthorisedAccessPage /> } />
+            <Route path="user/menjacnica" element={<Menjacnica />} />
+            <Route path="user/menjacnica/buy" element={<MenjKupovinaProdaja action={"buy"}/>} />
+            <Route path="user/menjacnica/sell" element={<MenjKupovinaProdaja action={"sell"}/>} />
           </Route>
           <Route path="/" element={<NavBar login={0}/>} >
             <Route path="user/login" element={<LogInPageUser handleLogInStatus={handleLogInStatus}/>}/>
             <Route path="user/register" element={<RegisterPageUser/>} />
             <Route path="user/logout" element={<UserLogout handleLogInStatus={handleLogInStatus}/>} />
-            <Route path="kursna-lista" element={<KursnaLista/>}/>
+            <Route path="kursna-lista" element={<KursnaLista date={"today"}/>}/>
             <Route path="admin/home" element={<AdminHome /> } />
             <Route path="admin/login" element={<LogInPageAdmin/>} />
             <Route path="admin/logout" element={<AdminLogout />} />

@@ -1,0 +1,91 @@
+.main-container-action-menjacnica {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap : 3em;
+    flex-direction: column;
+    flex-wrap : wrap;
+    width: 90vw;
+    height: 80vh;
+    margin: 2em auto;
+    background-color: lightblue;
+}
+
+.buy {
+}
+
+.sell {
+}
+
+.sa-racuna-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap : wrap;
+    gap : 1em;
+    width: 60%;
+    background-color: #fff;
+    height : 15%;
+    margin-top: 2em;
+    border-radius : 1em;
+}
+
+.na-racun-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    border-radius : 1em;
+    flex-direction: row;
+    gap : 1em;
+    width: 60%;
+    background-color: #fff;
+    height : 15%;
+}
+
+.combo-menjacnica {
+    height : 2.5em;
+    cursor : pointer;
+    outline : none;
+}
+
+.iznos-menjacnica-container {
+    width: 60%;
+    border-radius: 1em;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap : 2em;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: #fff;
+}
+
+.iznos-input-menjacnica {
+    width: 90%;
+    height: 2em;
+    border : 2px solid #0066ff;
+    outline : none;
+    text-align: left;
+    font-size: 1.1em;
+}
+
+.btn-potvrdi-menjacnica {
+    outline:none;
+    width: 6em;
+    height: 2.3em;
+    font-size: 1.1em;
+    margin-left: 1em;
+    background-color: #9A616D;
+    color: #fff;
+    border : none;
+    transition: all .4s;
+    opacity: .8;
+}
+
+.btn-potvrdi-menjacnica:hover {
+    opacity: 1;
+}

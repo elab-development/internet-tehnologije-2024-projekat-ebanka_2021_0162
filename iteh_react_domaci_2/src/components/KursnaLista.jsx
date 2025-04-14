@@ -4,18 +4,37 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/KursnaLista.css';
 
-const KursnaLista = () => {
+const KursnaLista = ({date}) => {
   
   const [valute, setValute] = useState();
   
   useEffect( () => {
-    if(valute==null){
-      axios.get('http://127.0.0.1:8000/api/kursna-lista').then( (res) => {
-        setValute(res.data.rates);
-        });
-    }
-  },[]);
+    const dateElements = date.split("-");
 
+      if(date == "today") {
+        axios.get("http://127.0.0.1:8000/api/kursna-lista").then( (res) => {
+          setValute(res.data.rates);
+        });
+      } else {
+        let config = {
+          method: 'get',
+          maxBodyLength: Infinity,
+          url: `http://127.0.0.1:8000/api/korisnik/kursna-lista/${dateElements[0]}-${dateElements[1]}-${dateElements[2]}`,
+          headers: { 
+            'Authorization': 'Bearer '+window.sessionStorage.getItem('user_auth_token'), 
+          },
+        };
+        
+        axios.request(config)
+        .then((res) => {
+          setValute(res.data.rates);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      } 
+    
+  },[date]);
 
   return (
     
