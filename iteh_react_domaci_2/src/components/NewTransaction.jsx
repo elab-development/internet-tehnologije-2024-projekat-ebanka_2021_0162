@@ -6,7 +6,44 @@ import axios from 'axios';
 import PopUp from './PopUp';
 
 
-const NewTransaction = ({focusedAcc}) => {
+const NewTransaction = ({focusedAcc, tip}) => {
+
+    const[internalData, setInternalData]=useState();
+    
+
+        useEffect(()=>{
+            let data = JSON.stringify(focusedAcc);
+          
+            let config = {
+              method: 'get',
+              maxBodyLength: Infinity,
+              url: 'http://127.0.0.1:8000/api/korisnik/svi_ostali_racuni',
+              headers: { 
+                'Content-Type': 'application/json', 
+                'Authorization': 'Bearer '+window.sessionStorage.getItem('user_auth_token'),
+              },
+              data : data
+            };
+            
+            axios.request(config)
+            .then((response) => {
+              setInternalData(response.data.racuni);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          
+        },[]);
+          
+        let newInternalData=[];
+        if(internalData!=null){
+            internalData.forEach((i,index)=>{
+                if(i.detalji.broj_racuna!==focusedAcc.detalji.broj_racuna){
+                    newInternalData[index]=i;
+                }
+            })
+        }
+    
 
     const [datum, setDatum] = useState('');
     const [successfulTran, setSuccessfulTran]=useState(false);
@@ -33,6 +70,9 @@ const NewTransaction = ({focusedAcc}) => {
   function handleInput(e){
     let temp=transactionData;
     temp[e.target.name]=e.target.value;
+    if(tip==='interna'){
+        temp.naziv_primaoca=internalData==null ? '' : internalData[0].user.ime + " "+internalData[0].user.prezime
+    }
     setTransactionData(temp);
     setErrors({
         ...errors,
@@ -40,10 +80,17 @@ const NewTransaction = ({focusedAcc}) => {
     });
   };
 
-  const handleSelectChange = (event) => {
+  const handleSelectChangeSifra = (event) => {
     let pom=transactionData;
     pom.sifra_placanja=event.target.value;
     setTransactionData(pom);
+  };
+
+
+  const handleSelectChangeRacun = (ev) => {
+    let t=transactionData;
+    t.broj_racuna_primaoca=ev.target.value;
+    setTransactionData(t);
   };
 
 
@@ -57,6 +104,94 @@ const NewTransaction = ({focusedAcc}) => {
         const m=noviDatum.getMinutes();
         const s=noviDatum.getSeconds();
         const time=`${h}:${m}:${s}`;
+        let id;
+        let type;
+
+        if(tip ==='interna'){
+        
+            newInternalData.forEach((d, index)=>{
+                if(d.detalji.broj_racuna===transactionData.broj_racuna_primaoca){
+                    id=d.detalji.id;
+                    type=d.tip;
+                }
+            },[])
+    
+            switch(type){
+                case 'tekuci':
+                    let dataPromenaTekuci = JSON.stringify({
+                        "iznos": transactionData.iznos,
+                      });
+                      let configPT = {
+                        method: 'patch',
+                        maxBodyLength: Infinity,
+                        url: `http://127.0.0.1:8000/api/korisnik/promena-tekuceg-stanja-racuna/${id}`,
+                        headers: { 
+                          'Content-Type': 'application/json', 
+                          'Authorization': 'Bearer '+window.sessionStorage.getItem('user_auth_token'),
+                        },
+                        data : dataPromenaTekuci
+                      };
+                      
+                      axios.request(configPT)
+                      .then((response) => {
+                        console.log(JSON.stringify(response.data));
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                      });
+                    break;
+                case 'studentski':
+                    let dataPromenaStudentski = JSON.stringify({
+                        "iznos": transactionData.iznos,
+                      });
+                      let configPS = {
+                        method: 'patch',
+                        maxBodyLength: Infinity,
+                        url: `http://127.0.0.1:8000/api/korisnik/promena-studentskog-stanja-racuna/${id}`,
+                        headers: { 
+                          'Content-Type': 'application/json', 
+                          'Authorization': 'Bearer '+window.sessionStorage.getItem('user_auth_token'),
+                        },
+                        data : dataPromenaStudentski
+                      };
+                      
+                      axios.request(configPS)
+                      .then((response) => {
+                        console.log(JSON.stringify(response.data));
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                      });
+                    break;
+                case 'devizni':
+                    let dataPromenaDevizni = JSON.stringify({
+                        "iznos": transactionData.iznos,
+                      });
+                      let configPD = {
+                        method: 'patch',
+                        maxBodyLength: Infinity,
+                        url: `http://127.0.0.1:8000/api/korisnik/promena-deviznog-stanja-racuna/${id}`,
+                        headers: { 
+                          'Content-Type': 'application/json', 
+                          'Authorization': 'Bearer '+window.sessionStorage.getItem('user_auth_token'),
+                        },
+                        data : dataPromenaDevizni
+                      };
+                      
+                      axios.request(configPD)
+                      .then((response) => {
+                        console.log(JSON.stringify(response.data));
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                      });
+                    break;
+                default:
+                        console.log('evo me');
+                        break;
+            }
+              
+        }
 
         let data = new FormData();
 
@@ -117,6 +252,84 @@ const NewTransaction = ({focusedAcc}) => {
         .catch((error) => {
             console.log(error);
         });
+
+
+        
+       switch(focusedAcc.tip){
+        case 'tekuci':
+            let dataTekuci = JSON.stringify({
+                "iznos": transactionData.iznos
+              });
+              
+              let configT = {
+                method: 'patch',
+                maxBodyLength: Infinity,
+                url: `http://127.0.0.1:8000/api/korisnik/izmena-tekuceg-stanja-racuna/${focusedAcc.detalji.id}`,
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': 'Bearer '+window.sessionStorage.getItem('user_auth_token'),
+                },
+                data : dataTekuci
+              };
+              
+              axios.request(configT)
+              .then((response) => {
+                console.log(JSON.stringify(response.data));
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+              
+            break;
+        case 'devizni':
+            let dataDevizni = JSON.stringify({
+                "iznos": transactionData.iznos
+              });
+              
+              let configD = {
+                method: 'patch',
+                maxBodyLength: Infinity,
+                url: `http://127.0.0.1:8000/api/korisnik/izmena-deviznog-stanja-racuna/${focusedAcc.detalji.id}`,
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': 'Bearer '+window.sessionStorage.getItem('user_auth_token'),
+                },
+                data : dataDevizni
+              };
+              
+              axios.request(configD)
+              .then((response) => {
+                console.log(JSON.stringify(response.data));
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+            break;
+        case 'studentski':
+            let dataStudentski = JSON.stringify({
+                "iznos": transactionData.iznos
+              });
+              
+              let configS = {
+                method: 'patch',
+                maxBodyLength: Infinity,
+                url: `http://127.0.0.1:8000/api/korisnik/izmena-studentskog-stanja-racuna/${focusedAcc.detalji.id}`,
+                headers: { 
+                  'Content-Type': 'application/json', 
+                  'Authorization': 'Bearer '+window.sessionStorage.getItem('user_auth_token'),
+                },
+                data : dataStudentski
+              };
+              
+              axios.request(configS)
+              .then((response) => {
+                console.log(JSON.stringify(response.data));
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+            break;
+   }
         
     }
 
@@ -133,13 +346,27 @@ const NewTransaction = ({focusedAcc}) => {
             
             <div className="each-container">
                 <label className="label-transaction"> Naziv primaoca:  </label>
-                <input type="text" name="naziv_primaoca" placeholder='ime primaoca' className={errors.naziv_primaoca ? 'input-transaction-error' : 'input-transaction'} />
-            </div>
+                {tip==='interna' ? 
+                (<input type="text" name="naziv_primaoca" className="input-transaction" defaultValue={internalData==null ? '' : internalData[0].user.ime + " "+internalData[0].user.prezime} disabled/>) 
+                : 
+                (<input type="text" name="naziv_primaoca" placeholder='ime primaoca' className={errors.naziv_primaoca ? 'input-transaction-error' : 'input-transaction'} />)
+                }
+           </div>
 
 
         <div className="each-container">
             <label className="label-transaction"> Broj računa primaoca:  </label>
-            <input type="text" name="broj_racuna_primaoca" placeholder='broj racuna primaoca' className={errors.broj_racuna_primaoca ? 'input-transaction-error' : 'input-transaction'} required/>
+            {tip==='interna' ? 
+            (<>
+            <select onChange={(a)=>handleSelectChangeRacun(a)} value={transactionData.broj_racuna_primaoca} className="input-transaction">
+                {newInternalData && newInternalData.map((item, index)=>{
+                    return (<option key={index} name="broj_racuna_primaoca" value={item.detalji.broj_racuna}>{item.detalji.broj_racuna}, {item.banka.naziv}</option>)
+                })}
+            </select>
+            </>) 
+            : 
+            (<input type="text" name="broj_racuna_primaoca" placeholder='broj racuna primaoca' className={errors.broj_racuna_primaoca ? 'input-transaction-error' : 'input-transaction'} required/>)
+            }
         </div>
 
         <div className="sub-container">
@@ -162,7 +389,7 @@ const NewTransaction = ({focusedAcc}) => {
 
         <div className="each-container">
             <label className="label-transaction"> Sifra plaćanja:  
-                <select onChange={handleSelectChange} className={errors.sifra_placanja ? 'input-transaction-error' : 'input-transaction'} >
+                <select onChange={(el)=>handleSelectChangeSifra(el)} className={errors.sifra_placanja ? 'input-transaction-error' : 'input-transaction'} >
                     <option value=""></option>
                     <option value="289">289-Transakcije po nalogu gradjana</option>
                     <option value="222">222-Usluge javnih preduzeća</option>
@@ -196,7 +423,7 @@ const NewTransaction = ({focusedAcc}) => {
             </div>
         </div>
        
-        <button type="submit" className="btn-transaction" onClick={(e)=>{handleNewTransaction(e)}}>Izvrši plaćanje</button>
+        <button type="submit" className="btn-transaction" onClick={(ex)=>{handleNewTransaction(ex)}}>Izvrši plaćanje</button>
         </form>
         {successfulTran && <PopUp closeMessageBox={closeMessageBox} messageText={messageText}/>}
     </div>

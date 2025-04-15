@@ -17,7 +17,7 @@ const OneRacun = ({racun}) => {
        <div className="right-column">
          <div className={`${racun.banka.naziv.split(" ")[0]}`}></div> 
          <div className="new-transaction">
-          <Link to="/user/new-transaction">
+          <Link to="/user/new-transaction/eksterna-transakcija">
           <IoCashOutline style={{   color: 'green',width: '2.5em',
     height: '2.5em'}}/>
          </Link>

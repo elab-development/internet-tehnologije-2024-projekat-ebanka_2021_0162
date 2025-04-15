@@ -342,7 +342,7 @@ const MenjKupovinaProdaja = ({action}) => {
                   
                   devizniRacuni.map( (racun) => (
                     <option style={{textTransform: 'capitalize'}} key={racun.id} value={`${racun.detalji.broj_racuna}/${racun.detalji.stanje_racuna}/${racun.detalji.valuta}`}>
-  {racun.banka.naziv} / {racun.detalji.broj_racuna} / {racun.detalji.stanje_racuna}{racun.detalji.valuta}
+                        {racun.detalji.broj_racuna} / {racun.detalji.stanje_racuna}{racun.detalji.valuta} /  {racun.banka.naziv}
                     </option>
                   ))
                 }
@@ -365,7 +365,7 @@ const MenjKupovinaProdaja = ({action}) => {
                   
                   tekuciRacuni.map( (racun) => (
                     <option style={{textTransform: 'capitalize'}} key={racun.id} value={`${racun.detalji.broj_racuna}/${racun.detalji.stanje_racuna}`}>
-                      {racun.banka.naziv} / {racun.detalji.broj_racuna} / {racun.detalji.stanje_racuna}RSD
+                       {racun.banka.naziv} / {racun.detalji.broj_racuna} / {racun.detalji.stanje_racuna}RSD 
                     </option>
                   ))
                 }
@@ -377,11 +377,11 @@ const MenjKupovinaProdaja = ({action}) => {
 
           <div className="iznos-menjacnica-container">
             <div>
-              <input type="number" min="1" max="100000"step="100" onChange={(e)=>{handleIznos(e)}} className="iznos-input-menjacnica" placeholder="Iznos" />
+              <input type="number" min="1" max="100000" step="100" onChange={(e)=>{handleIznos(e)}} className="iznos-input-menjacnica" placeholder="Iznos" />
             </div>
 
             <div>
-              <select style={{fontSize:'1.1em', cursor:'pointer'}}>
+              <select className="valuta-menjacnica" >
                 <option>{selectedDevizni == null ? <></> : selectedDevizni.valuta}</option>
               </select>
             </div>

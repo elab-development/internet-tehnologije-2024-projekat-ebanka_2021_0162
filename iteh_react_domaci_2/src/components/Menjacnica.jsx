@@ -15,6 +15,7 @@ const Menjacnica = () => {
     }
 
   return (
+    
         <div className="main-container-menjacnica">
             <div className="first-column-menjacnica">
                 <div style={{display:'flex', width:'100%', justifyContent:'center'}}>
@@ -54,9 +55,10 @@ const Menjacnica = () => {
             </div>
 
             <div className="second-column-menjacnica">
-                {inputDatum && <KursnaLista date={inputDatum}/>}
+                {inputDatum && <KursnaLista date={inputDatum} logout={"no"} />}
             </div>
         </div>
+        
   )
 }
 

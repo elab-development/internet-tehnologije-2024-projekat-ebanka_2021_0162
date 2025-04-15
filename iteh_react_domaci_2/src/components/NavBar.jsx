@@ -48,7 +48,17 @@ const NavBar = ({login}) => {
 
                 {login===1 ? (<div className="nav-item">
                   <Link to="user/new-transaction" className="nav-link" >
-                  Plaćanja
+
+                  <div className="nav-item">
+                  <label type="button" className="nav-item" data-bs-toggle="dropdown" aria-expanded="false">
+                    Plaćanja
+                  </label>
+                  <ul className="dropdown-menu">
+                    <li><Link className="dropdown-item" to="user/new-transaction/interna-transakcija">Interno placanje</Link></li>
+                    <li><Link className="dropdown-item" to="user/new-transaction/eksterna-transakcija">Eksterno plaćanje</Link></li>
+                  </ul>
+                  </div>
+
                   </Link>
 
                 </div>) : (<></> )}

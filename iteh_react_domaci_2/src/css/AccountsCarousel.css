@@ -7,9 +7,9 @@
     height : 45vh;
     background-color: beige;
     border-radius: 1em;
-    background: #2980B9;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #FFFFFF, #6DD5FA, #2980B9);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #5aa8d8;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #FFFFFF, #6DD5FA, #5aa8d8);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #FFFFFF, #6DD5FA, #5aa8d8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     border-top: 0.1em solid black;
     border-bottom : 0.1em solid black;
     overflow-x: hidden;

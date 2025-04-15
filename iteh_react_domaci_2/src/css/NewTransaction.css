@@ -38,8 +38,11 @@
 .form-body{
     display: flex;
     justify-content: center;
-    background: #E7E9BB;
-    background: linear-gradient(135deg, #E7E9BB, #A2E3D9);
+    background: #edc2d5;
+    background: linear-gradient(189deg, rgba(237, 194, 213, 1) 0%, rgba(133, 186, 242, 1) 100%);
+  
+    /*background: #E7E9BB;
+    background: linear-gradient(135deg, #E7E9BB, #A2E3D9);*/
 }
 
 .main{

@@ -45,7 +45,8 @@ function App() {
             <Route path="user/home" element={<UserHome accountFocus={handleAccountFocus} focusedAcc={focusedAcc}/> }/>
             <Route path="user/detalji-naloga" element={<AccountInfo/>}/>
             <Route path="user/upolad-photo" element={<ProfileImageUpload/>}/>
-            <Route path="user/new-transaction" element={<NewTransaction focusedAcc={focusedAcc}/>}/>
+            <Route path="user/new-transaction/interna-transakcija" element={<NewTransaction focusedAcc={focusedAcc} tip={'interna'}/>}/>
+            <Route path="user/new-transaction/eksterna-transakcija" element={<NewTransaction focusedAcc={focusedAcc} tip={'eksterna'}/>}/>
             <Route path="unauthorised_access" element={ <UnauthorisedAccessPage /> } />
             <Route path="user/menjacnica" element={<Menjacnica />} />
             <Route path="user/menjacnica/buy" element={<MenjKupovinaProdaja action={"buy"}/>} />
@@ -55,7 +56,7 @@ function App() {
             <Route path="user/login" element={<LogInPageUser handleLogInStatus={handleLogInStatus}/>}/>
             <Route path="user/register" element={<RegisterPageUser/>} />
             <Route path="user/logout" element={<UserLogout handleLogInStatus={handleLogInStatus}/>} />
-            <Route path="kursna-lista" element={<KursnaLista date={"today"}/>}/>
+            <Route path="kursna-lista" element={<KursnaLista date={"today"} logout={"yes"}/>}/>
             <Route path="admin/home" element={<AdminHome /> } />
             <Route path="admin/login" element={<LogInPageAdmin/>} />
             <Route path="admin/logout" element={<AdminLogout />} />
