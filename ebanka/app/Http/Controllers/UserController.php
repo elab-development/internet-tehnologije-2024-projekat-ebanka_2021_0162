@@ -13,6 +13,7 @@ use App\Http\Resources\RacunResource;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\RacunCollection;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Racun;
 
 class UserController extends Controller
 {
@@ -88,7 +89,6 @@ class UserController extends Controller
     public function show($id)
     {
         $korisnikk = User::findOrFail($id);
-        //return response()->json($korisnikk);
         return new UserResource($korisnikk);
     }
 
@@ -151,8 +151,17 @@ class UserController extends Controller
     public function prikazi_racune() {
         $korisnik = Auth::user();
         $racuni = $korisnik->racun;
-
         return new RacunCollection($racuni);
+    }
+
+
+    public function ostali_racuni(Request $request){
+        $user=$request->user();
+        $r=Racun::where('user_id',$user->id)->where(function ($query) {
+            $query->where('type', 'tekuci')->orWhere('type', 'studentski');
+        })->where('id','!=',$request->id)->get();
+
+        return new RacunCollection($r);
     }
 
 

@@ -107,9 +107,17 @@ class DevizniRacunController extends Controller
      * @param  \App\Models\DevizniRacun  $devizniRacun
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DevizniRacun $devizniRacun)
+    public function update(Request $request, $id)
     {
-        //
+        $devizni=DevizniRacun::findOrFail($id);
+        $validated=$request->validate([
+            'iznos'=>'required',
+        ]);
+
+        $devizni->stanje_racuna -= $validated['iznos'];
+        $devizni->save();
+
+        return response()->json(['Uspesno izmenjeno  stanje racuna'],200);
     }
 
     /**
@@ -136,5 +144,18 @@ class DevizniRacunController extends Controller
         $devizni->save();
 
         return response()->json(['poruka' => 'Stanje deviznog racuna promenjeno!'],200);
+    }
+
+    public function promena_stanja(Request $request, $id)
+    {
+        $devizni=DevizniRacun::findOrFail($id);
+        $validated=$request->validate([
+            'iznos'=>'required',
+        ]);
+
+        $devizni->stanje_racuna += $validated['iznos'];
+        $devizni->save();
+
+        return response()->json(['Uspesno izmenjeno  stanje racuna'],200);
     }
 }

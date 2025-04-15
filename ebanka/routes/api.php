@@ -51,6 +51,15 @@ Route::middleware(['auth:sanctum', 'isRegularUser'])->group( function() {
 
     Route::patch("/korisnik/izmena-naloga", [UserController::class, 'update']);
 
+    Route::patch("/korisnik/izmena-tekuceg-stanja-racuna/{id}",[TekuciRacunController::class,'update']);
+    Route::patch("/korisnik/izmena-studentskog-stanja-racuna/{id}",[StudentskiRacunController::class,'update']);
+    Route::patch("/korisnik/izmena-deviznog-stanja-racuna/{id}",[DevizniRacunController::class,'update']);
+
+    Route::patch("/korisnik/promena-tekuceg-stanja-racuna/{id}",[TekuciRacunController::class,'promena_stanja']);
+    Route::patch("/korisnik/promena-studentskog-stanja-racuna/{id}",[StudentskiRacunController::class,'promena_stanja']);
+    Route::patch("/korisnik/promena-deviznog-stanja-racuna/{id}",[DevizniRacunController::class,'promena_stanja']);
+
+
     Route::get("/korisnik/export/{racun_id}/{mesec}/{godina}", [TransactionsExportController::class, "export"]);
 
     Route::post("/korisnik/postavljanje-slike",[ProfilePhoto::class,"uploadProfilePhoto"]);
@@ -59,6 +68,8 @@ Route::middleware(['auth:sanctum', 'isRegularUser'])->group( function() {
     Route::get("/korisnik/kursna-lista/{date}", [ExchangeRatesController::class, "fetchRates"]);
     Route::get("/korisnik/informacije-o-nalogu", [AccountInfoController::class, "show"]);
     Route::post("/korisnik/logout", [AuthController::class, "logout"]);
+
+    Route::get("/korisnik/svi_ostali_racuni",[UserController::class,"ostali_racuni"]);
 
 });
 

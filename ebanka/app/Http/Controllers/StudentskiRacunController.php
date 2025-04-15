@@ -102,9 +102,17 @@ class StudentskiRacunController extends Controller
      * @param  \App\Models\StudentskiRacun  $studentskiRacun
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, StudentskiRacun $studentskiRacun)
+    public function update(Request $request, $id)
     {
-        //
+        $studentski=StudentskiRacun::findOrFail($id);
+        $validated=$request->validate([
+            'iznos'=>'required',
+        ]);
+
+        $studentski->stanje_racuna -= $validated['iznos'];
+        $studentski->save();
+
+        return response()->json(['Uspesno izmenjeno  stanje racuna'],200);
     }
 
     /**
@@ -118,5 +126,19 @@ class StudentskiRacunController extends Controller
         $zaBrisanje=StudentskiRacun::findOrFail($id);
         $zaBrisanje->delete();
         return response()->json(['message'=>'Uspesno obrisano'],200);
+    }
+
+    
+    public function promena_stanja(Request $request, $id)
+    {
+        $studentski=StudentskiRacun::findOrFail($id);
+        $validated=$request->validate([
+            'iznos'=>'required',
+        ]);
+
+        $studentski->stanje_racuna += $validated['iznos'];
+        $studentski->save();
+
+        return response()->json(['Uspesno izmenjeno  stanje racuna'],200);
     }
 }

@@ -109,9 +109,17 @@ class TekuciRacunController extends Controller
      * @param  \App\Models\TekuciRacun  $tekuciRacun
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TekuciRacun $tekuciRacun)
+    public function update(Request $request, $id)
     {
-        //
+        $tekuci=TekuciRacun::findOrFail($id);
+        $validate=$request->validate([
+            'iznos'=>'required',
+        ]);
+
+        $tekuci->stanje_racuna -= $validate['iznos'];
+        $tekuci->save();
+
+        return response()->json(['Uspesno izmenjeno  stanje racuna'],200);
     }
 
     /**
@@ -138,6 +146,19 @@ class TekuciRacunController extends Controller
         $tekuci->save();
 
         return response()->json(['poruka' => 'Stanje tekuceg racuna promenjeno!'],200);
+    }
+
+    public function promena_stanja(Request $request, $id)
+    {
+        $tekuci=TekuciRacun::findOrFail($id);
+        $validate=$request->validate([
+            'iznos'=>'required',
+        ]);
+
+        $tekuci->stanje_racuna += $validate['iznos'];
+        $tekuci->save();
+
+        return response()->json(['Uspesno izmenjeno stanje racuna'],200);
     }
    
 }
