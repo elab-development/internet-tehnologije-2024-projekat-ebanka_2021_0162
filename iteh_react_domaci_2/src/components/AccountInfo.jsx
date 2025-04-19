@@ -5,6 +5,7 @@ import '../css/AccountInfo.css';
 import {Link} from 'react-router-dom';
 import {BsPencilFill} from 'react-icons/bs';
 import ProfileImageUpload from './ProfileImageUpload';
+import { PulseLoader } from 'react-spinners';
 
 const AccountInfo = () => {
     const [info,setInfo]=useState({
@@ -22,7 +23,7 @@ const AccountInfo = () => {
 
     const [isClicked, setIsClicked]=useState(false);
     const [disabledFil, setDisabledFil]=useState(true);
-    
+    const [loading, setLoading]=useState(true);
 
     useEffect(()=>{
         let config = {
@@ -38,6 +39,7 @@ const AccountInfo = () => {
           axios.request(config)
           .then((response) => {
             setInfo(response.data.users);
+            setLoading(false)
           })
           .catch((error) => {
             console.log(error);
@@ -90,7 +92,18 @@ const AccountInfo = () => {
 
 
   return (
-    <div className="account-info-body">
+    <>
+    {loading===true ? <>
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", marginTop: '-5em' }}>
+            <PulseLoader
+              color="#9A616D"     
+              size={35}           
+              margin={8}          
+              speedMultiplier={0.5} 
+            />
+          </div>
+    </> : <>
+      <div className="account-info-body">
       
       <div className="container-image-edit">
 
@@ -122,6 +135,8 @@ const AccountInfo = () => {
     </div>
     
     </div>
+    </>}
+    </>
   )
 }
 

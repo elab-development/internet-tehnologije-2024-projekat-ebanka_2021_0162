@@ -4,6 +4,13 @@ import { Link } from 'react-router-dom';
 import {ImSwitch} from 'react-icons/im';
 import {MdPeopleAlt} from 'react-icons/md';
 import "../css/Navbar.css";
+import {GrTransaction} from 'react-icons/gr';
+import {FaMoneyCheck} from 'react-icons/fa6';
+import {IoCash} from 'react-icons/io5';
+import {FiLogIn} from 'react-icons/fi';
+import { HiCurrencyEuro } from "react-icons/hi2";
+
+
 
 const NavBar = ({login}) => {
 
@@ -22,7 +29,7 @@ const NavBar = ({login}) => {
             <div className={`${login === 1 ? "nav-items-logged-in" : "nav-items-logged-out"}`}>
               
                 { login !== 1 ? 
-                (<div className="nav-item-log-in"><a className="nav-link" href="/user/login">Login</a></div>) : 
+                (<div className="nav-item-log-in"><a className="nav-link" href="/user/login">Prijava  <FiLogIn style={{width:'1.5em',height:'1.5em'}}/></a></div>) : 
                 (<></>)}
             
             {login===1 ? (<></>) : (<div className="nav-item-kursna-lista ">
@@ -30,7 +37,7 @@ const NavBar = ({login}) => {
                 className="nav-link"
                 href="/kursna-lista"
               >
-                Kursna lista
+                Kursna lista   <HiCurrencyEuro style={{width:'1.5em',height:'1.5em'}}/>
               </a>
             </div>)}
 
@@ -42,7 +49,7 @@ const NavBar = ({login}) => {
           <div className="second-group-first-subgroup">
                 {login===1 ? (<div className="nav-item">
                   <Link to="user/home" className="nav-link" >
-                  Računi
+                  Računi  <FaMoneyCheck style={{width:'1.5em',height:'1.5em'}}/>
                   </Link>
                 </div>) : (<></> )}
 
@@ -51,7 +58,7 @@ const NavBar = ({login}) => {
 
                   <div className="nav-item">
                   <label type="button" className="nav-item" data-bs-toggle="dropdown" aria-expanded="false">
-                    Plaćanja
+                    Plaćanja   <IoCash style={{width:'1.5em',height:'1.5em'}}/>
                   </label>
                   <ul className="dropdown-menu">
                     <li><Link className="dropdown-item" to="user/new-transaction/interna-transakcija">Interno placanje</Link></li>
@@ -65,8 +72,9 @@ const NavBar = ({login}) => {
 
                 {login===1 ? (<div className="nav-item">
                   <Link to="user/menjacnica" className="nav-link" >
-                  Menjacnica
+                  Menjacnica  <GrTransaction style={{width:'1.5em',height:'1.5em'}}/>
                   </Link>
+                  
 
                 </div>) : (<></> )}
             </div>
@@ -74,13 +82,13 @@ const NavBar = ({login}) => {
               <div className="second-group-second-subgroup">
                   {login===1 ? (<div className="nav-item">
                     <Link to="user/detalji-naloga" className="nav-link" >
-                    <MdPeopleAlt style={{width: '1.4em', height: '1.4em'}}/>
+                    Detalji naloga  <MdPeopleAlt style={{width: '1.5em', height: '1.5em'}}/>
                     </Link>
                   </div>) : (<></> )}
                   <div className="nav-item">
                     {window.sessionStorage.getItem("user_auth_token")==null ? 
                     (<></>) : 
-                    (<a className="nav-link" href="/user/logout"><ImSwitch style={{ width: '1.4em', height: '1.4em'}}/></a>)}
+                    (<a className="nav-link" href="/user/logout">Odjava <ImSwitch style={{ width: '1.5em', height: '1.5em'}}/></a>)}
                   </div>
               </div>
         </div>

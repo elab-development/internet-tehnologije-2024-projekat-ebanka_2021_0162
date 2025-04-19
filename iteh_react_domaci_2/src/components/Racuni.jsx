@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import OneRacun from './OneRacun';
 import axios from 'axios';
 import '../css/AccountsCarousel.css';
+import { PulseLoader } from 'react-spinners';
 
 const Racuni = ({onAccountFocus}) => {
     const [racuni,setRacuni]=useState([]);
@@ -15,6 +16,8 @@ const Racuni = ({onAccountFocus}) => {
       if(onAccountFocus) 
         onAccountFocus(acc);
     }
+
+    const [loading, setLoading]=useState(true);
 
     useEffect(()=>{
         const fetchRacuni = async () => {
@@ -33,6 +36,7 @@ const Racuni = ({onAccountFocus}) => {
                 setRacuni(response.data.racuni);
                 response.data.racuni.length === 0 ? setZeroAccountsHook(true) :
                 handleAccountFocus(response.data.racuni[0]);
+                setLoading(false);
               })
               .catch((error) => {
                 console.log(error);
@@ -54,6 +58,17 @@ const Racuni = ({onAccountFocus}) => {
      })
 
   return (
+    <>
+   {loading===true ? <>
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", marginTop: '-5em' }}>
+      <PulseLoader
+        color="#9A616D"     
+        size={35}           
+        margin={8}          
+        speedMultiplier={0.5} 
+      />
+    </div>
+    </> : <>
     <div className="carousel-container">
       {!zeroAccountsHook && ( <><div className={`carousel-item-active two-col-container-layout ${isHovered ? "arrow_hovered_active" : "arrow_unhovered"}`}>{carouselItems[currentIndex]}</div>
       <div className="arrow" onMouseEnter={() => {setIsHovered(true)}} onMouseLeave={() => {setIsHovered(false)}} onClick={handleNext}>&#8594;</div>
@@ -63,6 +78,9 @@ const Racuni = ({onAccountFocus}) => {
         <h1>Nema računa za prikaz.</h1>
       </>)}
     </div>
+    
+    </>}
+    </>
   )
 }
 

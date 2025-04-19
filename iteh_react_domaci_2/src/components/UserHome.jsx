@@ -7,6 +7,7 @@ import { PiVaultBold } from "react-icons/pi";
 import TransactionDetails from './TransactionDetails';
 import PopUp from './PopUp';
 import {IoIosArrowDown, IoIosArrowUp} from 'react-icons/io';
+import { PulseLoader } from 'react-spinners';
 
 const UserHome = ({accountFocus, focusedAcc}) => {
     const navigate = useNavigate();
@@ -29,6 +30,8 @@ const UserHome = ({accountFocus, focusedAcc}) => {
     const [detailsAccount,setDetailsAccount]=useState();
 
     const [isExportEmpty, setIsExportEmpty] = useState(false);
+
+    const [loading, setLoading]=useState(true);
 
     const sortDataIznos=()=>{
       let newDataOrder=[...transactions].sort((a,b)=>{
@@ -152,6 +155,7 @@ const UserHome = ({accountFocus, focusedAcc}) => {
       axios.request(config)
       .then((response) => {
         setTransactions(response.data.transakcije);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -356,8 +360,17 @@ const UserHome = ({accountFocus, focusedAcc}) => {
           </div>
 
           <div className="data-container"> 
-
-            {tabFocused.tab2 && (<><div className="list-of-transactions-container">
+            {tabFocused.tab2 && loading===true ? <>
+              <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", marginTop: '-15em' }}>
+      <PulseLoader
+        color="#9A616D"     
+        size={35}           
+        margin={8}          
+        speedMultiplier={0.5} 
+      />
+    </div>
+            </> : <>
+              {tabFocused.tab2 && (<><div className="list-of-transactions-container">
               <div className="lista-trans-icon-headline">
                 <div><PiVaultBold style={{fontSize:'1.8em', marginBottom:'3px', color:'darkBlue'}} /></div>
                 <div><h2>Lista Transakcija Za {focusedAcc == null ? <></> : focusedAcc.tip} Račun:</h2></div>
@@ -400,6 +413,8 @@ const UserHome = ({accountFocus, focusedAcc}) => {
           </table>
           </>
             )}
+            </>}
+            
 
             {tabFocused.tab1 && (<>
               <div className="list-of-transactions-container">

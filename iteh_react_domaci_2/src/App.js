@@ -16,6 +16,7 @@ import ProfileImageUpload from './components/ProfileImageUpload';
 import NewTransaction from './components/NewTransaction';
 import Menjacnica from './components/Menjacnica';
 import MenjKupovinaProdaja from './components/MenjKupovinaProdaja';
+import Charts from './components/Charts';
 
 function App() {
 
@@ -51,6 +52,7 @@ function App() {
             <Route path="user/menjacnica" element={<Menjacnica />} />
             <Route path="user/menjacnica/buy" element={<MenjKupovinaProdaja action={"buy"}/>} />
             <Route path="user/menjacnica/sell" element={<MenjKupovinaProdaja action={"sell"}/>} />
+            <Route path="user/charts" element={<Charts focusedAcc={focusedAcc}/>}/>
           </Route>
           <Route path="/" element={<NavBar login={0}/>} >
             <Route path="user/login" element={<LogInPageUser handleLogInStatus={handleLogInStatus}/>}/>

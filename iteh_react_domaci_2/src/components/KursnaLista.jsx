@@ -3,10 +3,12 @@ import Valuta from './Valuta';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/KursnaLista.css';
+import { PulseLoader } from 'react-spinners';
 
 const KursnaLista = ({date, logout}) => {
   
   const [valute, setValute] = useState();
+  const [loading, setloading]=useState(true);
   
   useEffect( () => {
     const dateElements = date.split("-");
@@ -14,6 +16,7 @@ const KursnaLista = ({date, logout}) => {
       if(date == "today") {
         axios.get("http://127.0.0.1:8000/api/kursna-lista").then( (res) => {
           setValute(res.data.rates);
+          setloading(false);
         });
       } else {
         let config = {
@@ -28,6 +31,7 @@ const KursnaLista = ({date, logout}) => {
         axios.request(config)
         .then((res) => {
           setValute(res.data.rates);
+          setloading(false);
         })
         .catch((error) => {
           console.log(error);
@@ -38,8 +42,18 @@ const KursnaLista = ({date, logout}) => {
 
   return (
     <>
-      {logout==='yes' ? 
-      <div className="body-kurs">
+      {logout==='yes' ? <>
+      {loading===true ? <>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", marginTop: '-5em' }}>
+      <PulseLoader
+        color="#9A616D"     
+        size={35}           
+        margin={8}          
+        speedMultiplier={0.5} 
+      />
+    </div>
+      </> : <>
+        <div className="body-kurs">
         <table className="table table-hover">
         <thead>
           <tr>
@@ -58,9 +72,21 @@ const KursnaLista = ({date, logout}) => {
           }))}
         </tbody>
       </table>
-        </div> : 
+        </div>
+      </>}
+       </> : 
         <>
-        <table className="table table-hover" style={{
+        {loading===true ? <>
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", marginTop: '-5em' }}>
+      <PulseLoader
+        color="#9A616D"     
+        size={35}           
+        margin={8}          
+        speedMultiplier={0.5} 
+      />
+    </div>
+        </> : <>
+          <table className="table table-hover" style={{
   background: 'linear-gradient(189deg, rgba(237, 194, 213, 1) 0%, rgba(133, 186, 242, 1) 100%)'
 }}>
         <thead>
@@ -81,6 +107,9 @@ const KursnaLista = ({date, logout}) => {
         </tbody>
       </table>
         </>}
+        
+        </>}
+        
         </>
 
 
