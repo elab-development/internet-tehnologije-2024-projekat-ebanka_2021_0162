@@ -12,6 +12,7 @@ use App\Http\Controllers\StudentskiRacunController;
 use App\Http\Controllers\StedniRacunController;
 use App\Http\Controllers\DevizniRacunController;
 use App\Http\Controllers\TransactionsExportController;
+use App\Http\Controllers\GraphicDisplayController;
 use App\Http\Controllers\ProfilePhoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -70,6 +71,11 @@ Route::middleware(['auth:sanctum', 'isRegularUser'])->group( function() {
     Route::post("/korisnik/logout", [AuthController::class, "logout"]);
 
     Route::get("/korisnik/svi_ostali_racuni",[UserController::class,"ostali_racuni"]);
+
+    Route::post("/korisnik/total-amonut/month", [GraphicDisplayController::class, 'getDataMonth']);
+    Route::post("/korisnik/total-amonut/year", [GraphicDisplayController::class, 'getDataYear']);
+    Route::post("/korisnik/total-amonut/quarter", [GraphicDisplayController::class, 'getDataQuarter']);
+
 
 });
 
