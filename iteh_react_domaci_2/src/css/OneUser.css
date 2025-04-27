@@ -1,0 +1,60 @@
+.oneUser-container{
+    border: 1px solid #9A616D;
+    border-radius: 15px;
+    margin: 2em;
+    padding-bottom: 1em;
+    padding-top: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+    height: 85vh;
+    width: 45vw;
+    display: grid;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    background-color: white;
+    z-index: 1000;
+}
+
+.closed-btn{
+    background-color: #9A616D;
+    color: white;
+    border: 1px solid black;
+    border-radius: 15px;
+    width: 9em;
+    font-size: 20px;
+}
+
+
+.naslov{
+    border-bottom: 2px solid #357ABD;
+    color: #9A616D;
+}
+
+.second-user-container{
+    display: flex;
+    flex-direction: row;
+   gap: 3em;
+   justify-content: center;
+}
+
+.span1{
+    font-size: 24px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #357ABD;
+    cursor:pointer;
+    font-weight: 600;
+}
+
+.span2{
+    font-size: 24px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #357ABD;
+    cursor:pointer;
+    
+}
+
+.paragraf{
+    display: flex;
+        justify-content: space-between;
+}

@@ -9,8 +9,10 @@ import PopUp from './PopUp';
 const NewTransaction = ({focusedAcc, tip}) => {
 
     const[internalData, setInternalData]=useState();
-    
-
+    const[failedTransaction, setFailedTransaction]=useState(false);
+    let newInternalData=[];
+    const[loading, setLoading]=useState(true);
+  
         useEffect(()=>{
             let data = JSON.stringify(focusedAcc);
           
@@ -28,6 +30,7 @@ const NewTransaction = ({focusedAcc, tip}) => {
             axios.request(config)
             .then((response) => {
               setInternalData(response.data.racuni);
+              setLoading(false);
             })
             .catch((error) => {
               console.log(error);
@@ -35,19 +38,21 @@ const NewTransaction = ({focusedAcc, tip}) => {
           
         },[]);
           
-        let newInternalData=[];
+        
         if(internalData!=null){
             internalData.forEach((i,index)=>{
                 if(i.detalji.broj_racuna!==focusedAcc.detalji.broj_racuna){
                     newInternalData[index]=i;
                 }
             })
+           
         }
     
 
     const [datum, setDatum] = useState('');
     const [successfulTran, setSuccessfulTran]=useState(false);
     const messageText='Transakcija uspesno izvrsena!';
+    const failedTransactionMessage='Interne transakcije nije moguce izvrsiti';
     const navigate=useNavigate();
     
   useEffect(() => {
@@ -94,6 +99,16 @@ const NewTransaction = ({focusedAcc, tip}) => {
   };
 
 
+  useEffect(()=>{
+    if(loading===false && tip==='interna'){
+      if(newInternalData.length===0){
+        setFailedTransaction(true);
+      }
+    }
+  },[loading])
+
+
+
   function handleNewTransaction(e){
         e.preventDefault();
 
@@ -108,7 +123,7 @@ const NewTransaction = ({focusedAcc, tip}) => {
         let type;
 
         if(tip ==='interna'){
-        
+
             newInternalData.forEach((d, index)=>{
                 if(d.detalji.broj_racuna===transactionData.broj_racuna_primaoca){
                     id=d.detalji.id;
@@ -426,6 +441,7 @@ const NewTransaction = ({focusedAcc, tip}) => {
         <button type="submit" className="btn-transaction" onClick={(ex)=>{handleNewTransaction(ex)}}>Izvrši plaćanje</button>
         </form>
         {successfulTran && <PopUp closeMessageBox={closeMessageBox} messageText={messageText}/>}
+        {failedTransaction && <PopUp closeMessageBox={(closeMessageBox)} messageText={failedTransactionMessage}/>}
     </div>
   )
 }

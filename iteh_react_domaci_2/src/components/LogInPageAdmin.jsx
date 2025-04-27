@@ -48,7 +48,7 @@ const LogInPageAdmin = () => {
     }
 
   return (
-    <section className="vh-94" style={{ backgroundColor: "#9A616D", height: '94vh' }}>
+    <section className="vh-94" style={{ backgroundColor: "#ba919b", height: '94vh' }}>
   <div className="container py-5 h-100">
     <div className="row d-flex justify-content-center align-items-center h-100">
       <div className="col col-xl-10">

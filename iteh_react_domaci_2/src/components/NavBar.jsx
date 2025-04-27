@@ -16,7 +16,7 @@ const NavBar = ({login}) => {
 
   return (
     <>
-      <div className={`${login===1 ? "container-nav-logged-in" : "container-nav-logged-out"}`} >
+      <div className={`${(login===1 || login===2) ? "container-nav-logged-in" : "container-nav-logged-out"}`} >
 
         <div className={`${login === 1 ? "container-first-group-logged-in" : "container-first-group-logged-out"}`}>
             
@@ -26,13 +26,14 @@ const NavBar = ({login}) => {
               </a>
             </div>
 
-            <div className={`${login === 1 ? "nav-items-logged-in" : "nav-items-logged-out"}`}>
+            <div className={`${login === 1  ? "nav-items-logged-in" : "nav-items-logged-out"}`}>
               
-                { login !== 1 ? 
-                (<div className="nav-item-log-in"><a className="nav-link" href="/user/login">Prijava  <FiLogIn style={{width:'1.5em',height:'1.5em'}}/></a></div>) : 
+                { (login !== 1 && login !==2) ? 
+                (<div className="nav-item-log-in"><a className="nav-link" href="/user/login">Prijava korisnika <FiLogIn style={{width:'1.5em',height:'1.5em'}}/></a></div>) : 
                 (<></>)}
+                
             
-            {login===1 ? (<></>) : (<div className="nav-item-kursna-lista ">
+            {login===1  ? (<></>) : (<div className="nav-item-kursna-lista ">
               <a
                 className="nav-link"
                 href="/kursna-lista"
@@ -45,7 +46,8 @@ const NavBar = ({login}) => {
 
         </div>
 
-        <div className={`${login === 1 ? "container-second-group-logged-in" : "container-second-group-logged-out"}`}>
+      
+        <div className={`${(login === 1 || login===2) ? "container-second-group-logged-in" : "container-second-group-logged-out"}`}>
           <div className="second-group-first-subgroup">
                 {login===1 ? (<div className="nav-item">
                   <Link to="user/home" className="nav-link" >
@@ -84,15 +86,20 @@ const NavBar = ({login}) => {
                     <Link to="user/detalji-naloga" className="nav-link" >
                     Detalji naloga  <MdPeopleAlt style={{width: '1.5em', height: '1.5em'}}/>
                     </Link>
-                  </div>) : (<></> )}
+                  </div>) : (<>{login===2 ? <div className="nav-item">
+                    <Link to="admin/detalji-naloga" className="nav-link" >
+                    Detalji naloga  <MdPeopleAlt style={{width: '1.5em', height: '1.5em'}}/>
+                    </Link>
+                  </div> : <></>}</>)}
                   <div className="nav-item">
                     {window.sessionStorage.getItem("user_auth_token")==null ? 
-                    (<></>) : 
+                    (<>{window.sessionStorage.getItem("admin_auth_token")==null ? <></> : (<a className="nav-link" href="/admin/logout">Odjava <ImSwitch style={{ width: '1.5em', height: '1.5em'}}/></a>)}</>) : 
                     (<a className="nav-link" href="/user/logout">Odjava <ImSwitch style={{ width: '1.5em', height: '1.5em'}}/></a>)}
                   </div>
               </div>
+
         </div>
-      
+        
       </div>
 
       <Outlet/>

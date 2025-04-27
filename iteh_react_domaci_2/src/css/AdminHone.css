@@ -1,0 +1,64 @@
+.korisnici-container{
+    width: 80vw;
+    height: 30vh;
+    border: 2px solid black;
+    border-radius: 15px;
+   margin-top: 3em;
+   margin-bottom: 3em;
+   /* background-color: #B1E9FD;*/
+   background: #5aa8d8; 
+  background: -webkit-linear-gradient(to right, #FFFFFF, #6DD5FA, #5aa8d8);  
+  background: linear-gradient(to right, #FFFFFF, #6DD5FA, #5aa8d8);
+
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    flex-direction: column;
+    gap: 2em;
+}
+
+
+.telo-admina{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.first-column{
+    margin-left: -13em;
+    display: grid;
+    justify-content: center;
+}
+
+
+.second-column{
+    display: grid;
+    justify-content: center; 
+    margin-top: 3em;   
+}
+
+.first-column-text{
+    font-size: 26px;
+    padding-top: 2em;
+    
+    color: #9A616D;
+    font-weight: 650;
+    
+}
+
+
+.btn-link{
+    border: 2px solid white;
+    border-radius: 30px;
+    width: 140%;
+    height: 50%;
+    background-color: #9A616D;
+    font-size: 22px;
+    color: white;
+    text-decoration: none;
+}
+
+.btn-link:hover{
+    color: white;
+    box-shadow: 10px 10px 25px #9A616D;
+}

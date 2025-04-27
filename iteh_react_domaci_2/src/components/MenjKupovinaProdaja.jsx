@@ -2,6 +2,7 @@ import React from 'react'
 import {useState, useEffect } from 'react';
 import "../css/MenjKupovinaProdaja.css";
 import axios from 'axios';
+import { PulseLoader } from 'react-spinners';
 
 const MenjKupovinaProdaja = ({action}) => {
   const [toBuy, setToBuy] = useState(null);
@@ -20,6 +21,7 @@ const MenjKupovinaProdaja = ({action}) => {
   });
 
   const [iznos, setIznos] = useState("");
+  const[loading, setLoading]=useState(true);
   
   useEffect( () => {
     let config = {
@@ -45,6 +47,7 @@ const MenjKupovinaProdaja = ({action}) => {
 
       setDevizniRacuni(devizni_niz);
       setTekuciRacuni(tekuci_niz);
+      setLoading(false);
     })
     .catch( (e) => {
       console.log("Nastala je greska: " + e);
@@ -265,7 +268,17 @@ const MenjKupovinaProdaja = ({action}) => {
            <div><span style={{fontSize: '1.4em', fontWeight: '400'}}>Sa računa:</span></div>
            
            <div>
-             {tekuciRacuni == null ? <></> : tekuciRacuni.length === 0 ?
+            {loading===true ? <>
+               <div >
+                <PulseLoader
+                  color="#9A616D"     
+                  size={35}           
+                  margin={8}          
+                  speedMultiplier={0.5} 
+                />
+              </div>
+            </> : <>
+              {tekuciRacuni == null ? <></> : tekuciRacuni.length === 0 ?
              <h3> Nema tekućih računa</h3> :
              <select defaultValue="" onChange={(e)=>{handleSaRacuna(e)}} name="combo-sa-racuna-tekuci" className="combo-menjacnica">
                  <option value="" disabled>Izaberite račun</option>
@@ -279,6 +292,8 @@ const MenjKupovinaProdaja = ({action}) => {
                }
              </select>
              }
+            </>}
+             
            </div>
 
          </div>
@@ -288,7 +303,17 @@ const MenjKupovinaProdaja = ({action}) => {
            <div><span style={{fontSize: '1.4em', fontWeight: '400'}}>Na račun:</span></div>
            
            <div>
-             { devizniRacuni == null ? <></> : devizniRacuni.length === 0 ?
+            {loading===true ? <>
+              <div >
+                <PulseLoader
+                  color="#9A616D"     
+                  size={35}           
+                  margin={8}          
+                  speedMultiplier={0.5} 
+                />
+              </div>
+            </> : <>
+              { devizniRacuni == null ? <></> : devizniRacuni.length === 0 ?
               <h3> Nema deviznih računa</h3> :
              <select defaultValue="" onChange={(e)=>{handleNaRacun(e)}} name="combo-na-racun-devizni" className="combo-menjacnica">
                  <option value="" disabled>Izaberite račun</option>
@@ -302,6 +327,8 @@ const MenjKupovinaProdaja = ({action}) => {
                }
              </select>
              }
+            </>}
+             
            </div>
 
          </div>
@@ -334,7 +361,17 @@ const MenjKupovinaProdaja = ({action}) => {
             <div><span style={{fontSize: '1.4em', fontWeight: '400'}}>Sa računa:</span></div>
             
             <div>
-              {devizniRacuni == null ? <></> : devizniRacuni.length === 0 ?
+              {loading===true ? <>
+                <div >
+                <PulseLoader
+                  color="#9A616D"     
+                  size={35}           
+                  margin={8}          
+                  speedMultiplier={0.5} 
+                />
+              </div>
+              </> : <>
+                {devizniRacuni == null ? <></> : devizniRacuni.length === 0 ?
               <h3> Nema deviznih računa</h3> :
               <select defaultValue="" onChange={(e)=>{handleSaRacuna(e)}} name="combo-sa-racuna-devizni" className="combo-menjacnica">
                   <option value="" disabled>Izaberite račun</option>
@@ -348,6 +385,8 @@ const MenjKupovinaProdaja = ({action}) => {
                 }
               </select>
               }
+              </>}
+              
             </div>
 
           </div>
@@ -357,6 +396,16 @@ const MenjKupovinaProdaja = ({action}) => {
             <div><span style={{fontSize: '1.4em', fontWeight: '400'}}>Na račun:</span></div>
             
             <div>
+              {loading===true ? <>
+                <div >
+                <PulseLoader
+                  color="#9A616D"     
+                  size={35}           
+                  margin={8}          
+                  speedMultiplier={0.5} 
+                />
+              </div>
+              </> : <>
               { tekuciRacuni == null ? <></> : tekuciRacuni.length === 0 ?
                <h3> Nema tekućih računa</h3> :
               <select defaultValue="" onChange={(e)=>{handleNaRacun(e)}} name="combo-na-racun-tekuci" className="combo-menjacnica">
@@ -371,6 +420,8 @@ const MenjKupovinaProdaja = ({action}) => {
                 }
               </select>
               }
+              </>}
+              
             </div>
 
           </div>
