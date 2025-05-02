@@ -104,7 +104,7 @@ background: linear-gradient(135deg, #E7E9BB, #A2E3D9);*/
     height: 8em;
     border: 1px solid #4A90E2;
     margin-right: 2em;
-    background-image: url("../../slike/placeholder.jpg");
+    background-image: url("../slike/placeholder.jpg");
     background-size: 100% 100%;
   }
 

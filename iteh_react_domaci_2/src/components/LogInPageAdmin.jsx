@@ -2,6 +2,9 @@ import React, {useEffect} from 'react'
 import { useState } from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import '../css/LogInPageUser.css';
+import adminLogInImage from '../slike/admin_login.jpeg';
 
 const LogInPageAdmin = () => {
     const navigate = useNavigate();
@@ -15,7 +18,8 @@ const LogInPageAdmin = () => {
             navigate("/admin/home");
         else if(user != null)
             navigate('/user/home');
-        
+
+        window.sessionStorage.removeItem("type");
     }, [navigate]);
 
     const [adminData, setAdminData] = useState({
@@ -54,12 +58,12 @@ const LogInPageAdmin = () => {
       <div className="col col-xl-10">
         <div className="card" style={{ borderRadius: "1rem" }}>
           <div className="row g-0">
-            <div className="col-md-6 col-lg-5 d-none d-md-block">
+            <div className="col-md-6 col-lg-5 d-none d-md-block" style={{height: '70vh'}}>
               <img
-                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
+                src={adminLogInImage}
                 alt="login form"
                 className="img-fluid"
-                style={{ borderRadius: "1rem 0 0 1rem" }}
+                style={{ borderRadius: "1rem 0 0 1rem", width: '100%', height:'100%' }}
               />
             </div>
             <div className="col-md-6 col-lg-7 d-flex align-items-center">
@@ -69,7 +73,7 @@ const LogInPageAdmin = () => {
                     className="fw-normal mb-3 pb-3"
                     style={{ letterSpacing: 1 }}
                   >
-                    Dobrodošli na prijavu admina
+                    Dobrodošli na administrativnu prijavu
                   </h5>
                   <div data-mdb-input-init="" className="form-outline mb-4">
                     <input onInput={handleInput}
@@ -103,6 +107,12 @@ const LogInPageAdmin = () => {
                       Prijava
                     </button>
                   </div><br/>
+
+                  <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>
+                    <Link to="/user/login" className="user-login-link" style={{ color: "#393f81", textDecoration:'none' }}>
+                    Korisnička prijava
+                    </Link>
+                  </p>
                 </form>
               </div>
             </div>

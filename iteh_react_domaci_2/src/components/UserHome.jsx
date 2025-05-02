@@ -43,8 +43,7 @@ const UserHome = ({accountFocus, focusedAcc}) => {
       });
     
       setSortiraniNiz(newDataOrder);
-      setSortOrderIznos(sortOrderIznos==='asc' ? 'desc' : 'asc');
-      
+      setSortOrderIznos(sortOrderIznos==='asc' ? 'desc' : 'asc'); 
     }
 
     const sortDataDatum=()=>{
@@ -63,6 +62,9 @@ const UserHome = ({accountFocus, focusedAcc}) => {
 
 
     function handleTabFocus(tab){
+      if(focusedAcc == null)
+        return;
+      
       if(showDetails) {
         setShowDetails(false);
         setSelectedTransaction(null);
@@ -163,7 +165,6 @@ const UserHome = ({accountFocus, focusedAcc}) => {
 
     }
     
-
     function getAccountDetails(account){
       let config;
       
@@ -362,13 +363,13 @@ const UserHome = ({accountFocus, focusedAcc}) => {
           <div className="data-container"> 
             {tabFocused.tab2 && loading===true ? <>
               <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", marginTop: '-15em' }}>
-      <PulseLoader
-        color="#9A616D"     
-        size={35}           
-        margin={8}          
-        speedMultiplier={0.5} 
-      />
-    </div>
+            <PulseLoader
+              color="#9A616D"     
+              size={35}           
+              margin={8}          
+              speedMultiplier={0.5} 
+            />
+            </div>
             </> : <>
               {tabFocused.tab2 && (<><div className="list-of-transactions-container">
               <div className="lista-trans-icon-headline">

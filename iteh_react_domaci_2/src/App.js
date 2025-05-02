@@ -17,6 +17,8 @@ import NewTransaction from './components/NewTransaction';
 import Menjacnica from './components/Menjacnica';
 import MenjKupovinaProdaja from './components/MenjKupovinaProdaja';
 import Charts from './components/Charts';
+import AllUsers from './components/AllUsers';
+import CreateNewUser from './components/CreateNewUser';
 
 function App() {
 
@@ -44,27 +46,31 @@ function App() {
 
           <Route path="/" element={<NavBar login={1}/>}>
             <Route path="user/home" element={<UserHome accountFocus={handleAccountFocus} focusedAcc={focusedAcc}/> }/>
+            <Route path="user/logout" element={<UserLogout handleLogInStatus={handleLogInStatus}/>} />
             <Route path="user/detalji-naloga" element={<AccountInfo/>}/>
-            <Route path="user/upolad-photo" element={<ProfileImageUpload/>}/>
+            <Route path="user/upload-photo" element={<ProfileImageUpload/>}/>
             <Route path="user/new-transaction/interna-transakcija" element={<NewTransaction focusedAcc={focusedAcc} tip={'interna'}/>}/>
             <Route path="user/new-transaction/eksterna-transakcija" element={<NewTransaction focusedAcc={focusedAcc} tip={'eksterna'}/>}/>
-            <Route path="unauthorised_access" element={ <UnauthorisedAccessPage /> } />
             <Route path="user/menjacnica" element={<Menjacnica />} />
             <Route path="user/menjacnica/buy" element={<MenjKupovinaProdaja action={"buy"}/>} />
             <Route path="user/menjacnica/sell" element={<MenjKupovinaProdaja action={"sell"}/>} />
             <Route path="user/charts" element={<Charts focusedAcc={focusedAcc}/>}/>
           </Route>
+
+          <Route path="/" element={<NavBar login={2}/>}>
+            <Route path="admin/svi-korisnici" element={<AllUsers/>} />
+            <Route path="admin/home" element={<AdminHome /> } />
+            <Route path="admin/logout" element={<AdminLogout/>} />
+            <Route path="admin/kursna-lista" element={<KursnaLista date={"today"}  />} />
+            <Route path="admin/kreiraj-korisnika" element={<CreateNewUser />} />
+          </Route>
+
           <Route path="/" element={<NavBar login={0}/>} >
             <Route path="user/login" element={<LogInPageUser handleLogInStatus={handleLogInStatus}/>}/>
             <Route path="user/register" element={<RegisterPageUser/>} />
-            <Route path="user/logout" element={<UserLogout handleLogInStatus={handleLogInStatus}/>} />
             <Route path="kursna-lista" element={<KursnaLista date={"today"} logout={"yes"}/>}/>
-            <Route path="admin/home" element={<AdminHome /> } />
             <Route path="admin/login" element={<LogInPageAdmin/>} />
-            <Route path="admin/logout" element={<AdminLogout />} />
-            <Route path="unauthorised_access" element={ <UnauthorisedAccessPage /> } />
           </Route>
-
 
           <Route path="*" element={<div>404 Not Found</div>} /> {/* Fallback ruta */}
           

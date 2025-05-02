@@ -9,8 +9,8 @@ import {FaMoneyCheck} from 'react-icons/fa6';
 import {IoCash} from 'react-icons/io5';
 import {FiLogIn} from 'react-icons/fi';
 import { HiCurrencyEuro } from "react-icons/hi2";
-
-
+import { MdHome } from 'react-icons/md';
+import { MdLogin } from 'react-icons/md';
 
 const NavBar = ({login}) => {
 
@@ -28,24 +28,73 @@ const NavBar = ({login}) => {
 
             <div className={`${login === 1  ? "nav-items-logged-in" : "nav-items-logged-out"}`}>
               
-                { (login !== 1 && login !==2) ? 
-                (<div className="nav-item-log-in"><a className="nav-link" href="/user/login">Prijava korisnika <FiLogIn style={{width:'1.5em',height:'1.5em'}}/></a></div>) : 
-                (<></>)}
-                
-            
-            {login===1  ? (<></>) : (<div className="nav-item-kursna-lista ">
+            {login === 0 && window.sessionStorage.getItem("type") != null ? 
+            (<>
+              <div className="nav-item-kursna-lista ">
+                <a
+                  className="nav-link"
+                  href="/kursna-lista"
+                >
+                  Kursna lista   <HiCurrencyEuro style={{width:'1.5em',height:'1.5em'}}/>
+                </a>
+
+            </div>
+
+            <div className="nav-item-kursna-lista">
+            <a
+                  className="nav-link"
+                  href="/user/login"
+                >
+                  Prijava <MdLogin size={28} />
+                </a>
+
+              </div>
+            </>) : (window.sessionStorage.getItem("admin_auth_token") !== null ?
+            <>
+             <div className="nav-item-kursna-lista ">
+                <a
+                  className="nav-link"
+                  href="/admin/home"
+                >
+                  Administracija <MdHome size={27}/>
+                </a>
+              </div> 
+             <div className="nav-item-kursna-lista ">
+                <a
+                  className="nav-link"
+                  href="/kursna-lista"
+                >
+                  Kursna lista   <HiCurrencyEuro style={{width:'1.5em',height:'1.5em'}}/>
+                </a>
+              </div> 
+            </>
+            : 
+          <>
+            <div className="nav-item-kursna-lista ">
               <a
                 className="nav-link"
                 href="/kursna-lista"
               >
                 Kursna lista   <HiCurrencyEuro style={{width:'1.5em',height:'1.5em'}}/>
               </a>
-            </div>)}
+
+           </div>
+
+           <div className="nav-item-kursna-lista">
+           <a
+                className="nav-link"
+                href="/admin/login"
+              >
+                Prijava <MdLogin size={28} />
+              </a>
+
+            </div>
+          
+          </>)}
 
             </div>
 
         </div>
-
       
         <div className={`${(login === 1 || login===2) ? "container-second-group-logged-in" : "container-second-group-logged-out"}`}>
           <div className="second-group-first-subgroup">
@@ -67,7 +116,6 @@ const NavBar = ({login}) => {
                     <li><Link className="dropdown-item" to="user/new-transaction/eksterna-transakcija">Eksterno plaćanje</Link></li>
                   </ul>
                   </div>
-
                   </Link>
 
                 </div>) : (<></> )}
@@ -76,8 +124,6 @@ const NavBar = ({login}) => {
                   <Link to="user/menjacnica" className="nav-link" >
                   Menjacnica  <GrTransaction style={{width:'1.5em',height:'1.5em'}}/>
                   </Link>
-                  
-
                 </div>) : (<></> )}
             </div>
 
@@ -86,7 +132,7 @@ const NavBar = ({login}) => {
                     <Link to="user/detalji-naloga" className="nav-link" >
                     Detalji naloga  <MdPeopleAlt style={{width: '1.5em', height: '1.5em'}}/>
                     </Link>
-                  </div>) : (<>{login===2 ? <div className="nav-item">
+                  </div>) : (<>{login===2 && window.sessionStorage.getItem("admin_auth_token") !== null ? <div className="nav-item">
                     <Link to="admin/detalji-naloga" className="nav-link" >
                     Detalji naloga  <MdPeopleAlt style={{width: '1.5em', height: '1.5em'}}/>
                     </Link>

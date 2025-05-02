@@ -26,7 +26,7 @@ const AdminHome = () => {
             </div>
             <div className='second-column'>
             <Link to="/admin/svi-korisnici" ><button className="btn-link">Prikaz svih korisnika</button></Link>
-            <Link to="/admin/novi-korisnik" ><button className="btn-link">Kreiranje novog korisnika</button></Link>
+            <Link to="/admin/kreiraj-korisnika" ><button className="btn-link">Kreiranje novog korisnika</button></Link>
             </div>
 
             

@@ -18,10 +18,8 @@ const AllUsers = () => {
             maxBodyLength: Infinity,
             url: 'http://127.0.0.1:8000/api/admin/korisnici',
             headers: { 
-              'Authorization': 'Bearer '+window.sessionStorage.getItem('admin_auth_token'), 
-              
+              'Authorization': 'Bearer ' + window.sessionStorage.getItem('admin_auth_token'),   
             },
-           
           };
           
           axios.request(config)
@@ -35,17 +33,14 @@ const AllUsers = () => {
     },[]);
 
     const handleUserDetails=async(user_id)=>{
-      
-      document.querySelector("body").classList.add("zakljucan-background");
-
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://127.0.0.1:8000/api/admin/korisnici/${user_id}`,
+            url: `http://127.0.0.1:8000/api/admin/korisnik/${user_id}`,
             headers: { 
-              'Authorization': 'Bearer '+window.sessionStorage.getItem('admin_auth_token'), 
+              'Authorization': 'Bearer ' + window.sessionStorage.getItem('admin_auth_token'), 
             },
-          };
+        };
           
           axios.request(config)
           .then((response) => {

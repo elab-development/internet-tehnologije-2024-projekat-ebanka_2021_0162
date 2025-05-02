@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import { useState } from 'react'
 import axios from 'axios';
 import {BrowserRouter, Router, Routes, Route, Link, useNavigate} from 'react-router-dom';
+import '../css/LogInPageUser.css';
 
 const LoginPageUser = ({handleLogInStatus}) => {
     const navigate = useNavigate();
@@ -21,6 +22,7 @@ const LoginPageUser = ({handleLogInStatus}) => {
       else if(admin != null)
         navigate('/admin/home');
 
+      window.sessionStorage.setItem("type", "user");
     }, [navigate]);
 
     const [userData, setUserData] = useState({
@@ -111,14 +113,13 @@ const LoginPageUser = ({handleLogInStatus}) => {
                   </div> <br/>
                   
                   <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>
-                    Još uvek nemate nalog?
-                    <Link to="/user/register" style={{ color: "#393f81" }}>
-                    
-                      Registrujte se
-                     
+                    <Link to="/user/register" className="user-login-link" style={{ color: "#393f81", textDecoration:'none' }}>
+                      Registrujte se ovde
+                    </Link> <br></br>
+                    <Link to="/admin/login" className="user-login-link" style={{ color: "#393f81", textDecoration:'none' }}>
+                    Administrativna prijava
                     </Link>
                   </p>
-
 
                 </form>
               </div>
