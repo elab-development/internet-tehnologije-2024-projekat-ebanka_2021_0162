@@ -114,9 +114,6 @@ class BankController extends Controller
 
         // Vrati odgovor sa uspehom
         return response()->json(['poruka' => 'Banka promenjena!'],200);
-
-        //$banka->update($request->all());
-        //return response()->json($banka); // Vraća ažuriranu banku kao JSON
     }
 
     /**
@@ -131,5 +128,4 @@ class BankController extends Controller
         $banka->delete();
         return response()->json(['message'=>'Uspesno obrisano'],200); // Vraća prazan odgovor nakon brisanja banke
     }
-
 }

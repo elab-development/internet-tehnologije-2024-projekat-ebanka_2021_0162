@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Transakcija;
 use Illuminate\Http\Request;
 use App\Models\Racun;
+use App\Models\StudentskiRacun;
+use App\Models\DevizniRacun;
+use App\Models\StedniRacun;
+use App\Models\TekuciRacun;
+
 use App\Http\Resources\TransakcijaCollection;
 use App\Http\Resources\TransakcijaResource;
 
@@ -106,10 +111,39 @@ class TransakcijaController extends Controller
      * @param  \App\Models\Transakcija  $transakcija
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Transakcija $transakcija)
-    {
-        //
-    }
+    public function destroy(Request $request)
+    {   
+        $array = $request->input('acc_id');
+
+        foreach($array as $elem) {
+            $racun = Racun::find($elem);
+
+            switch($racun->type) {
+                case 'tekuci':
+                    TekuciRacun::where('id', $racun->id_podtipa)->delete();
+                    break;
+                case 'studentski':
+                    StudentskiRacun::where('id', $racun->id_podtipa)->delete();
+                    break;
+                case 'stedni':
+                    StedniRacun::where('id', $racun->id_podtipa)->delete();
+                    break;
+                case 'devizni':
+                    DevizniRacun::where('id', $racun->id_podtipa)->delete();
+                    break;
+                default:
+                    return "Nepoznat tip racuna!";
+            }
+            $racun->delete();
+        }
+
+        // brisanje svih transakcija svakog racuna koji je prosledjen
+        foreach($array as $elem) {
+            Transakcija::where('racun_id', $elem)->delete();
+        }
+     
+    return response()->json(["message" => "Svi zahtevani racuni su obrisani. Sve transakcije datih racuna su obrisane."]);
+}
 
     public function prikaz_transakcija($racun_id){
         $racun=Racun::findOrFail($racun_id);

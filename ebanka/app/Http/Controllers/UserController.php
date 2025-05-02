@@ -50,15 +50,15 @@ class UserController extends Controller
         $validated = $request->validate([
             'ime' => 'required|string|max:50',
             'prezime' => 'required|string|max:50',
-            'datum_rođenja' => 'required|date',
+            'email' => 'required|string',
+            'password' => 'required|string|min:8',
+            'drzava' => 'required|string',
+            'grad'=>'required|string',
+            'broj_licne_karte' => 'required|string|size:9',
+            'maticni_broj'=>'required|string|size:13',
+            'broj_telefona'=>'required|string|size:10',
             'adresa' => 'required|string',
-            'grad' => 'required|string',
-            'maticni_broj' => 'required|string|size:13',
-            'broj_licne_karte'=>'required|string|regex:/^\d{3}-\d{2}-\d{4}$/',
-            'email' => 'required|string|max:255',
-            'broj_telefona'=>'required|string|regex:/^\d{3}-\d{3} \d{4}$/',
-            'drzava'=>'required|string|max:255',
-            'password' => 'required|string|min:8'
+            'datum_rođenja' => 'required|date'
         ]);
 
         $korisnik = User::create([
@@ -70,8 +70,8 @@ class UserController extends Controller
             'maticni_broj' => $validated['maticni_broj'],
             'broj_licne_karte'=>$validated['broj_licne_karte'],
             'email' => $validated['email'],
-            'broj_telefona'=>$validate['broj_telefona'],
-            'drzava'=>$validate['drzava'],
+            'broj_telefona'=>$validated['broj_telefona'],
+            'drzava'=>$validated['drzava'],
             'password' => Hash::make($validated['password']),
             'remember_token' => Str::random(10),  // Generisanje random tokena
             'email_verified_at' => null,  // Početno postavljamo kao null dok ne verifikujemo email
@@ -133,6 +133,55 @@ class UserController extends Controller
         return response()->json(['poruka'=>'Uspesno izmenjen korisnik!','korisnik'=>new UserResource($korisnik)]);
     }
 
+    public function updateAdmin(Request $request, $korisnik_id)
+    {
+        $korisnik = User::find($korisnik_id);
+
+        $validated = $request->validate([
+            'adresa' => 'required|string',
+            'grad' => 'required|string',
+            'drzava' => 'required|string',
+            'email' => 'required|string|max:255',
+            'password' => 'required|string|min:8',
+            'ime' => 'required|string',
+            'prezime' => 'required|string',
+            'datum_rođenja' => 'required|date',
+            'maticni_broj' => 'required|string|size:13',
+            'broj_licne_karte' => 'required|string|size:9',
+            'broj_telefona'=>'required|string|size:10',
+        ]);
+        
+        
+        if(isset($validated['adresa']) ) 
+            $korisnik->adresa = $validated['adresa'];
+        if(isset($validated['grad'])) 
+            $korisnik->grad = $validated['grad'];
+        if(isset($validated['email']))
+            $korisnik->email = $validated['email'];
+        if(isset($validated['password']) ) 
+            $korisnik->password = Hash::make($validated['password']);
+        if(isset($validated['drzava'])) 
+            $korisnik->drzava = $validated['drzava'];
+        if(isset($validated['broj_licne_karte']))
+            $korisnik->broj_licne_karte = $validated['broj_licne_karte'];
+        if(isset($validated['broj_telefona']) ) 
+            $korisnik->broj_telefona = $validated['broj_telefona'];
+        if(isset($validated['ime'])) 
+            $korisnik->ime = $validated['ime'];
+        if(isset($validated['prezime']))
+            $korisnik->prezime = $validated['prezime'];
+        if(isset($validated['maticni_broj']) ) 
+            $korisnik->maticni_broj = $validated['maticni_broj'];
+        if(isset($validated['datum_rođenja']) ) 
+            $korisnik->datum_rođenja = $validated['datum_rođenja'];
+        
+
+        $korisnik->save();
+
+        return response()->json(['poruka'=>'Uspesno izmenjen korisnik!','korisnik'=>new UserResource($korisnik)]);
+    }
+
+
     /**
      * Remove the specified resource from storage.
      *
@@ -148,10 +197,16 @@ class UserController extends Controller
 
 
 
-    public function prikazi_racune() {
-        $korisnik = Auth::user();
-        $racuni = $korisnik->racun;
-        return new RacunCollection($racuni);
+    public function prikazi_racune($korisnik_id="") {
+        if($korisnik_id == "") {
+            $korisnik = Auth::user();
+            $racuni = $korisnik->racun;
+            return new RacunCollection($racuni);
+        } else {
+            $korisnik = User::findOrFail($korisnik_id);
+            $racuni = $korisnik->racun;
+            return new RacunCollection($racuni);
+        }
     }
 
 

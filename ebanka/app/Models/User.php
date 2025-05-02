@@ -52,6 +52,5 @@ class User extends Authenticatable
 
     public function racun(){
         return $this->hasMany(Racun::class);
-        //return $this->belongsTo(Racun::class);
     }
 }
