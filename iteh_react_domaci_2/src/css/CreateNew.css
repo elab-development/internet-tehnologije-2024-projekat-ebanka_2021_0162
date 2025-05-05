@@ -15,6 +15,18 @@ body {
     box-shadow: 5px 5px 3px gray;
 }
 
+.main-container-create-new-bank{
+    display: flex;
+    flex-wrap: wrap;
+    width: 65vw;
+    height: 75vh;
+    background-color: #99ddff;
+    margin: 1.5em auto;
+    border-radius: 1em;
+    border : 1px solid #000;
+    box-shadow: 5px 5px 3px gray;
+}
+
 .title-container-create-new-user {
     display: flex;
     justify-content: center;
@@ -71,6 +83,15 @@ body {
     width: 100%;
 }
 
+.single-input-container-create-new-bank {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    width: 100%;
+}
+
 .single-input-container-create-new-user > label {
     margin-bottom: .4em;
 }
@@ -84,9 +105,29 @@ body {
     width: 50%;
 }
 
+.input-create-new-bank {
+    border-radius: 1em;
+    border : 1px solid #000;
+    outline: none;
+    text-align: center;
+    font-size: 1.2em;
+    width: 50%;
+    height: 3em;
+}
+
 .country-select-create-new-user {
     font-size: 1.2em;
     width: 60%;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+
+.city-select-create-new-bank {
+    font-size: 1.2em;
+    width: 60%;
+    height: 2em;
     outline: none;
     cursor: pointer;
     text-align: center;

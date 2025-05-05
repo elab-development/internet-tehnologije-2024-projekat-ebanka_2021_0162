@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { SlPeople } from 'react-icons/sl';
 import '../css/AdminHone.css';
+import { BsBank } from 'react-icons/bs';
 
 const AdminHome = () => {
     const navigate = useNavigate();
@@ -25,11 +26,19 @@ const AdminHome = () => {
                 <SlPeople style={{width:'5em',height:'5em', color:'blue'}}/>
             </div>
             <div className='second-column'>
-            <Link to="/admin/svi-korisnici" ><button className="btn-link">Prikaz svih korisnika</button></Link>
-            <Link to="/admin/kreiraj-korisnika" ><button className="btn-link">Kreiranje novog korisnika</button></Link>
+            <Link to="/admin/svi-korisnici" ><button className="btn-link-u">Prikaz svih korisnika</button></Link>
+            <Link to="/admin/kreiraj-korisnika" ><button className="btn-link-u">Kreiranje novog korisnika</button></Link>
             </div>
-
-            
+        </div>
+        <div className="banke-kontainer">
+            <div className="first-column">
+                <p className="first-column-text">BANKE</p>
+                <BsBank style={{width:'5em',height:'5em', color:'blue'}}/>
+            </div>
+            <div className="second-column">
+                <Link to="/admin/sve-banke"><button className="btn-link-b">Prikaz svih banaka</button></Link>
+                <Link to="/admin/kreiranje-banke"><button className="btn-link-b">Kreiranje nove banke</button></Link>
+            </div>
         </div>
         
         <Link to="/admin/logout">Odjavite se</Link>

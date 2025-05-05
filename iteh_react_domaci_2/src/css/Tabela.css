@@ -1,13 +1,25 @@
 
-
-.tabela-kontejner {
+.tabela-kontejner-user {
     overflow-x: hidden;
-    width: 99vw;
-    border: 1px solid black;
-    border-radius: 15px;
-    margin-left: 5px;
-    margin-right: 5px;
+    width: 80vw;
+    border: 2px solid black;
+    border-radius: 20px;
+    margin-left: 11em;
+    margin-top: 5em;
     display: flex;
+    background-color: white !important;
+   }
+
+
+   .tabela-kontejner-banka{
+    overflow-x: hidden;
+    width: 80vw;
+    border: 2px solid black;
+    border-radius: 20px;
+    margin-left: 13em;
+    margin-top: 5em;
+    display: flex;
+    background-color: white !important;
    }
   
   .user-tabela {
@@ -16,6 +28,8 @@
    justify-content: center;
    align-items: center;
   }
+
+
   
   .red {
     border: 1px solid #ccc; 

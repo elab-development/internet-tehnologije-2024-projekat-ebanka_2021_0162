@@ -17,8 +17,9 @@ import NewTransaction from './components/NewTransaction';
 import Menjacnica from './components/Menjacnica';
 import MenjKupovinaProdaja from './components/MenjKupovinaProdaja';
 import Charts from './components/Charts';
-import AllUsers from './components/AllUsers';
+import Table from './components/Table';
 import CreateNewUser from './components/CreateNewUser';
+import CreateNewBank from './components/CrateNewBank';
 
 function App() {
 
@@ -58,11 +59,13 @@ function App() {
           </Route>
 
           <Route path="/" element={<NavBar login={2}/>}>
-            <Route path="admin/svi-korisnici" element={<AllUsers/>} />
+            <Route path="admin/svi-korisnici" element={<Table tipTabele={'korisnici'}/>} />
             <Route path="admin/home" element={<AdminHome /> } />
             <Route path="admin/logout" element={<AdminLogout/>} />
             <Route path="admin/kursna-lista" element={<KursnaLista date={"today"}  />} />
             <Route path="admin/kreiraj-korisnika" element={<CreateNewUser />} />
+            <Route path="admin/sve-banke" element={<Table tipTabele={'banke'}/>}/>
+            <Route path="admin/kreiranje-banke" element={<CreateNewBank/>}/>
           </Route>
 
           <Route path="/" element={<NavBar login={0}/>} >

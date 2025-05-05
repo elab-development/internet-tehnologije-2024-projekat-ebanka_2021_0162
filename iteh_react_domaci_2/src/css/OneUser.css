@@ -16,6 +16,24 @@
     z-index: 1000;
 }
 
+.oneBank-container{
+    border: 1px solid #9A616D;
+    border-radius: 15px;
+    margin: 2em;
+    padding-bottom: 1em;
+    padding-top: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+    height: 45vh;
+    width: 45vw;
+    display: grid;
+    position: fixed;
+    top: 20%;
+    left: 0%;
+    background-color: white;
+    z-index: 1000;
+}
+
 .closed-btn{
     background-color: #9A616D;
     color: white;

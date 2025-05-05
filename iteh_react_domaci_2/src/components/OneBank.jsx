@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import '../css/OneUser.css';
+import React from 'react'
+;import '../css/OneUser.css';
 import { useNavigate } from 'react-router-dom';
 import PopUp from './PopUp.jsx';
 import axios from 'axios';
-import CreateNewUser from './CreateNewUser.jsx';
+import {useState, useEffect} from 'react';
+import CreateNewBank from './CrateNewBank.jsx';
 
-const OneUser = ({details, closeDetails}) => {
-  const [allAccounts, setAllAccounts] = useState([]);
+
+const OneBank = ({details, closeDetails}) => {
+    const [allAccounts, setAllAccounts] = useState([]);
   const [isEverythingDone, setIsEverythingDone] = useState(false);
-  const [toModifyUser, setToModifyUser] = useState(false);
+  const [toModifyBank, setModifyBank] = useState(false);
   const navigate = useNavigate();
 
   const closeMessageBox = () => {
@@ -16,13 +18,14 @@ const OneUser = ({details, closeDetails}) => {
     window.location.reload();
   }
 
+
   function handleUserDelete() {
     if (!window.confirm("Da li ste sigurni?")) return;
   
     let config_get_all_accounts = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `http://127.0.0.1:8000/api/admin/bankovni-racuni-korisnika/${details.id}`,
+      url: `http://127.0.0.1:8000/api/admin/racuni-vezani-za-banku/${details.id}`,
       headers: {
         'Authorization': 'Bearer ' + window.sessionStorage.getItem('admin_auth_token')
       },
@@ -51,7 +54,7 @@ const OneUser = ({details, closeDetails}) => {
         let config_delete_user = {
           method: 'delete',
           maxBodyLength: Infinity,
-          url: `http://127.0.0.1:8000/api/admin/korisnici/${details.id}`,
+          url: `http://127.0.0.1:8000/api/admin/banke/${details.id}`,
           headers: {
             'Authorization': 'Bearer ' + window.sessionStorage.getItem('admin_auth_token')
           },
@@ -60,7 +63,7 @@ const OneUser = ({details, closeDetails}) => {
         return axios.request(config_delete_user);
       })
       .then(() => {
-        console.log("Korisnik i svi njegovi racuni i transakcije su obrisani.");
+        console.log("Banka i svi racuni i transakcije su obrisani.");
         setIsEverythingDone(true);
       })
       .catch((e) => {
@@ -69,24 +72,17 @@ const OneUser = ({details, closeDetails}) => {
   }
 
   function handleUserModify() {
-    navigate('/admin/kreiraj-korisnika', { state: {toModify: true, details}});
+    navigate('/admin/kreiranje-banke', { state: {toModify: true, details}});
   }
   
   return (
-    <div className='oneUser-container'> 
-      <h3 className='naslov'>Detalji izabranog korisnika</h3>
+    <div className='oneBank-container'> 
+      <h3 className='naslov'>Detalji izabrane banke</h3>
       <br/>
       <p className="paragraf"><span className="span1">ID: </span><span className="span2">{details.id}</span></p>
-      <p className="paragraf"><span className="span1">Ime: </span><span className="span2">{details.ime}</span></p>
-      <p className="paragraf"><span className="span1">Prezime: </span><span className="span2">{details.prezime}</span></p>
-      <p className="paragraf"><span className="span1">Email: </span><span className="span2">{details.email}</span></p>
-      <p className="paragraf"><span className="span1">Datum rodjenja: </span><span className="span2">{details.datum_rođenja}</span></p>
-      <p className="paragraf"><span className="span1">Maticni broj: </span><span className="span2">{details.maticni_broj}</span></p>
-      <p className="paragraf"><span className="span1">Broj licne karte: </span><span className="span2">{details.broj_licne_karte}</span></p>
-      <p className="paragraf"><span className="span1">Adresa: </span><span className="span2">{details.adresa}</span></p>
+      <p className="paragraf"><span className="span1">Naziv: </span><span className="span2">{details.naziv}</span></p>
       <p className="paragraf"><span className="span1">Grad: </span><span className="span2">{details.grad}</span></p>
-      <p className="paragraf"><span className="span1">Drzava: </span><span className="span2">{details.drzava}</span></p>
-      <p className="paragraf"><span className="span1">Broj telefona: </span><span className="span2">{details.broj_telefona}</span></p>
+      <p className="paragraf"><span className="span1">Broj dozvole: </span><span className="span2">{details.broj_dozvole}</span></p>
       <br/>
       <div className='second-user-container'>
       <button className='closed-btn'  onClick={closeDetails}>Zatvori</button>
@@ -94,11 +90,11 @@ const OneUser = ({details, closeDetails}) => {
       <button className='closed-btn' onClick={handleUserDelete}>Obrisi</button>
       </div>
 
-      {isEverythingDone && <PopUp closeMessageBox={closeMessageBox} messageText={"Korisnik je uspešno obrisan."} />}
+      {isEverythingDone && <PopUp closeMessageBox={closeMessageBox} messageText={"Banka je uspešno obrisana."} />}
 
-      {toModifyUser && <CreateNewUser details={details} />}
+      {toModifyBank && <CreateNewBank details={details} />}
     </div>
   )
 }
 
-export default OneUser
+export default OneBank

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/CreateNewUser.css';
+import '../css/CreateNew.css';
 import { useState , useEffect} from 'react';
 import axios from 'axios';
 import PopUp from './PopUp';
@@ -32,19 +32,6 @@ function CreateNewUser() {
                 ...prev,
                 ...details
             }))
-            /*setUserData({
-                ime: details.ime,
-                prezime: details.prezime,
-                email: details.email,
-                password: details.password,
-                broj_telefona: details.broj_telefona,
-                broj_licne_karte: details.broj_licne_karte,
-                maticni_broj: details.maticni_broj,
-                drzava: details.drzava,
-                grad: details.grad,
-                adresa: details.adresa,
-                datum_rođenja: details.datum_rođenja
-            });*/
         }
     }, [toModify, details]);
 
@@ -87,7 +74,7 @@ function CreateNewUser() {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'http://127.0.0.1:8000/api/admin/kreiraj-korisnika',
+            url: 'http://127.0.0.1:8000/api/admin/korisnici',
             headers: { 
                 'Authorization': 'Bearer ' + window.sessionStorage.getItem("admin_auth_token")
             },
