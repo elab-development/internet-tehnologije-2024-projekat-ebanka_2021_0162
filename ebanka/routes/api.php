@@ -81,16 +81,16 @@ Route::middleware(['auth:sanctum', 'isRegularUser'])->group( function() {
 
 // Adminska grupa ruta
 Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
-    Route::resource("/admin/banke", BankController::class);    
 
-    Route::post("/admin/kreiraj-korisnika", [UserController::class, "store"]);
-    Route::get("/admin/korisnici", [UserController::class, "index"]);
-    Route::get("/admin/korisnik/{id}", [UserController::class, "show"]);
+    Route::resource("/admin/banke", BankController::class);   
+    Route::resource("/admin/korisnici", UserController::class);
+
     Route::delete("/admin/obrisi-racune-i-transakcije", [TransakcijaController::class, "destroy"]);
     
-    Route::delete("/admin/obrisi-korisnika/{id}", [UserController::class, "destroy"]);
     Route::get("/admin/bankovni-racuni-korisnika/{id}", [UserController::class, "prikazi_racune"]);
     Route::patch("/admin/promeni-korisnika/{id}", [UserController::class, "updateAdmin"]);
+
+    Route::get("/admin/racuni-vezani-za-banku/{id}", [BankController::class, "svi_povezani_racuni"]);
 
     Route::get("/admin/informacije-o-nalogu", [AccountInfoController::class, "show"]);
     Route::get("/admin/kursna-lista", [ExchangeRatesController::class, "fetchRates"]);

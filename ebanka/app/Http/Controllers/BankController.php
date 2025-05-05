@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\BankaResource;
 use App\Http\Resources\BankaCollection;
+use App\Http\Resources\RacunCollection;
 
 class BankController extends Controller
 {
@@ -126,6 +127,14 @@ class BankController extends Controller
     {
         $banka = Banka::findOrFail($id);
         $banka->delete();
-        return response()->json(['message'=>'Uspesno obrisano'],200); // Vraća prazan odgovor nakon brisanja banke
+        return response()->json(['message'=>'Uspesno obrisano'],200); 
+    }
+
+
+
+    public function svi_povezani_racuni($banka_id){
+        $banka=Banka::findOrFail($banka_id);
+        $racuni=$banka->racun;
+        return new RacunCollection($racuni);
     }
 }
