@@ -20,6 +20,7 @@ import Charts from './components/Charts';
 import Table from './components/Table';
 import CreateNewUser from './components/CreateNewUser';
 import CreateNewBank from './components/CrateNewBank';
+import AccountInfoAdmin from './components/AccountInfoAdmin';
 
 function App() {
 
@@ -66,6 +67,7 @@ function App() {
             <Route path="admin/kreiraj-korisnika" element={<CreateNewUser />} />
             <Route path="admin/sve-banke" element={<Table tipTabele={'banke'}/>}/>
             <Route path="admin/kreiranje-banke" element={<CreateNewBank/>}/>
+            <Route path="admin/informacije-o-nalogu" element={<AccountInfoAdmin/>}/>
           </Route>
 
           <Route path="/" element={<NavBar login={0}/>} >
