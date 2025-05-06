@@ -1,3 +1,58 @@
+.users-search-main-container {
+  width: 80vw;
+  height: 11vh;
+  border-radius: 1.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 1em auto;
+  margin-bottom: 2em;
+  gap: 2em;
+  background-color: lightblue;
+  box-shadow: 5px 5px 5px lightgray;
+}
+
+.users-search-title-container {
+  flex : .9;
+  display: flex;
+  justify-content: end;
+}
+
+.users-search-input-box-container {
+  flex: 1.1;
+  display: flex;
+  justify-content: start;
+  width: 100%;
+  height:50%;
+}
+
+.users-search-input-box-container > input[type="text"] {
+  width: 55%;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 1.2em;
+  letter-spacing: .06em;
+  outline: none;
+}
+
+@media screen and (max-width: 1000px) {
+  
+  .users-search-main-container {
+    flex-direction: column;
+  }
+
+  .users-search-title-container {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .users-search-input-box-container {
+    flex: 1;
+    justify-content: center;
+  }
+}
 
 .tabela-kontejner-user {
     overflow-x: hidden;
@@ -5,7 +60,7 @@
     border: 2px solid black;
     border-radius: 20px;
     margin-left: 11em;
-    margin-top: 5em;
+    margin-top: 3.5em;
     display: flex;
     background-color: white !important;
    }
@@ -33,19 +88,20 @@
   
   .red {
     border: 1px solid #ccc; 
-    padding: 8px;
-    text-align: left;
-    font-size: 18px;
+    padding: .5em;
+    text-align: center;
+    font-size: 1.25em;
     font-weight: 450;
   }
 
   .kolona{
     border: 1px solid black; 
     padding: 8px;
-    text-align: left;
+    text-align: center;
    /* background-color: #f2f2f2; */
    background-color: lightgray;
     font-weight: bold;
+    text-transform: capitalize;
   }
 
 
@@ -58,3 +114,16 @@
     overflow-y: hidden;
   }
   
+  .user-bank-accounts-title-container {
+    width: 80vw;
+    margin: 1em auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 2em;
+    background-color: lightblue;
+    border-radius: 1em;
+    padding: 1em;
+    box-shadow: .5em .5em 5px lightgray;
+  }

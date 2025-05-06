@@ -8,7 +8,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const CrateNewBank = () => {
     const [isBankCreated, setIsBankCreated] = useState(false);
     const [isBankFailed, setIsBankFailed] = useState(false);
-     const [bankaData, setBankaData] = useState({
+    const [bankaData, setBankaData] = useState({
             naziv: '',
             grad: '',
             broj_dozvole: ''
@@ -401,7 +401,7 @@ const CrateNewBank = () => {
             </div>
       </div>
       
-        {isBankCreated && <PopUp closeMessageBox={closeMessageBox} messageText={"Banka je uspešno kreiran!"}/>}
+        {isBankCreated && <PopUp closeMessageBox={closeMessageBox} messageText={"Banka je uspešno kreirana!"}/>}
 
         {isBankFailed && <PopUp closeMessageBox={closeMessageBoxFailed} messageText={"Nastala je greška. Proverite unos."}/> }
 

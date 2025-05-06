@@ -26,7 +26,7 @@ const NavBar = ({login}) => {
               </a>
             </div>
 
-            <div className={`${login === 1  ? "nav-items-logged-in" : "nav-items-logged-out"}`}>
+            <div className={`${login === 1 ? "nav-items-logged-in" : "nav-items-logged-out"}`}>
               
             {login === 0 && window.sessionStorage.getItem("type") != null ? 
             (<>
@@ -41,11 +41,11 @@ const NavBar = ({login}) => {
             </div>
 
             <div className="nav-item-kursna-lista">
-            <a
+                <a
                   className="nav-link"
                   href="/user/login"
                 >
-                  Prijava <MdLogin size={28} />
+                  Prijava <MdLogin style={{width:'1.5em',height:'1.5em'}} />
                 </a>
 
               </div>
@@ -133,7 +133,7 @@ const NavBar = ({login}) => {
                     Detalji naloga  <MdPeopleAlt style={{width: '1.5em', height: '1.5em'}}/>
                     </Link>
                   </div>) : (<>{login===2 && window.sessionStorage.getItem("admin_auth_token") !== null ? <div className="nav-item">
-                    <Link to="admin/detalji-naloga" className="nav-link" >
+                    <Link to="admin/informacije-o-nalogu" className="nav-link" >
                     Detalji naloga  <MdPeopleAlt style={{width: '1.5em', height: '1.5em'}}/>
                     </Link>
                   </div> : <></>}</>)}
