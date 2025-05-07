@@ -24,6 +24,10 @@ class UserController extends Controller
      */
     public function index()
     {
+        $perPage = 7;
+        $users = User::paginate($perPage);
+        return response()->json($users);
+        
         $korisnici = User::all();
         return new UserCollection($korisnici);
     }
@@ -90,6 +94,13 @@ class UserController extends Controller
     {
         $korisnikk = User::findOrFail($id);
         return new UserResource($korisnikk);
+    }
+
+    public function findByJMBG($jmbg) {
+        if($jmbg === 'cleared-field' || strlen($jmbg) < 3) return response()->json([]);
+
+        $korisnici = User::where('maticni_broj', 'LIKE', $jmbg . '%')->limit(10)->get();
+        return $korisnici;
     }
 
     /**

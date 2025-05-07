@@ -34,6 +34,13 @@ class BankController extends Controller
         // Ovaj metod je obično za prikaz forme u aplikaciji (ne koristi se za API)
     }
 
+    public function findByNaziv($naziv) {
+        if($naziv === 'cleared-field') return response()->json([]);
+
+        $banke = Banka::where('naziv', 'LIKE', '%' . $naziv . '%')->get();
+        return $banke;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -95,9 +102,9 @@ class BankController extends Controller
             return response()->json('greska pri promeni banke. banka nije pronadjena!', 404);
 
         $validated = $request->validate([
-            'naziv' => 'string',
-            'grad' => 'string',
-            'broj_dozvole' => 'integer|digits:5',
+            'naziv' => 'required|string',
+            'grad' => 'required|string',
+            'broj_dozvole' => 'required|integer|digits:5',
         ]);
 
         // Ažuriraj podatke banke

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\AdminResource;
 
 class AccountInfoController extends Controller
 {
@@ -47,10 +48,17 @@ class AccountInfoController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function showUser(User $user)
     {
         $korisnik = Auth::user();
         return new UserResource($korisnik);
+        //return response()->json($korisnik->toArray());
+    }
+
+    public function showAdmin(User $user)
+    {
+        $admin = Auth::user();
+        return new AdminResource($admin);
         //return response()->json($korisnik->toArray());
     }
 
