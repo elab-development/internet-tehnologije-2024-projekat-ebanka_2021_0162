@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\StudentskiRacun;
+use App\Models\Transakcija;
 use Illuminate\Http\Request;
 use App\Models\Racun;
 use App\Http\Resources\StudentskiRacunResource;
@@ -124,8 +125,14 @@ class StudentskiRacunController extends Controller
     public function destroy($id)
     {
         $zaBrisanje=StudentskiRacun::findOrFail($id);
+        $glavniRacunZaBrisanje = Racun::findOrFail($zaBrisanje->racun_id);
+
+        Transakcija::where('racun_id', $zaBrisanje->racun_id)->delete();
+        $glavniRacunZaBrisanje->delete();
         $zaBrisanje->delete();
-        return response()->json(['message'=>'Uspesno obrisano'],200);
+        
+        return response()->json(['message'=>'Uspesno obrisani racuni iz obe tabele!'],200);
+    
     }
 
     

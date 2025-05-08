@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transakcija;
 use App\Models\StedniRacun;
 use Illuminate\Http\Request;
 use App\Models\Racun;
@@ -123,7 +124,13 @@ class StedniRacunController extends Controller
     public function destroy($id)
     {
         $zaBrisanje=StedniRacun::findOrFail($id);
+        $glavniRacunZaBrisanje = Racun::findOrFail($zaBrisanje->racun_id);
+
+        Transakcija::where('racun_id', $zaBrisanje->racun_id)->delete();
+        $glavniRacunZaBrisanje->delete();
         $zaBrisanje->delete();
-        return response()->json(['message'=>'Uspesno obrisano'],200);
+        
+        return response()->json(['message'=>'Uspesno obrisani racuni iz obe tabele!'],200);
+    
     }
 }

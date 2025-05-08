@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TekuciRacun;
 use App\Models\Racun;
+use App\Models\Transakcija;
 use App\Http\Resources\TekuciRacunResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -131,8 +132,13 @@ class TekuciRacunController extends Controller
     public function destroy($id)
     {
         $zaBrisanje=TekuciRacun::findOrFail($id);
+        $glavniRacunZaBrisanje = Racun::findOrFail($zaBrisanje->racun_id);
+
+        Transakcija::where('racun_id', $zaBrisanje->racun_id)->delete();
+        $glavniRacunZaBrisanje->delete();
         $zaBrisanje->delete();
-        return response()->json(['message'=>'Uspesno obrisano'],200);
+        
+        return response()->json(['message'=>'Uspesno obrisani racuni iz obe tabele!'],200);
     }
 
     public function changeBalance(Request $request, $broj_racuna, $novo_stanje) {
