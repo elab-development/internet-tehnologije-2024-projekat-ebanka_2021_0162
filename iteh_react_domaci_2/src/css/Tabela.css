@@ -59,8 +59,7 @@
     width: 80vw;
     border: 2px solid black;
     border-radius: 20px;
-    margin-left: 11em;
-    margin-top: 3.5em;
+    margin: 2em auto;
     display: flex;
     background-color: white !important;
    }
@@ -71,8 +70,7 @@
     width: 80vw;
     border: 2px solid black;
     border-radius: 20px;
-    margin-left: 13em;
-    margin-top: 5em;
+    margin: 3em auto;
     display: flex;
     background-color: white !important;
    }
@@ -80,17 +78,15 @@
   .user-tabela {
     width: 100%; 
     border-collapse: collapse;  
-   justify-content: center;
-   align-items: center;
+    justify-content: center;
+    align-items: center;
   }
 
-
-  
   .red {
     border: 1px solid #ccc; 
     padding: .5em;
     text-align: center;
-    font-size: 1.25em;
+    font-size: 1.1em;
     font-weight: 450;
   }
 
@@ -98,17 +94,14 @@
     border: 1px solid black; 
     padding: 8px;
     text-align: center;
-   /* background-color: #f2f2f2; */
-   background-color: lightgray;
+    background-color: lightgray;
     font-weight: bold;
     text-transform: capitalize;
   }
 
-
   .red:hover{
     background-color: lightgray;
   }
-  
   
   .zakljucan-background{
     overflow-y: hidden;
@@ -126,4 +119,63 @@
     border-radius: 1em;
     padding: 1em;
     box-shadow: .5em .5em 5px lightgray;
+  }
+
+  .user-bank-accounts-filter-container {
+    width: 80vw;
+    margin: 2em auto;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 3em;
+  }
+
+  .user-bank-accounts-banks-dropdown-filter {
+    outline: none;
+    cursor : pointer;
+    font-size: 1.3em;
+    text-align: center;
+  }
+
+  .user-bank-accounts-radio-button-to-delete {
+    width: 2em;
+  }
+
+  .user-account-action-buttons-container {
+    width: 80vw;
+    margin: 3em auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4em;
+  }
+
+  .delete-user-bank-account-button {
+    border-radius: 2em;
+    transition: all .35s;
+    cursor: pointer;
+    outline: none;
+    font-size: 1.4em;
+    padding: .5em;
+    width: 40%;
+    background-color: #ffaf1a;
+    border: none;
+  }
+  .create-user-bank-account-button {
+    transition: all .35s;
+    border-radius: 2em;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    font-size: 1.4em;
+    padding: .5em;
+    width: 40%;
+    background-color: #ffaf1a;
+
+  }
+
+  .delete-user-bank-account-button:hover, .create-user-bank-account-button:hover {
+    box-shadow: .5em .5em .4em gray;
   }

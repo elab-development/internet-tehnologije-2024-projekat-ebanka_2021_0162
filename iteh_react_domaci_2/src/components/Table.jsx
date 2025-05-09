@@ -7,7 +7,8 @@ import { PulseLoader } from 'react-spinners';
 import OneBank from './OneBank';
 import RenderPagination from './RenderPagination';
 import { useLocation } from 'react-router-dom';
-
+import { BsFillFunnelFill } from "react-icons/bs";
+import PopUp from './PopUp.jsx';
 const Table = ({tipTabele}) => {
     const [pagination, setPagination] = useState({});
     const [currentPage, setCurrentPage] = useState(1);
@@ -31,6 +32,9 @@ const Table = ({tipTabele}) => {
       });
     };
 
+    const [selectedBankFilter, setSelectedBankFilter] = useState("default-option");
+    const [selectedRadioBtn, setSelectedRadioBtn] = useState([]);
+    const [noAccountToDeleteChosen, setNoAccountToDeleteChosen] = useState(false);
     const[korisnici, setKorisnici]=useState([]);
     const[banke, setBanke]=useState([]);
     const[oneKorisnik, setOneKorisnik]=useState();
@@ -39,12 +43,13 @@ const Table = ({tipTabele}) => {
     const[clickedBank, setClickedBank]=useState(false);
     const[loading, setLoading]=useState(true);
     const location = useLocation();
+    const [bankAccountDeleted, setBankAccountDeleted] = useState(false);
 
     // State koji cuva sve podatke o racunima korisnika, samom korisniku, povezanim bankama(racuncollection)
     const [details, setDetails] = useState([]);
   
     useEffect(()=>{
-      if(tipTabele==='banke'){
+      if(tipTabele==='banke' || tipTabele === 'racuni-korisnika'){
         let config = {
           method: 'get',
           maxBodyLength: Infinity,
@@ -128,6 +133,15 @@ const Table = ({tipTabele}) => {
     setClickedBank(false);
     setOneKorisnik(null);
     document.querySelector("body").classList.remove("zakljucan-background");
+  }
+  
+  const closeMessageBox = () => {
+    if(noAccountToDeleteChosen)
+      setNoAccountToDeleteChosen(false);
+    if(bankAccountDeleted) {
+      setBankAccountDeleted(false);
+      window.location.reload();
+    }
   }
 
   const [searchInputUser, setSearchInputUser] = useState({
@@ -254,12 +268,75 @@ const Table = ({tipTabele}) => {
     })
   }, [searchInputBank]);
 
-  
   useEffect( () => {
     if(tipTabele==='korisnici'){
       fetchPaginatedUsers(currentPage);
     }
   },[currentPage]);
+
+  const handleBankFilter = (e) => {
+    setSelectedBankFilter(e.target.value);
+  };
+
+  const handleDeleteRadioBtn = (e) => {
+    let elems = e.target.id.split(' ');
+    
+    setSelectedRadioBtn( prev => ({
+      ...prev,
+      ...elems
+    }));
+  };
+
+  const handleBankAccountDelete = () => {
+    if(selectedRadioBtn.length == 0) {
+      setNoAccountToDeleteChosen(true);
+      return;
+    }
+
+    if(!window.confirm("Da li ste sigurni?")) return;
+
+    let url = '';
+    switch(selectedRadioBtn[0]) {
+      case 'tekuci':
+      url = `http://127.0.0.1:8000/api/admin/tekuci_racun/${selectedRadioBtn[1]}`
+      break;
+
+      case 'studentski':
+      url = `http://127.0.0.1:8000/api/admin/studentski_racun/${selectedRadioBtn[1]}`
+      break;
+
+      case 'stedni':
+      url = `http://127.0.0.1:8000/api/admin/stedni_racun/${selectedRadioBtn[1]}`
+      break;
+
+      case 'devizni':
+      url = `http://127.0.0.1:8000/api/admin/devizni_racun/${selectedRadioBtn[1]}`
+      break;
+
+      default:
+      url='nepostojeci tip';
+      break;
+    }
+
+    let deleteBankAccount = {
+      method : 'delete',
+      maxBodyLength: Infinity,
+      url: url,
+      headers : {
+        'Authorization': 'Bearer ' + window.sessionStorage.getItem("admin_auth_token")
+      },
+    }
+
+    axios.request(deleteBankAccount)
+    .then( (res) => {
+      console.log(res.data);
+      setBankAccountDeleted(true);
+    })
+    .catch((e)=> {
+      console.log("Greska prilikom brisanja bankovnog racuna: " + e);
+    })
+
+  }
 
   return (
     <>
@@ -377,6 +454,26 @@ const Table = ({tipTabele}) => {
       </div>
     </div>
 
+    <div className="user-bank-accounts-filter-container">
+        <div style={{display:'flex',alignItems:'center'}}>
+          <span style={{fontSize:'1.3em', fontWeight: '600', marginRight: '.4em'}}>Filtriraj pretragu:</span> 
+        
+          <BsFillFunnelFill size={28} color="#9A616D"/>
+        </div>
+
+        <div>
+          <select value={selectedBankFilter} onChange={(e)=>{handleBankFilter(e)}} name="banks-dropdown-filter" className="user-bank-accounts-banks-dropdown-filter">
+            <option value="default-option">/</option>
+            {banke && banke.map( (banka) => {
+              return (
+                <option value={banka.naziv} key={banka.id}>{banka.naziv}</option>
+              )
+            })}
+
+          </select>
+        </div>
+    </div>
+
     <div className="tabela-kontejner-banka">
     <table className="user-tabela">
       <thead>
@@ -390,16 +487,20 @@ const Table = ({tipTabele}) => {
           <th className='kolona'>Kamata</th>
           <th className='kolona'>Dozvoljeni Minus</th>
           <th className='kolona'>Valuta</th>
-          <th className='kolona'>Tip Štednje</th>    
+          <th className='kolona'>Tip Štednje</th>   
+          <th className='kolona'></th> 
         </tr>
       </thead>
       <tbody>
 
-      {details.length === 0 ?  <div style={{width:'80vw', display: 'flex', justifyContent:'center', alignItems: 'center', fontSize: '2em'}}>Ne postoje računi povezani sa ovim korisnikom.</div> 
-      : details.map((detail)=>{
+      {details.length === 0 ?  
+      <div style={{width:'80vw', display: 'flex', justifyContent:'center', alignItems: 'center', fontSize: '2em'}}>Ne postoje računi povezani sa ovim korisnikom.</div> 
+      :
+       details.map((detail)=>{
+        if(selectedBankFilter === 'default-option') {
             return (
             <tr className='red' key={detail.id}>
-                <td>{detail.id}</td>
+                <td>{detail.detalji.id}</td>
                 <td style={{textTransform:'capitalize'}}>{detail.tip}</td>
                 <td>{detail.banka.naziv}</td>
                 <td>{detail.detalji.broj_racuna}</td>
@@ -409,13 +510,41 @@ const Table = ({tipTabele}) => {
                 <td>{detail.detalji.dozvoljeni_minus != null ? detail.detalji.dozvoljeni_minus + ' RSD': '/'}</td>
                 <td>{detail.detalji.valuta != null ? detail.detalji.valuta : 'RSD'}</td>
                 <td style={{textTransform: 'capitalize'}}>{detail.detalji.tip_stednje != null ? detail.detalji.tip_stednje : '/'}</td>
+                <td><input type="radio" onChange={(e)=>{handleDeleteRadioBtn(e)}} name="delete-account-radio-btn" id={`${detail.tip} ${detail.detalji.id}`} className="user-bank-accounts-radio-button-to-delete"/></td>
             </tr>
-            )
-        })}
-
+            ) 
+          }  else if(selectedBankFilter === detail.banka.naziv) {
+              return (          
+                <tr className='red' key={detail.id}>
+                    <td>{detail.detalji.id}</td>
+                    <td style={{textTransform:'capitalize'}}>{detail.tip}</td>
+                    <td>{detail.banka.naziv}</td>
+                    <td>{detail.detalji.broj_racuna}</td>
+                    <td>{detail.detalji.stanje_racuna}{detail.detalji.valuta == null ? ' RSD' : ` ${detail.detalji.valuta}`}</td>
+                    <td>{detail.detalji.odrzavanje}{detail.detalji.valuta == null ? ' RSD/mes' : ` ${detail.detalji.valuta}/mes`}</td>
+                    <td>{detail.detalji.kamata != null ? `${detail.detalji.kamata}%` : '/'}</td>
+                    <td>{detail.detalji.dozvoljeni_minus != null ? detail.detalji.dozvoljeni_minus + ' RSD': '/'}</td>
+                    <td>{detail.detalji.valuta != null ? detail.detalji.valuta : 'RSD'}</td>
+                    <td style={{textTransform: 'capitalize'}}>{detail.detalji.tip_stednje != null ? detail.detalji.tip_stednje : '/'}</td>
+                    <td><input type="radio" onChange={(e)=>{handleDeleteRadioBtn(e)}} name="delete-account-radio-btn" id={`${detail.tip} ${detail.detalji.id}`} className="user-bank-accounts-radio-button-to-delete"/></td>
+                </tr>
+                )
+            } 
+          })}
+  
       </tbody>
     </table>
     </div>
+        
+    <div className="user-account-action-buttons-container">
+      <div style={{display:'flex',justifyContent:'end',flex:'1'}}>
+        <button onClick={()=>{handleBankAccountDelete()}} className="delete-user-bank-account-button">Obriši Račun</button>
+      </div>
+      <div style={{display:'flex',justifyContent:'start',flex:'1'}}>
+        <button className="create-user-bank-account-button">Otvori Račun</button>
+      </div>
+    </div>
+
   </>
   }
 
@@ -425,7 +554,8 @@ const Table = ({tipTabele}) => {
     
   {(clickedBank && tipTabele==='banke') && <OneBank details={oneBank} closeDetails={closeDetails}/>}
   {(clickedUser && tipTabele==='korisnici') && <OneUser details={oneKorisnik} closeDetails={closeDetails}/>}
-
+  {noAccountToDeleteChosen && <PopUp closeMessageBox={closeMessageBox} messageText={"Izaberite račun za brisanje!"} />}
+  {bankAccountDeleted && <PopUp closeMessageBox={closeMessageBox} messageText={"Račun je obrisan!"} />}
 </>
   )
 }
