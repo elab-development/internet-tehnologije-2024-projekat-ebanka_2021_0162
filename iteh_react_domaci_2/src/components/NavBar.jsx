@@ -26,7 +26,7 @@ const NavBar = ({login}) => {
               </a>
             </div>
 
-            <div className={`${login === 1  ? "nav-items-logged-in" : "nav-items-logged-out"}`}>
+            <div className={`${login === 1 ? "nav-items-logged-in" : "nav-items-logged-out"}`}>
               
             {login === 0 && window.sessionStorage.getItem("type") != null ? 
             (<>
@@ -41,11 +41,11 @@ const NavBar = ({login}) => {
             </div>
 
             <div className="nav-item-kursna-lista">
-            <a
+                <a
                   className="nav-link"
                   href="/user/login"
                 >
-                  Prijava <MdLogin size={28} />
+                  Prijava <MdLogin style={{width:'1.5em',height:'1.5em'}} />
                 </a>
 
               </div>

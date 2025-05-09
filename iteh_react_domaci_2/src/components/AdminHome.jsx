@@ -41,7 +41,6 @@ const AdminHome = () => {
             </div>
         </div>
         
-        <Link to="/admin/logout">Odjavite se</Link>
     </div>
     )
 }

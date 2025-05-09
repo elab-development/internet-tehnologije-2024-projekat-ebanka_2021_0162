@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import PopUp from './PopUp.jsx';
 import axios from 'axios';
 import {useState, useEffect} from 'react';
-import CreateNewBank from './CrateNewBank.jsx';
+import CreateNewBank from './CreateNewBank.jsx';
 
 
 const OneBank = ({details, closeDetails}) => {

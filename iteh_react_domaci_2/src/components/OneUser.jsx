@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../css/OneUser.css';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PopUp from './PopUp.jsx';
 import axios from 'axios';
 import CreateNewUser from './CreateNewUser.jsx';
@@ -71,6 +71,10 @@ const OneUser = ({details, closeDetails}) => {
   function handleUserModify() {
     navigate('/admin/kreiraj-korisnika', { state: {toModify: true, details}});
   }
+
+  const handleUserBankAccounts = () => {
+    navigate('/admin/bankovni-racuni-korisnika', { state: details });
+  };
   
   return (
     <div className='oneUser-container'> 
@@ -87,6 +91,8 @@ const OneUser = ({details, closeDetails}) => {
       <p className="paragraf"><span className="span1">Grad: </span><span className="span2">{details.grad}</span></p>
       <p className="paragraf"><span className="span1">Drzava: </span><span className="span2">{details.drzava}</span></p>
       <p className="paragraf"><span className="span1">Broj telefona: </span><span className="span2">{details.broj_telefona}</span></p>
+      <p className="paragraf"><span className="span1">Računi Korisnika: </span><span className="span2" onClick={()=>{handleUserBankAccounts()}}>Otvori vezu</span></p>
+      
       <br/>
       <div className='second-user-container'>
       <button className='closed-btn'  onClick={closeDetails}>Zatvori</button>
