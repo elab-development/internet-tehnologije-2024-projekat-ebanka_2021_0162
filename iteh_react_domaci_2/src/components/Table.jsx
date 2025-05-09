@@ -12,7 +12,6 @@ import PopUp from './PopUp.jsx';
 const Table = ({tipTabele}) => {
     const [pagination, setPagination] = useState({});
     const [currentPage, setCurrentPage] = useState(1);
-   
     const fetchPaginatedUsers = async (page) => {
       const token = window.sessionStorage.getItem("admin_auth_token");
 
