@@ -91,7 +91,6 @@ const OneUser = ({details, closeDetails}) => {
       <p className="paragraf"><span className="span1">Grad: </span><span className="span2">{details.grad}</span></p>
       <p className="paragraf"><span className="span1">Drzava: </span><span className="span2">{details.drzava}</span></p>
       <p className="paragraf"><span className="span1">Broj telefona: </span><span className="span2">{details.broj_telefona}</span></p>
-      <p className="paragraf"><span className="span1">Računi Korisnika: </span><span className="span2" onClick={()=>{handleUserBankAccounts()}}>Otvori vezu</span></p>
       
       <br/>
       <div className='second-user-container'>
@@ -99,6 +98,7 @@ const OneUser = ({details, closeDetails}) => {
       <button className='closed-btn' onClick={handleUserModify}>Izmeni</button>
       <button className='closed-btn' onClick={handleUserDelete}>Obrisi</button>
       </div>
+      <button className='details-btn' onClick={()=>{handleUserBankAccounts()}}>Prikaz svih racuna korisnika</button>
 
       {isEverythingDone && <PopUp closeMessageBox={closeMessageBox} messageText={"Korisnik je uspešno obrisan."} />}
 

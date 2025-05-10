@@ -86,7 +86,14 @@
     border: 1px solid #ccc; 
     padding: .5em;
     text-align: center;
-    font-size: 1.1em;
+    font-weight: 450;
+  }
+
+  .red-bank {
+    border: 1px solid #ccc; 
+    padding: .5em;
+    text-align: center;
+    font-size: 1.25em;
     font-weight: 450;
   }
 
@@ -116,6 +123,7 @@
     flex-direction: column;
     margin-top: 2em;
     background-color: lightblue;
+    color: black;
     border-radius: 1em;
     padding: 1em;
     box-shadow: .5em .5em 5px lightgray;
@@ -141,6 +149,19 @@
 
   .user-bank-accounts-radio-button-to-delete {
     width: 2em;
+    appearance: none;     -webkit-appearance: none;
+    -moz-appearance: none;
+  
+    width: 16px;
+    height: 16px;
+    border: 2px solid #333;
+    border-radius: 0; 
+    background-color: white;
+    cursor: pointer;
+  }
+
+  .user-bank-accounts-radio-button-to-delete:checked{
+    background-color: #9A616D;
   }
 
   .user-account-action-buttons-container {
@@ -160,6 +181,7 @@
     font-size: 1.4em;
     padding: .5em;
     width: 40%;
+    height: 2.5em;
     background-color: #ffaf1a;
     border: none;
   }
@@ -172,6 +194,7 @@
     font-size: 1.4em;
     padding: .5em;
     width: 40%;
+    height: 2.5em;
     background-color: #ffaf1a;
 
   }
@@ -179,3 +202,18 @@
   .delete-user-bank-account-button:hover, .create-user-bank-account-button:hover {
     box-shadow: .5em .5em .4em gray;
   }
+
+  .option-new-acc{
+    transition: all .35s;
+    border-radius: 2em;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    font-size: 1.4em;
+    width: 140%;
+    margin-bottom: 10px;
+    background-color: #ffaf1a;
+  }
+
+  
+  

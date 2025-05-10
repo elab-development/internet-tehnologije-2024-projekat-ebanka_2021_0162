@@ -6,10 +6,21 @@ import OneUser from './OneUser';
 import { PulseLoader } from 'react-spinners';
 import OneBank from './OneBank';
 import RenderPagination from './RenderPagination';
-import { useLocation } from 'react-router-dom';
-import { BsFillFunnelFill } from "react-icons/bs";
+import { useLocation, useNavigate } from 'react-router-dom';
 import PopUp from './PopUp.jsx';
+import Options from './Options.jsx';
+import { FiFilter } from 'react-icons/fi';
+
+
 const Table = ({tipTabele}) => {
+
+  
+  const location = useLocation();
+    const[clickedOprcije, setClickedOprcije]=useState(false);
+    const openOptionWindor=()=>{
+      setClickedOprcije(true);
+    }
+
     const [pagination, setPagination] = useState({});
     const [currentPage, setCurrentPage] = useState(1);
     const fetchPaginatedUsers = async (page) => {
@@ -42,7 +53,6 @@ const Table = ({tipTabele}) => {
     const[clickedUser, setClickedUser]=useState(false);
     const[clickedBank, setClickedBank]=useState(false);
     const[loading, setLoading]=useState(true);
-    const location = useLocation();
     const [bankAccountDeleted, setBankAccountDeleted] = useState(false);
 
     // State koji cuva sve podatke o racunima korisnika, samom korisniku, povezanim bankama(racuncollection)
@@ -431,11 +441,11 @@ const Table = ({tipTabele}) => {
       </thead>
       <tbody>
         {banke.map((banka)=>{
-            return <tr className='red' onClick={()=>{handleBankDetails(banka.id)}} key={banka.id}>
-                <td className='red'>{banka.id}</td>
-                <td className='red'>{banka.naziv}</td>
-                <td className='red'>{banka.grad}</td>
-                <td className='red'>{banka.broj_dozvole}</td>
+            return <tr className='red-bank' onClick={()=>{handleBankDetails(banka.id)}} key={banka.id}>
+                <td className='red-bank'>{banka.id}</td>
+                <td className='red-bank'>{banka.naziv}</td>
+                <td className='red-bank'>{banka.grad}</td>
+                <td className='red-bank'>{banka.broj_dozvole}</td>
             </tr>
         })}
                
@@ -458,7 +468,7 @@ const Table = ({tipTabele}) => {
         <div style={{display:'flex',alignItems:'center'}}>
           <span style={{fontSize:'1.3em', fontWeight: '600', marginRight: '.4em'}}>Filtriraj pretragu:</span> 
         
-          <BsFillFunnelFill size={28} color="#9A616D"/>
+          <FiFilter size={28} color="black"/>
         </div>
 
         <div>
@@ -537,12 +547,15 @@ const Table = ({tipTabele}) => {
     </div>
         
     <div className="user-account-action-buttons-container">
+
       <div style={{display:'flex',justifyContent:'end',flex:'1'}}>
         <button onClick={()=>{handleBankAccountDelete()}} className="delete-user-bank-account-button">Obriši Račun</button>
       </div>
       <div style={{display:'flex',justifyContent:'start',flex:'1'}}>
-        <button className="create-user-bank-account-button">Otvori Račun</button>
+        <button className="create-user-bank-account-button" onClick={()=>openOptionWindor()}>Otvori Račun</button>
+       
       </div>
+
     </div>
 
   </>
@@ -556,6 +569,7 @@ const Table = ({tipTabele}) => {
   {(clickedUser && tipTabele==='korisnici') && <OneUser details={oneKorisnik} closeDetails={closeDetails}/>}
   {noAccountToDeleteChosen && <PopUp closeMessageBox={closeMessageBox} messageText={"Izaberite račun za brisanje!"} />}
   {bankAccountDeleted && <PopUp closeMessageBox={closeMessageBox} messageText={"Račun je obrisan!"} />}
+  {clickedOprcije && <Options userId={location.state.id}/>}
 </>
   )
 }

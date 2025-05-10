@@ -1,0 +1,154 @@
+
+.telo-container-forma{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 92vh; 
+  width: 100vw;  
+  background: #edc2d5;
+    background: linear-gradient(189deg, rgba(237, 194, 213, 1) 0%, rgba(133, 186, 242, 1) 100%);
+  
+}
+
+.forma-racun{
+    border: 2px solid black;
+    border-radius: 15px;
+    width: 45vw;
+    height: 89vh;
+    
+    background-color: white !important ;
+   }
+
+.user{
+    border: 1px dashed black;
+   margin:10px;
+}
+
+.tekst{
+    font-weight: 600;
+    font-size: 22px;
+    color: #2124c4;
+    margin: 10px;
+}
+
+.polja-korisnik{
+    background-color: rgb(208, 232, 240);
+    color: black;
+    border: 1px solid black;
+    width: 20vw;
+    height: 2em;
+    text-align: center;
+    margin-left: 3px;
+    font-size: 18px;
+}
+
+.polja-korisnik-a{
+    background-color: rgb(208, 232, 240);
+    color: black;
+    border: 1px solid black;
+    width: 35vw;
+    height: 2em;
+    text-align: center;
+    margin-left: 3px;
+    font-size: 18px;
+}
+
+.container-korisnik-first{
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 10px;
+    margin-left: 1em;
+}
+
+.container-korisnik-second{
+    display: grid;
+    grid-template-rows: 1fr 1fr; 
+    margin-left: 1em;
+}
+
+.polje-kamata{
+    width: 3vw;
+    background-color: rgb(208, 232, 240);
+    color: black;
+    border: 1px solid black;
+    text-align: center;
+    margin-left: 30px;
+    margin-right: 5px;
+    font-size: 18px;
+}
+
+.detalji-container{
+    margin-left: 20px;
+}
+
+.polje-detalji{
+    border: 1px solid black;
+    color: black;
+    background-color: rgb(208, 232, 240);
+    margin-left: 30px;
+    width: 25vw;
+    height: 2em;
+    font-size: 18px;
+}
+
+.polje-detalji-stednja{
+    border: 1px solid black;
+    color: black;
+    background-color: rgb(208, 232, 240);
+    margin-left: 10px;
+    width: 30vw;
+    height: 2em;
+    text-align: center;
+    font-size: 18px;
+}
+
+.btn-potvrda{
+    background-color: #ffaf1a;
+    color: black;
+    width: 10em;
+    height: 3em;
+    border-radius: 15px;
+    margin-top:10px;
+    font-size: 22px;
+}
+
+.btn-potvrda-devizni{
+    background-color: #ffaf1a;
+    color: black;
+    width: 10em;
+    height: 3em;
+    border-radius: 15px;
+    margin-top:10px;
+    font-size: 18px;
+}
+
+.btn-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.radio-button-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.radio-one-container input{
+    margin-left:-10em;
+    margin-right: -10em;
+}
+
+
+.radio-container-first-group{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1px;
+    
+}
+
+.radio-container-second-group{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1px;
+    
+}

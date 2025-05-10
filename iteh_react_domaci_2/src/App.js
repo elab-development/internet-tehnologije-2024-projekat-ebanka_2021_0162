@@ -21,6 +21,7 @@ import Table from './components/Table';
 import CreateNewUser from './components/CreateNewUser';
 import CreateNewBank from './components/CreateNewBank';
 import AccountInfoAdmin from './components/AccountInfoAdmin';
+import CreateNewAcc from './components/CreateNewAcc';
 
 function App() {
 
@@ -68,6 +69,10 @@ function App() {
             <Route path="admin/kreiranje-banke" element={<CreateNewBank/>}/>
             <Route path="admin/informacije-o-nalogu" element={<AccountInfoAdmin/>}/>
             <Route path="admin/bankovni-racuni-korisnika" element={<Table tipTabele={'racuni-korisnika'} />} />
+            <Route path="admin/kreiranje-racuna/tekuci" element={<CreateNewAcc tipRacuna={'tekuci'}/>}/>
+            <Route path="admin/kreiranje-racuna/devizni" element={<CreateNewAcc tipRacuna={'devizni'}/>}/>
+            <Route path="admin/kreiranje-racuna/stedni" element={<CreateNewAcc tipRacuna={'stedni'}/>}/>
+            <Route path="admin/kreiranje-racuna/studentski" element={<CreateNewAcc tipRacuna={'studentski'}/>}/>
           </Route>
 
           <Route path="/" element={<NavBar login={0}/>} >

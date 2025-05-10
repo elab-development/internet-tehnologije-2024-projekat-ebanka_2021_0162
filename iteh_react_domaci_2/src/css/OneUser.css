@@ -43,6 +43,17 @@
     font-size: 20px;
 }
 
+.details-btn{
+    background-color: #9A616D;
+    color: white;
+    border: 1px solid black;
+    border-radius: 15px;
+    width: 32em;
+    font-size: 20px;
+    margin-left: 4em;
+    margin-top: 20px;
+}
+
 
 .naslov{
     border-bottom: 2px solid #357ABD;
