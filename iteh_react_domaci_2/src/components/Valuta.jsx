@@ -5,7 +5,7 @@ const Valuta = ({val}) => {
  
   return (
     <tr>
-        <th scope="row" ><span className={`${val.code}`}></span></th>
+        <th className='first-col' scope="row" ><span className={`${val.code}`}></span></th>
         <td>
         <p>{val.parity} {val.code}</p>
         </td>

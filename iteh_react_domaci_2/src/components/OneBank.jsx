@@ -79,10 +79,10 @@ const OneBank = ({details, closeDetails}) => {
     <div className='oneBank-container'> 
       <h3 className='naslov'>Detalji izabrane banke</h3>
       <br/>
-      <p className="paragraf"><span className="span1">ID: </span><span className="span2">{details.id}</span></p>
-      <p className="paragraf"><span className="span1">Naziv: </span><span className="span2">{details.naziv}</span></p>
-      <p className="paragraf"><span className="span1">Grad: </span><span className="span2">{details.grad}</span></p>
-      <p className="paragraf"><span className="span1">Broj dozvole: </span><span className="span2">{details.broj_dozvole}</span></p>
+      <div className="paragraf"><p><span className="span1">ID: </span><span className="span2">{details.id}</span></p></div>
+      <div className="paragraf"><p><span className="span1">Naziv: </span><span className="span2">{details.naziv}</span></p></div>
+      <div className="paragraf"><p><span className="span1">Grad: </span><span className="span2">{details.grad}</span></p></div>
+      <div className="paragraf"><p><span className="span1">Broj dozvole: </span><span className="span2">{details.broj_dozvole}</span></p></div>
       <br/>
       <div className='second-user-container'>
       <button className='closed-btn'  onClick={closeDetails}>Zatvori</button>

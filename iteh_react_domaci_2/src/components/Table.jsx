@@ -456,7 +456,7 @@ const Table = ({tipTabele}) => {
   <>
     <div className="user-bank-accounts-title-container">
       <div>
-        <h2><span style={{fontWeight:'400'}}> Prikaz računa korisnika:</span> <strong>{location.state.ime + ' ' + location.state.prezime}</strong> </h2>
+        <h3><span style={{fontWeight:'400'}}> Prikaz računa korisnika:</span> <strong>{location.state.ime + ' ' + location.state.prezime}</strong> </h3>
       </div>
 
       <div>
@@ -466,7 +466,7 @@ const Table = ({tipTabele}) => {
 
     <div className="user-bank-accounts-filter-container">
         <div style={{display:'flex',alignItems:'center'}}>
-          <span style={{fontSize:'1.3em', fontWeight: '600', marginRight: '.4em'}}>Filtriraj pretragu:</span> 
+          <span className='filter-details-title'>Filtriraj pretragu:</span> 
         
           <FiFilter size={28} color="black"/>
         </div>

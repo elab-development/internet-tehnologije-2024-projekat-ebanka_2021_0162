@@ -262,3 +262,26 @@
     color: darkblue;      
   }
 }
+
+@media screen and (max-width: 1500px) {
+  .new-transaction {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 900px) {
+  .left-column {
+    overflow-y: scroll;
+    font-size: .85em;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .right-column {
+    display: none;
+  }
+
+  .carousel-item-active {
+    text-align: center;
+  }
+}

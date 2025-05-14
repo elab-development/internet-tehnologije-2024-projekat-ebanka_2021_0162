@@ -99,7 +99,7 @@ th:first-child {
 
 .list-of-transactions-container {
     display: grid;
-    grid-template-columns: 2fr 2.5fr;
+    grid-template-columns: 2.5fr 2fr;
     margin-top: .6em;
     margin-bottom: 1.5em;
     text-transform: capitalize;
@@ -185,23 +185,6 @@ th:first-child {
     font-weight: 500;
 }
 
-@media (max-width: 800px) {
-
-    .single-export-container {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
-
-    .exports-headers {display: none;}
-
-    .single-export-container .generated {
-        display: none;
-    }
-
-    .export-download-button {
-        width: 7em !important; 
-    }
-
-}
 
 .exports-container {
     height: auto;
@@ -262,4 +245,45 @@ th:first-child {
       100% {
         transform: translateX(0); 
       }
+}
+
+@media (max-width: 800px) {
+
+    .single-export-container {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .exports-headers {display: none;}
+
+    .single-export-container .generated {
+        display: none;
+    }
+
+    .export-download-button {
+        width: 7em !important; 
+    }
+
+}
+
+@media screen and (max-width: 900px) {
+    .transactions-tbl-heading:nth-child(3) {
+        display: none;
+    }
+
+    #opis-trans {
+        display: none;
+    }
+
+    .invoice-details {
+        font-size: .9em;
+    }
+    
+}
+
+@media screen and (max-width: 1200px) {
+    .lista-trans-br-racuna {
+        justify-content: center;
+    }
+
+
 }

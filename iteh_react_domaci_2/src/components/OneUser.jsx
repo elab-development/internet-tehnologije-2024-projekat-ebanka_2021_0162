@@ -80,26 +80,27 @@ const OneUser = ({details, closeDetails}) => {
     <div className='oneUser-container'> 
       <h3 className='naslov'>Detalji izabranog korisnika</h3>
       <br/>
-      <p className="paragraf"><span className="span1">ID: </span><span className="span2">{details.id}</span></p>
-      <p className="paragraf"><span className="span1">Ime: </span><span className="span2">{details.ime}</span></p>
-      <p className="paragraf"><span className="span1">Prezime: </span><span className="span2">{details.prezime}</span></p>
-      <p className="paragraf"><span className="span1">Email: </span><span className="span2">{details.email}</span></p>
-      <p className="paragraf"><span className="span1">Datum rodjenja: </span><span className="span2">{details.datum_rođenja}</span></p>
-      <p className="paragraf"><span className="span1">Maticni broj: </span><span className="span2">{details.maticni_broj}</span></p>
-      <p className="paragraf"><span className="span1">Broj licne karte: </span><span className="span2">{details.broj_licne_karte}</span></p>
-      <p className="paragraf"><span className="span1">Adresa: </span><span className="span2">{details.adresa}</span></p>
-      <p className="paragraf"><span className="span1">Grad: </span><span className="span2">{details.grad}</span></p>
-      <p className="paragraf"><span className="span1">Drzava: </span><span className="span2">{details.drzava}</span></p>
-      <p className="paragraf"><span className="span1">Broj telefona: </span><span className="span2">{details.broj_telefona}</span></p>
+      <div className="paragraf"><p><span className="span1">ID: </span><span className="span2">{details.id}</span></p></div>
+      <div className="paragraf"><p><span className="span1">Ime: </span><span className="span2">{details.ime}</span></p></div>
+      <div className="paragraf"><p><span className="span1">Prezime: </span><span className="span2">{details.prezime}</span></p></div>
+      <div className="paragraf"><p><span className="span1">Email: </span><span className="span2">{details.email}</span></p></div>
+      <div className="paragraf"><p><span className="span1">Datum rodjenja: </span><span className="span2">{details.datum_rođenja}</span></p></div>
+      <div className="paragraf"><p><span className="span1">Maticni broj: </span><span className="span2">{details.maticni_broj}</span></p></div>
+      <div className="paragraf"><p><span className="span1">Broj licne karte: </span><span className="span2">{details.broj_licne_karte}</span></p></div>
+      <div className="paragraf"><p><span className="span1">Adresa: </span><span className="span2">{details.adresa}</span></p></div>
+      <div className="paragraf"><p><span className="span1">Grad: </span><span className="span2">{details.grad}</span></p></div>
+      <div className="paragraf"><p><span className="span1">Drzava: </span><span className="span2">{details.drzava}</span></p></div>
+      <div className="paragraf"><p><span className="span1">Broj telefona: </span><span className="span2">{details.broj_telefona}</span></p></div>
       
       <br/>
       <div className='second-user-container'>
-      <button className='closed-btn'  onClick={closeDetails}>Zatvori</button>
-      <button className='closed-btn' onClick={handleUserModify}>Izmeni</button>
-      <button className='closed-btn' onClick={handleUserDelete}>Obrisi</button>
+        <button className='closed-btn'  onClick={closeDetails}>Zatvori</button>
+        <button className='closed-btn' onClick={handleUserModify}>Izmeni</button>
+        <button className='closed-btn' onClick={handleUserDelete}>Obrisi</button>
       </div>
-      <button className='details-btn' onClick={()=>{handleUserBankAccounts()}}>Prikaz svih racuna korisnika</button>
-
+      <div className='drugi-kontainer-dugmadi'>
+        <button className='details-btn' onClick={()=>{handleUserBankAccounts()}}>Prikaz svih racuna korisnika</button>
+      </div>
       {isEverythingDone && <PopUp closeMessageBox={closeMessageBox} messageText={"Korisnik je uspešno obrisan."} />}
 
       {toModifyUser && <CreateNewUser details={details} />}

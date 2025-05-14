@@ -57,7 +57,7 @@ const KursnaLista = ({date, logout}) => {
         <table className="table table-hover">
         <thead>
           <tr>
-            <th scope="col">Aktuelna kursna lista</th>
+            <th className='first-col' scope="col">Aktuelna kursna lista</th>
             <th scope="col">Valuta</th>
             <th scope="col">Kupovni kurs</th>
             <th scope="col">Srednji kurs</th>
@@ -91,7 +91,7 @@ const KursnaLista = ({date, logout}) => {
 }}>
         <thead>
           <tr>
-            <th scope="col">Aktuelna kursna lista</th>
+            <th className='first-col' scope="col">Aktuelna kursna lista</th>
             <th scope="col">Valuta</th>
             <th scope="col">Kupovni kurs</th>
             <th scope="col">Srednji kurs</th>

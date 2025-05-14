@@ -33,7 +33,6 @@
     border-radius: 1em;
     overflow-y : scroll;
     overflow-x: hidden;
-    padding-right: 1em;
 }
 
 .second-column-menjacnica  table {
@@ -49,11 +48,11 @@ background: linear-gradient(90deg, #C2E090, #77b2e9);
     }
 
     .first-column-menjacnica {
-        height: 40%;
+        height: 52%;
     }
 
     .second-column-menjacnica {
-        height: 60%;
+        height: 48%;
     }
 }
 

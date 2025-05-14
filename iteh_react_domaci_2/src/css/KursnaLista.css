@@ -185,3 +185,9 @@ background-color: rgb(199, 228, 228);
   background-size: 100% 100%;
 
 }
+
+@media screen and (max-width: 850px) {
+  .first-col {
+    display: none;
+  }
+}

@@ -140,7 +140,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: wrap;    
     gap: 2em;
 }
 
@@ -175,3 +175,64 @@ body {
     border: 1px solid #fff;
     color : #fff;
 }
+
+
+@media screen and (max-width: 1500px) {
+    .main-container-create-new-user {
+        height : 95vh;
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    .input-create-new-user {
+        width: 70%;
+    }
+
+    .create-new-user-button {
+        width: 50%;
+    }
+}
+
+@media  screen and (max-width: 1000px) {
+    .main-container-create-new-user {
+        height : 180vh;
+    }
+    .columns-container-create-new-user {
+        flex-direction: column;
+    }
+    
+    .second-column-container-create-new-user {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .first-column-container-create-new-user {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .buttons-main-container-create-new-user button{
+        height: 60%;
+    }
+
+    .input-create-new-bank{
+        font-size: 1em;
+        width: 60%;
+    }
+
+    .create-new-user-button{
+        width: 60%;
+    }
+
+}
+
+@media screen and (max-width: 800px){
+    .create-new-user-button{
+        width: 80%;
+    }
+
+    .input-create-new-bank{
+        width: 70%;
+    }
+}
+

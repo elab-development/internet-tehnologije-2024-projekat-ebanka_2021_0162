@@ -252,88 +252,154 @@ const sredjivanjePodataka = () => {
               speedMultiplier={0.5} 
             />
             </div>
-        </> : <>
-        <div className="forma-racun">
+        </> :
+         <>
+      <div className="forma-racun">
 
 
         <div className='user'>
-      <p className='tekst'>Korisnik</p>
-      <div className='container-korisnik-first'> 
-      <p className='tekst'>Ime: <input className='polja-korisnik' disabled value={izabranKorisnik.ime}/></p>
-      <p className='tekst'>Prezime: <input className='polja-korisnik' disabled value={izabranKorisnik.prezime}/></p>
-      </div>
-      <div className='container-korisnik-first'>
-      <p className='tekst'>Datum rođenja: <input className='polja-korisnik' disabled value={izabranKorisnik.datum_rođenja} type='date'/></p>
-      <p className='tekst'>Broj telefona: <input className='polja-korisnik' disabled value={izabranKorisnik.broj_telefona}/></p>
-      </div>
-      <div className='container-korisnik-second'>
-      <p className='tekst'>Adresa: </p>
-      <p><input className='polja-korisnik-a' disabled value={izabranKorisnik.adresa}/></p>
-      </div>
-      </div>
+          <p className='tekst'>Korisnik</p>
+          <div className='container-korisnik-first'> 
 
+            <div className='container-korisnik-first-first-group'> 
+              <label for={izabranKorisnik.ime} className='tekst'>Ime: </label>
+              <input className='polja-korisnik' disabled value={izabranKorisnik.ime} id={izabranKorisnik.ime}/>
+            </div>
 
-      <div className='container-korisnik-second'> 
-      
-        <p className='tekst'>Banka</p>
-      <select className='polja-korisnik-a' style={{marginLeft:'15px'}} name='banka_id' onChange={(e)=>handleInput(e)}>
-            <option>/</option>
-        {banke.map((b,index)=>{
-            return <option  key={index} value={b.id}>{b.naziv+",  "+b.broj_dozvole}</option>
-        })}
-      </select>
-      
-      </div>
+            <div className='container-korisnik-first-second-group'>
+              <label for={izabranKorisnik.prezime} className='tekst'>Prezime:</label>
+              <input className='polja-korisnik' disabled value={izabranKorisnik.prezime} id={izabranKorisnik.prezime} />
+            </div>
+
+          </div>
+
+          <div className='container-korisnik-first'>
+            
+            <div className='container-korisnik-first-first-group'> 
+              <label for={izabranKorisnik.datum_rođenja} className='tekst'>Datum rođenja:</label>
+              <input className='polja-korisnik' disabled value={izabranKorisnik.datum_rođenja} id={izabranKorisnik.datum_rođenja} type='date'/>
+            </div> 
+
+            <div className='container-korisnik-first-second-group'> 
+              <label className='tekst' for={izabranKorisnik.broj_telefona}>Broj telefona:</label>
+              <input className='polja-korisnik' disabled value={izabranKorisnik.broj_telefona} id={izabranKorisnik.broj_telefona} />
+            </div>
+
+          </div>
+
+          <div className='container-korisnik-second'>
+            <div>
+              <label className='tekst' for={izabranKorisnik.adresa}>Adresa: </label>
+            </div>
+            
+            <div>
+              <input className='polja-korisnik-a' disabled value={izabranKorisnik.adresa} id={izabranKorisnik.adresa}/>
+            </div>
+          </div>
+        
+        </div>
+
+        <div className='container-korisnik-second' style={{marginLeft: '1em'}}> 
+        
+          <label className='tekst' for="banka">Banka</label>
+        <select className='polja-korisnik-a' id="banka" style={{marginLeft:'1em'}} name='banka_id' onChange={(e)=>handleInput(e)}>
+              <option>/</option>
+          {banke.map((b,index)=>{
+              return <option  key={index} value={b.id}>{b.naziv+",  "+b.broj_dozvole}</option>
+          })}
+        </select>
+        
+        </div>
 
         <div>
             
-            <div className='user'>
+          <div className='user'>
+            
             <p className="tekst">Detalji računa</p>
+            
             <div className='detalji-container'>
-      <p className='tekst'>Broj računa:<input name='broj_racuna' className='polje-detalji' value={racunaDetalji.broj_racuna} onChange={(e)=>handleInput(e)}/></p>
-      <p className='tekst'>Stanje na računu:<input name='stanje_racuna' className='polje-detalji' value={racunaDetalji.stanje_racuna} onChange={(e)=>handleInput(e)}/></p>
+              <div className="detalji-one-row">
+                <label className='tekst' for={racunaDetalji.broj_racuna}>Broj računa:</label>
+                <input name='broj_racuna' className='polje-detalji' value={racunaDetalji.broj_racuna} id={racunaDetalji.broj_racuna} onChange={(e)=>handleInput(e)}/>
+              </div>
 
-      {tipRacuna==='tekuci' ? <>
-        <p className='tekst'>Kamata:<input name='kamata' value={racunaDetalji.kamata} className='polje-kamata' onChange={(e)=>handleInput(e)}/>%</p>
-        <p className='tekst'>Održavanje:<input name='odrzavanje' value={racunaDetalji.odrzavanje} className='polje-detalji' onChange={(e)=>handleInput(e)}/></p>
-        <p className='tekst'>Dozvoljeni minus:<input name='dozvoljeni_minus' value={racunaDetalji.dozvoljeni_minus} className='polje-detalji' onChange={(e)=>handleInput(e)}/></p>
-      </> : <>
-        {tipRacuna==='devizni' ? <>
-            <p className='tekst'>Održavanje:<input name='odrzavanje' className='polje-detalji' onChange={(e)=>handleInput(e)}/></p>
-            <p className='tekst'>Valuta:
-                <div className='radio-button-container'>
-                    <div className='radio-container-first-group'>
-                {opcijeRadioButton.map((opt, index)=>{
-                    if(index===0 || index===1 || index===2 || index===3){
-                        return <div className='radio-one-container'><label key={index}>{opt}</label><input onChange={(e)=>handleInput(e)} className='polje-detalji' type='radio' name='valuta' value={opt} onClick={(e)=>handleOption(e)}/></div>
-                    }
-                })}
-                </div>
-                <div className='radio-container-second-group'>
-                {opcijeRadioButton.map((o, index)=>{
-                    if(index===4 || index===5 || index===6 || index===7){
-                        return <div className='radio-one-container'><label key={index}>{o}</label><input onChange={(e)=>handleInput(e)} className='polje-detalji' type='radio' name='valuta' value={o} onClick={(e)=>handleOption(e)}/></div>
-                    }
-                })}
-                </div>
-                </div>
-            </p>
-           
-        </> : <>
-            {tipRacuna==='stedni' ? <>
-                <p className='tekst'>Tip štednje:
-                <select className='polje-detalji-stednja' name='tip_stednje' onChange={(e)=>handleInput(e)} >
-                    <option>/</option>
-                    <option value='orocena'>Oročena štednja</option>
-                    <option value='po vidjenju'>Štednja po viđenju</option>
-                </select>
-                </p>
-                <p className='tekst'>Kamata:<input name='kamata' value={racunaDetalji.kamata} onChange={(e)=>handleInput(e)} className='polje-kamata'/>%</p>
-                <p className='tekst'>Održavanje:<input name='odrzavanje' value={racunaDetalji.odrzavanje} onChange={(e)=>handleInput(e)} className='polje-detalji'/></p>
-            </> : <></>}
-        </>}
-      </>}
-      </div>
+              <div className="detalji-one-row">             
+                <label className='tekst' for={racunaDetalji.stanje_racuna}>Stanje na računu:</label> 
+                <input name='stanje_racuna' className='polje-detalji' value={racunaDetalji.stanje_racuna} id={racunaDetalji.stanje_racuna} onChange={(e)=>handleInput(e)}/>
+              </div>
+
+            {tipRacuna==='tekuci' ? <>
+              <div className="detalji-one-row">             
+                <label className='tekst' for={racunaDetalji.kamata}>Kamata:</label>
+                <input name='kamata' value={racunaDetalji.kamata} id={racunaDetalji.kamata} className='polje-kamata' onChange={(e)=>handleInput(e)}/>%
+              </div>
+
+              <div className="detalji-one-row">             
+                <label className='tekst' for={racunaDetalji.odrzavanje}>Održavanje:</label> 
+                <input name='odrzavanje' value={racunaDetalji.odrzavanje} className='polje-detalji' id={racunaDetalji.odrzavanje} onChange={(e)=>handleInput(e)}/>
+              </div>
+
+              <div className="detalji-one-row">             
+                <label className='tekst'>Dozvoljeni minus:</label>
+                <input name='dozvoljeni_minus' value={racunaDetalji.dozvoljeni_minus} id={racunaDetalji.dozvoljeni_minus} className='polje-detalji' onChange={(e)=>handleInput(e)}/>
+              </div>
+
+            </> : <>
+              {tipRacuna==='devizni' ? <>
+                    <div className="detalji-one-row">             
+                      <label for={racunaDetalji.odrzavanje} className='tekst'>Održavanje:</label>
+                      <input name='odrzavanje' className='polje-detalji' id={racunaDetalji.odrzavanje} onChange={(e)=>handleInput(e)}/>
+                    </div>
+
+                  <p className='tekst'>Valuta:
+                      <div className='radio-button-container'>
+                          <div className='radio-container-first-group'>
+                      {opcijeRadioButton.map((opt, index)=>{
+                          if(index < 4){
+                              return <div className='radio-one-container'>
+                                <label for={index} key={index}>{opt}</label>
+                                <input onChange={(e)=>handleInput(e)} className='polje-detalji' type='radio' name='valuta' id={index} value={opt} onClick={(e)=>handleOption(e)}/>
+                              </div>
+                          }
+                      })}
+                      </div>
+                      <div className='radio-container-second-group'>
+                      {opcijeRadioButton.map((o, index)=>{
+                          if(index>=4){
+                              return <div className='radio-one-container'>
+                                <label for={index} key={index}>{o}</label>
+                                <input id={index} onChange={(e)=>handleInput(e)} className='polje-detalji' type='radio' name='valuta' value={o} onClick={(e)=>handleOption(e)}/></div>
+                          }
+                      })}
+                      </div>
+                      </div>
+                  </p>
+                
+              </> : <>
+                  {tipRacuna==='stedni' ? <>
+                      <div className="detalji-one-row">             
+                        <label className='tekst' for={racunaDetalji.tip_stednje}>Tip štednje:</label>
+                        <select className='polje-detalji-stednja' name='tip_stednje' id={racunaDetalji.tip_stednje} onChange={(e)=>handleInput(e)} >
+                            <option>/</option>
+                            <option value='orocena'>Oročena štednja</option>
+                            <option value='po vidjenju'>Štednja po viđenju</option>
+                        </select>
+                      </div>
+
+                      <div className="detalji-one-row">             
+                        <label for={racunaDetalji.kamata} className='tekst'>Kamata:</label> 
+                        <input name='kamata' value={racunaDetalji.kamata} id={racunaDetalji.kamata} onChange={(e)=>handleInput(e)} className='polje-kamata'/>%
+                      </div>
+
+                      <div className="detalji-one-row">             
+                        <label for={racunaDetalji.odrzavanje} className='tekst'>Održavanje:</label>
+                        <input name='odrzavanje' value={racunaDetalji.odrzavanje} id={racunaDetalji.odrzavanje} onChange={(e)=>handleInput(e)} className='polje-detalji'/>
+                      </div>
+                  </> : <></>}
+              </>}
+            </>}
+        </div>
+      
       </div>
       </div>
 
@@ -345,7 +411,8 @@ const sredjivanjePodataka = () => {
 
       {isCreacted && <PopUp closeMessageBox={closeMessageBox} messageText={"Novi racun korisnika je uspesno kreiran!"}/>}
     
-    </>}
+    </>
+    }
     </div>
   )
 }

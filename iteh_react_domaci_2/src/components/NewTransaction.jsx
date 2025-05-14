@@ -437,8 +437,11 @@ const NewTransaction = ({focusedAcc, tip}) => {
                 <input type="text" name="racun_id_grad" placeholder='platilac' className="input-transaction" defaultValue={focusedAcc.user.grad} disabled/>
             </div>
         </div>
-       
-        <button type="submit" className="btn-transaction" onClick={(ex)=>{handleNewTransaction(ex)}}>Izvrši plaćanje</button>
+        
+        <div className='izvrsi-placanje-container'>
+            <button type="submit" className="btn-transaction" onClick={(ex)=>{handleNewTransaction(ex)}}>Izvrši plaćanje</button>
+        </div>
+        
         </form>
         {successfulTran && <PopUp closeMessageBox={closeMessageBox} messageText={messageText}/>}
         {failedTransaction && <PopUp closeMessageBox={(closeMessageBox)} messageText={failedTransactionMessage}/>}

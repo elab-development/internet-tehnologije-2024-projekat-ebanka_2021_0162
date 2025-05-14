@@ -50,15 +50,15 @@ const AccountInfoAdmin = () => {
           </div> : <>
             <div className="account-info-body">
                 <div className="container-info-admin">
-                    <div>Ime i prezime: <p><input className="user-data-admin" disabled value={adminData.ime+ " "+adminData.prezime}/></p></div>
-                    <div>Datum rodjenja: <p><input className="user-data-admin" disabled value={adminData.datum_rođenja.split('-')[2]+"/"+adminData.datum_rođenja.split('-')[1]+"/"+adminData.datum_rođenja.split('-')[0]}/></p></div>
-                    <div>Email: <p><input className="user-data-admin" disabled value={adminData.email}/></p></div>
-                    <div>Grad: <p><input className="user-data-admin" disabled value={adminData.grad}/></p></div>
+                    <div><p>Ime i prezime:</p> <input className="user-data-admin" disabled value={adminData.ime+ " "+adminData.prezime}/></div>
+                    <div><p>Datum rodjenja:</p> <input className="user-data-admin" disabled value={adminData.datum_rođenja.split('-')[2]+"/"+adminData.datum_rođenja.split('-')[1]+"/"+adminData.datum_rođenja.split('-')[0]}/></div>
+                    <div><p>Email: </p><input className="user-data-admin" disabled value={adminData.email}/></div>
+                    <div><p>Grad: </p><input className="user-data-admin" disabled value={adminData.grad}/></div>
                 </div>
 
                 <div className="container-info-admin-2">
-                    <div>Uloga: <p><input className="user-data-admin" disabled value={adminData.role}/></p></div>
-                    <div>Broj legitimacije: <p><input className="user-data-admin" disabled value={adminData.broj_legitimacije}/></p></div>
+                    <div><p>Uloga:</p><input className="user-data-admin" disabled value={adminData.role}/></div>
+                    <div><p>Broj legitimacije: </p><input className="user-data-admin" disabled value={adminData.broj_legitimacije}/></div>
                 </div>
             </div>
           </>} 

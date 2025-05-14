@@ -371,12 +371,15 @@ const UserHome = ({accountFocus, focusedAcc}) => {
             />
             </div>
             </> : <>
-              {tabFocused.tab2 && (<><div className="list-of-transactions-container">
+              {tabFocused.tab2 && (<>
+              <div className="list-of-transactions-container">
               <div className="lista-trans-icon-headline">
                 <div><PiVaultBold style={{fontSize:'1.8em', marginBottom:'3px', color:'darkBlue'}} /></div>
-                <div><h2>Lista Transakcija Za {focusedAcc == null ? <></> : focusedAcc.tip} Račun:</h2></div>
+                <div><h3>Lista Transakcija Za {focusedAcc == null ? <></> : focusedAcc.tip} Račun:</h3></div>
               </div>
-              <div className="lista-trans-br-racuna">{focusedAcc == null ? <>/</>:focusedAcc.detalji.broj_racuna}</div>
+              <div className="lista-trans-br-racuna">
+                {focusedAcc == null ? <>/</>:focusedAcc.detalji.broj_racuna}
+              </div>
             </div>
 
             <table>
@@ -395,7 +398,7 @@ const UserHome = ({accountFocus, focusedAcc}) => {
                 <tr onClick={() => {showTransactionDetails(transakcija.id)}} className="data-row" key={transakcija.id}>
                   <td>{transakcija.datum}</td>
                   <td >{transakcija.iznos} <span>{focusedAcc.detalji.valuta == null ? "RSD" : focusedAcc.detalji.valuta}</span></td>
-                  <td>{transakcija.opis_transakcije}</td>
+                  <td id="opis-trans">{transakcija.opis_transakcije}</td>
                   <td>{transakcija.broj_racuna_primaoca}</td>
                 </tr>
              );
@@ -418,9 +421,8 @@ const UserHome = ({accountFocus, focusedAcc}) => {
             
 
             {tabFocused.tab1 && (<>
-              <div className="list-of-transactions-container">
-              <div className="lista-trans-icon-headline">
-                <div></div>
+              <div style={{width:'100%', display:'flex', alignItems:'center', justifyContent:'center'}} className="list-of-transactions-container">
+              <div style={{width:'100%', display:'flex', alignItems:'center', justifyContent:'center'}} className="lista-trans-icon-headline">
                 <div><h2>Detalji za {focusedAcc == null ? <></> : focusedAcc.tip} Račun</h2></div>
               </div>
             </div>
