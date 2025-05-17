@@ -48,7 +48,9 @@ class AuthController extends Controller
             'adresa'=>'required|string',
             'grad'=>'required|string',
             'maticni_broj'=>'required|string|size:13',
-            'broj_licne_karte'=>'required|string|regex:/^\d{3}-\d{2}-\d{4}$/',
+            'broj_licne_karte'=>'required|string|size:9',
+            'broj_telefona'=>'required|string|size:10',
+            'drzava'=>'required|string',
             'email'=>'required|string|max:255',
             'password'=>'required|string|min:8'
         ]);
@@ -61,6 +63,8 @@ class AuthController extends Controller
             'grad'=>$validate['grad'],
             'maticni_broj'=>$validate['maticni_broj'],
             'broj_licne_karte'=>$validate['broj_licne_karte'],
+            'broj_telefona'=>$validate['broj_telefona'],
+            'drzava'=>$validate['drzava'],
             'email'=>$validate['email'],
             'password'=>bcrypt($validate['password'])
         ]);
