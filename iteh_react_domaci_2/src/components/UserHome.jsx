@@ -93,6 +93,8 @@ const UserHome = ({accountFocus, focusedAcc}) => {
       let mesec = exportDateRange.split(' ')[0];
       let godina = exportDateRange.split(' ')[1];
 
+        console.log(mesec);
+        console.log(godina);
       let config = {
         method: 'get',
         maxBodyLength: Infinity,

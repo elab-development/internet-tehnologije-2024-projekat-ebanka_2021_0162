@@ -7,10 +7,10 @@ const Options = ({userId}) => {
 
     const navigate=useNavigate();
     const opcije = [
-          { label: 'Tekući račun', url: '/admin/kreiranje-racuna/tekuci' },
-          { label: 'Studentski račun', url: '/admin/kreiranje-racuna/studentski' },
-          { label: 'Devizni račun', url: '/admin/kreiranje-racuna/devizni' },
-          { label: 'Štedni račun', url: '/admin/kreiranje-racuna/stedni' }
+          { label: 'Tekući račun', url: '/admin/svi-korisnici/bankovni-racuni-korisnika/tekuci' },
+          { label: 'Studentski račun', url: '/admin/svi-korisnici/bankovni-racuni-korisnika/studentski' },
+          { label: 'Devizni račun', url: '/admin/svi-korisnici/bankovni-racuni-korisnika/devizni' },
+          { label: 'Štedni račun', url: '/admin/svi-korisnici/bankovni-racuni-korisnika/stedni' }
         ];
     const correctLink=(o, ID)=>{
         navigate(o.url, {state: {ID}});

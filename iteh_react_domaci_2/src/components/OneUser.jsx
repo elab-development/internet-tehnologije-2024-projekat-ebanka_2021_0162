@@ -73,7 +73,7 @@ const OneUser = ({details, closeDetails}) => {
   }
 
   const handleUserBankAccounts = () => {
-    navigate('/admin/bankovni-racuni-korisnika', { state: details });
+    navigate('/admin/svi-korisnici/bankovni-racuni-korisnika', { state: details });
   };
   
   return (

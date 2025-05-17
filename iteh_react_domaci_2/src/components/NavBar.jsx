@@ -7,10 +7,10 @@ import "../css/Navbar.css";
 import {GrTransaction} from 'react-icons/gr';
 import {FaMoneyCheck} from 'react-icons/fa6';
 import {IoCash} from 'react-icons/io5';
-import {FiLogIn} from 'react-icons/fi';
 import { HiCurrencyEuro } from "react-icons/hi2";
 import { MdHome } from 'react-icons/md';
 import { MdLogin } from 'react-icons/md';
+import Breadcrumb from './Breadcrumb.jsx';
 
 const NavBar = ({login}) => {
 
@@ -147,7 +147,8 @@ const NavBar = ({login}) => {
         </div>
         
       </div>
-
+      
+      <Breadcrumb/>
       <Outlet/>
     </>)
 }

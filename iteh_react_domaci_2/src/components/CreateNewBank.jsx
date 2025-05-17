@@ -378,7 +378,7 @@ const CrateNewBank = () => {
 
             <div className="single-input-container-create-new-user">
                 <label htmlFor="broj_dozvole">Broj dozvole: </label>
-                <input value={bankaData['broj_dozvole']} onChange={handleInput} type="number" name="broj_dozvole" className="input-create-new-bank" id="broj_dozvole" required/>
+                <input value={bankaData['broj_dozvole']} onChange={handleInput} type="number" name="broj_dozvole" className="input-create-new-bank" id="broj_dozvole" placeholder="Unesite petocifreni broj" required/>
             </div>
         </div>
 

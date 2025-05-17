@@ -492,7 +492,7 @@ function CreateNewUser() {
         <div className="second-column-container-create-new-user">
             <div className="single-input-container-create-new-user">
                 <label htmlFor="telefon">Broj telefona:</label>
-                <input value={userData.broj_telefona} onChange={handleInput} type="tel" className="input-create-new-user" id="telefon" name="broj_telefona" minLength="10" maxLength="10" placeholder="123-45-678" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" required />
+                <input value={userData.broj_telefona} onChange={handleInput} type="tel" className="input-create-new-user" id="telefon" name="broj_telefona" minLength="10" maxLength="10" placeholder="1234567890" required />
             </div>
 
             <div className="single-input-container-create-new-user">

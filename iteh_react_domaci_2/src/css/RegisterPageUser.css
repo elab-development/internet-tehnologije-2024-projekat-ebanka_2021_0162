@@ -8,3 +8,8 @@
 .card-registration .select-arrow {
     top: 13px;
 }
+
+
+.img-fluid {
+    height: 100%;
+}

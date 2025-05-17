@@ -13,31 +13,31 @@ const KursnaLista = ({date, logout}) => {
   useEffect( () => {
     const dateElements = date.split("-");
 
-      if(date == "today") {
-        axios.get("http://127.0.0.1:8000/api/kursna-lista").then( (res) => {
-          setValute(res.data.rates);
-          setloading(false);
-        });
-      } else {
-        let config = {
-          method: 'get',
-          maxBodyLength: Infinity,
-          url: `http://127.0.0.1:8000/api/korisnik/kursna-lista/${dateElements[0]}-${dateElements[1]}-${dateElements[2]}`,
-          headers: { 
-            'Authorization': 'Bearer '+window.sessionStorage.getItem('user_auth_token'), 
-          },
-        };
-        
-        axios.request(config)
-        .then((res) => {
-          setValute(res.data.rates);
-          setloading(false);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      } 
-    
+    if(date == "today") {
+      axios.get("http://127.0.0.1:8000/api/kursna-lista").then( (res) => {
+        setValute(res.data.rates);
+        setloading(false);
+      });
+    } else {
+      let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `http://127.0.0.1:8000/api/korisnik/kursna-lista/${dateElements[0]}-${dateElements[1]}-${dateElements[2]}`,
+        headers: { 
+          'Authorization': 'Bearer '+window.sessionStorage.getItem('user_auth_token'), 
+        },
+      };
+      
+      axios.request(config)
+      .then((res) => {
+        setValute(res.data.rates);
+        setloading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    } 
+  
   },[date]);
 
   return (

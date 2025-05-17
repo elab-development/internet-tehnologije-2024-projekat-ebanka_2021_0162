@@ -50,7 +50,7 @@
 
 
    .tabela-kontejner-banka{
-    overflow-x: hidden;
+    overflow-x: auto;
     width: 80vw;
     border: 2px solid black;
     border-radius: 20px;

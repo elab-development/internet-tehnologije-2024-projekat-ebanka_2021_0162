@@ -4,7 +4,6 @@ import './App.css';
 import LogInPageUser from './components/LogInPageUser';
 import RegisterPageUser from './components/RegisterPageUser';
 import LogInPageAdmin from './components/LogInPageAdmin';
-import UnauthorisedAccessPage from './components/UnauthorisedAccessPage';
 import UserHome from './components/UserHome';
 import AdminHome from './components/AdminHome';
 import UserLogout from './components/UserLogout';
@@ -44,6 +43,7 @@ function App() {
   return (
       <BrowserRouter>
         <Routes>
+          
           <Route path="/" element={<Navigate to="/user/login"/>} />
 
           <Route path="/" element={<NavBar login={1}/>}>
@@ -68,11 +68,11 @@ function App() {
             <Route path="admin/sve-banke" element={<Table tipTabele={'banke'}/>}/>
             <Route path="admin/kreiranje-banke" element={<CreateNewBank/>}/>
             <Route path="admin/informacije-o-nalogu" element={<AccountInfoAdmin/>}/>
-            <Route path="admin/bankovni-racuni-korisnika" element={<Table tipTabele={'racuni-korisnika'} />} />
-            <Route path="admin/kreiranje-racuna/tekuci" element={<CreateNewAcc tipRacuna={'tekuci'}/>}/>
-            <Route path="admin/kreiranje-racuna/devizni" element={<CreateNewAcc tipRacuna={'devizni'}/>}/>
-            <Route path="admin/kreiranje-racuna/stedni" element={<CreateNewAcc tipRacuna={'stedni'}/>}/>
-            <Route path="admin/kreiranje-racuna/studentski" element={<CreateNewAcc tipRacuna={'studentski'}/>}/>
+            <Route path="admin/svi-korisnici/bankovni-racuni-korisnika" element={<Table tipTabele={'racuni-korisnika'} />} />
+            <Route path="admin/svi-korisnici/bankovni-racuni-korisnika/tekuci" element={<CreateNewAcc tipRacuna={'tekuci'}/>}/>
+            <Route path="admin/svi-korisnici/bankovni-racuni-korisnika/devizni" element={<CreateNewAcc tipRacuna={'devizni'}/>}/>
+            <Route path="admin/svi-korisnici/bankovni-racuni-korisnika/stedni" element={<CreateNewAcc tipRacuna={'stedni'}/>}/>
+            <Route path="admin/svi-korisnici/bankovni-racuni-korisnika/studentski" element={<CreateNewAcc tipRacuna={'studentski'}/>}/>
           </Route>
 
           <Route path="/" element={<NavBar login={0}/>} >

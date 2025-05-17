@@ -85,7 +85,7 @@
     }    
 
     .account-info-body {
-      height: 150%;
+      height: 120vh;
     }
 
     .container-image-edit {
@@ -101,28 +101,6 @@
       width: 80%;
     }
   }
-
-
-  @media screen and (max-width: 900px) {
-      .container-info {
-      grid-template-columns: repeat(1, 1fr);
-      grid-template-rows: repeat(6, 1fr);
-      width: 60%;
-    }
-
-    .container-info-2 {
-      grid-template-columns: repeat(1, 1fr);
-      grid-template-rows: repeat(3, 1fr);
-      width: 60%;
-    }    
-
-    .account-info-body {
-      height : 200%;
-    }
-  }
-  
-
-
 
   .navbar {
     background-color: #fff !important;
@@ -320,3 +298,22 @@
   }
 }
   
+
+
+  @media screen and (max-width: 900px) {
+      .container-info {
+      grid-template-columns: repeat(1, 1fr);
+      grid-template-rows: repeat(6, 1fr);
+      width: 60%;
+    }
+
+    .container-info-2 {
+      grid-template-columns: repeat(1, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      width: 60%;
+    }    
+
+    .account-info-body {
+      height : 200%;
+    }
+  }
