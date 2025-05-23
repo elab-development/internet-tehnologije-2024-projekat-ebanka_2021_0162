@@ -12,7 +12,6 @@ const CreateNewAcc = ({tipRacuna}) => {
     const lokacija = useLocation();
     const user = lokacija.state.ID;
     const[isCreacted, setIsCreated]=useState(false);
-
     const[izabranKorisnik, setIzabranKorisnik]=useState({
         id:'',
         ime:"",
@@ -34,6 +33,7 @@ const CreateNewAcc = ({tipRacuna}) => {
     }]);
     let opcijeRadioButton=['EUR','CAD','USD','CHF','JPY','RUB','CNY','GBP'];
     const[selectedOption, setSelectedOption]=useState();
+    const [invalidData, setInvalidData] = useState(false);
 
     const[racunaDetalji, setRacunDetalji]=useState({
         user_id:'',
@@ -133,19 +133,33 @@ const sredjivanjePodataka = () => {
       delete data.valuta;
       delete data.dozvoljeni_minus;
     }
+
+    if(data.stanje_racuna <= 0 || data.kamata <= 0 || data.odrzavanje <= 0 || data.dozvoljeni_minus <= 0) {
+      setInvalidData(true);
+      return null;
+    }
   
     return data;
   };
 
   const closeMessageBox = () => {
-    setIsCreated(false);
-    window.history.back();
+    if(isCreacted) {
+      setIsCreated(false);
+      window.history.back();
+    }
+
+    if(invalidData) {
+      setInvalidData(false);
+    }
+
 }
 
   const potvrda=()=>{
     
     const konacniPodaci=sredjivanjePodataka();
-
+    if(konacniPodaci == null) {
+      return;
+    }
     console.log(konacniPodaci);
     
       if(tipRacuna==='tekuci'){
@@ -410,7 +424,7 @@ const sredjivanjePodataka = () => {
       </div>
 
       {isCreacted && <PopUp closeMessageBox={closeMessageBox} messageText={"Novi racun korisnika je uspesno kreiran!"}/>}
-    
+      {invalidData && <PopUp closeMessageBox={closeMessageBox} messageText={"Neispravno popunjen obrazac."} />}
     </>
     }
     </div>

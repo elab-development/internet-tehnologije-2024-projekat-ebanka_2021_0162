@@ -11,6 +11,7 @@ const NewTransaction = ({focusedAcc, tip}) => {
     const[internalData, setInternalData]=useState();
     const[failedTransaction, setFailedTransaction]=useState(false);
     let newInternalData=[];
+    const [invalidAmount, setInvalidAmount] = useState(false);
     const[loading, setLoading]=useState(true);
   
         useEffect(()=>{
@@ -71,6 +72,7 @@ const NewTransaction = ({focusedAcc, tip}) => {
   });
 
   const [errors, setErrors]=useState({});
+  const [insufficientFunds, setInsufficientFunds] = useState(false);
 
   function handleInput(e){
     let temp=transactionData;
@@ -92,9 +94,10 @@ const NewTransaction = ({focusedAcc, tip}) => {
   };
 
 
-  const handleSelectChangeRacun = (ev) => {
+  const handleSelectChangeRacun = (e) => {
     let t=transactionData;
-    t.broj_racuna_primaoca=ev.target.value;
+    console.log(e.target.value);
+    t.broj_racuna_primaoca=e.target.value;
     setTransactionData(t);
   };
 
@@ -111,7 +114,6 @@ const NewTransaction = ({focusedAcc, tip}) => {
 
   function handleNewTransaction(e){
         e.preventDefault();
-
         let error={};
 
         const noviDatum=new Date();
@@ -122,15 +124,26 @@ const NewTransaction = ({focusedAcc, tip}) => {
         let id;
         let type;
 
-        if(tip ==='interna'){
+         
+            if(focusedAcc.detalji.stanje_racuna < transactionData.iznos) {
+              setInsufficientFunds(true);
+              return;
+            }
 
+            if(transactionData.iznos <= 0) {
+              setInvalidAmount(true);
+              return;
+            }
+             
+
+        if(tip ==='interna'){
             newInternalData.forEach((d, index)=>{
                 if(d.detalji.broj_racuna===transactionData.broj_racuna_primaoca){
                     id=d.detalji.id;
                     type=d.tip;
                 }
-            },[])
-    
+            },[]); 
+
             switch(type){
                 case 'tekuci':
                     let dataPromenaTekuci = JSON.stringify({
@@ -211,7 +224,7 @@ const NewTransaction = ({focusedAcc, tip}) => {
         let data = new FormData();
 
         if(transactionData.iznos != '') {
-            data.append('iznos', transactionData.iznos);
+          data.append('iznos', transactionData.iznos);
         } else {
             error.iznos='Unesite unos';
         }
@@ -223,6 +236,7 @@ const NewTransaction = ({focusedAcc, tip}) => {
         }
 
         if(transactionData.broj_racuna_primaoca != '') {
+          console.log(transactionData.broj_racuna_primaoca);
             data.append('broj_racuna_primaoca', transactionData.broj_racuna_primaoca);
         } else {
             error.broj_racuna_primaoca='Unesite broj_racuna_primaoca';
@@ -268,7 +282,7 @@ const NewTransaction = ({focusedAcc, tip}) => {
             console.log(error);
         });
 
-
+       
         
        switch(focusedAcc.tip){
         case 'tekuci':
@@ -350,8 +364,18 @@ const NewTransaction = ({focusedAcc, tip}) => {
 
 
     const closeMessageBox=()=>{
+      if(successfulTran) {
         setSuccessfulTran(false);
         navigate('/user/home');
+      }
+      if(insufficientFunds) {
+        setInsufficientFunds(false);
+        return;
+      }
+      if(invalidAmount) {
+        setInvalidAmount(false);
+        return;
+      }
     }
 
 
@@ -373,7 +397,7 @@ const NewTransaction = ({focusedAcc, tip}) => {
             <label className="label-transaction"> Broj računa primaoca:  </label>
             {tip==='interna' ? 
             (<>
-            <select onChange={(a)=>handleSelectChangeRacun(a)} value={transactionData.broj_racuna_primaoca} className="input-transaction">
+            <select onClick={(e)=>handleSelectChangeRacun(e)} value={transactionData.broj_racuna_primaoca} className="input-transaction">
                 {newInternalData && newInternalData.map((item, index)=>{
                     return (<option key={index} name="broj_racuna_primaoca" value={item.detalji.broj_racuna}>{item.detalji.broj_racuna}, {item.banka.naziv}</option>)
                 })}
@@ -445,6 +469,8 @@ const NewTransaction = ({focusedAcc, tip}) => {
         </form>
         {successfulTran && <PopUp closeMessageBox={closeMessageBox} messageText={messageText}/>}
         {failedTransaction && <PopUp closeMessageBox={(closeMessageBox)} messageText={failedTransactionMessage}/>}
+        {insufficientFunds && <PopUp closeMessageBox={closeMessageBox} messageText={"Nemate dovoljno sredstava na računu!"} />}
+        {invalidAmount && <PopUp closeMessageBox={closeMessageBox} messageText={"Iznos mora biti pozitivan broj!"} /> }
     </div>
   )
 }
