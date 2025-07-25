@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CheckIfAdmin
+class CheckIfSubAdmin
 {
     /**
      * Handle an incoming request.
@@ -17,11 +17,9 @@ class CheckIfAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check() && Auth::user()->role == 'system_admin') {
-            return $next($request); // Ako je admin, dozvoljava dalje izvršavanje
+        if(Auth::check() && Auth::user()->role == "admin" ) {
+            return $next($request);
         }
-
-        // Ako korisnik nije admin, vratiti odgovarajući odgovor
         return response()->json(['greska' => 'Nedozvoljen pristup korisnicima!'], 403);
     }
 }

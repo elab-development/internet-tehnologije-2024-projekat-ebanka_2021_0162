@@ -28,4 +28,10 @@ class Admin extends Model
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function banka() {
+        return $this->belongsTo(Banka::class);
+    }
+
+    public $timestamps = false;
 }

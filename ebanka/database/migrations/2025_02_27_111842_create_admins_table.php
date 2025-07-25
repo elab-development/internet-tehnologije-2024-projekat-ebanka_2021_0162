@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('grad');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('role')->default('admin');
+            $table->string('role')->default('system_admin');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

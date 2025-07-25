@@ -19,5 +19,9 @@ class Banka extends Model
         return $this->hasMany(User::class);
     }
 
+    public function admin(){
+        return $this->belongsTo(Admin::class);
+    }
+
     public $timestamps = false;
 }

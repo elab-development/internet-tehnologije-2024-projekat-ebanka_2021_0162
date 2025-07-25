@@ -72,5 +72,7 @@ class Kernel extends HttpKernel
         // Ovo omogucava da se koristi isRegularUser kao kljuc za middleware u rutama
         // Sada se moze primeniti na rute u routes/api.php
         'isRegularUser' => \App\Http\Middleware\RegularUser::class,
+
+        'isSubAdmin' => \App\Http\Middleware\CheckIfSubAdmin::class,
     ];
 }

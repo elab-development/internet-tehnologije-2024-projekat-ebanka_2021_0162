@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AccountInfoController;
@@ -95,7 +96,7 @@ Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
 
     Route::get("/admin/racuni-vezani-za-banku/{id}", [BankController::class, "svi_povezani_racuni"]);
 
-    Route::get("/admin/informacije-o-nalogu", [AccountInfoController::class, "showAdmin"]);
+    Route::get("/admin/informacije-o-nalogu-system-admin", [AccountInfoController::class, "showAdmin"]);
     Route::get("/admin/kursna-lista", [ExchangeRatesController::class, "fetchRates"]);
     
     Route::delete("/admin/tekuci_racun/{id}",[TekuciRacunController::class,"destroy"]);
@@ -108,7 +109,23 @@ Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
     Route::post("/admin/kreiranje-devizni_racun",[DevizniRacunController::class,"store"]);
     Route::post("/admin/kreiranje-stedni_racun",[StedniRacunController::class,"store"]);
     
-    Route::post("/admin/logout", [AuthController::class, "logout"]);
+    Route::post("/admin/logout-system-admin", [AuthController::class, "logout"]);
+});
+
+Route::middleware(["auth:sanctum", "isSubAdmin"])->group(function() {
+    Route::get("/admin/svi-racuni-banke/{id}", [AdminController::class, "getAllBankAccounts"]);
+    Route::get("/admin/svi-korisnici-banke/{id}", [AdminController::class, "getAllBankUsers"]);
+  
+    Route::get("/admin/informacije-o-nalogu-sub-admin", [AccountInfoController::class, "showAdmin"]);
+
+    Route::get("/admin/broj-korisnika-godisnje/{id}",[AdminController::class,"userPerYear"]);
+    Route::get("/admin/broj-tipova-racuna/{id}",[AdminController::class,"percentTypeRacun"]);
+    Route::get("/admin/izvrsene-transakcije/{racun_id}",[TransakcijaController::class,"prikaz_transakcija"]);
+    Route::get("/admin/racuni-korisnika-uBanci/{banka_id}/{user_id}",[AdminController::class, "racuni_za_korisnika_u_banci"]);
+    Route::get("/admin/potrosnja_korisnika_mesecno/{racun_id}",[AdminController::class,"potrosnja_korisnika"]);
+
+    Route::post("/admin/logout-sub-admin", [AuthController::class, "logout"]);
+
 });
 
 
@@ -118,11 +135,15 @@ Route::middleware("guest")->group( function() {
     Route::post("/korisnik/login", [AuthController::class, "login"]);
     
     //nezasticena ruta za logovanje admina
-    Route::post('/admin/login', [AuthController::class, "logInAdmin"]);
-    
+    Route::post('/admin/login-system-admin', [AuthController::class, "logInSysAdmin"]);
+
+    //nezasticena ruta za logovanje admina
+    Route::post('/admin/login-sub-admin', [AuthController::class, "logInSubAdmin"]);
+
     // sign up ruta
     Route::post("/registracija",[AuthController::class,"register"]);    
     
     //ruta za ucitavanje kursnih lista
     Route::get("/kursna-lista", [ExchangeRatesController::class, "fetchRates"]);
+    Route::get("/sve-banke",[BankController::class,"index"]);
 });

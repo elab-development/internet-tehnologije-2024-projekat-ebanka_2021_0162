@@ -15,22 +15,6 @@ class Racun extends Model
 
     protected $guarded=[];
 
-    public function podracun_tekuci(){
-        return $this->hasMany(TekuciRacun::class);
-    }
-
-    public function podracun_studentski(){
-        return $this->hasMany(StudentskiRacun::class);
-    }
-
-    public function podracun_devizni(){
-        return $this->hasMany(DevizniRacun::class);
-    }
-
-    public function podracun_stedni(){
-        return $this->hasMany(StedniRacun::class);
-    }
-
     public function banka(){
         return $this->belongsTo(Banka::class);
     }

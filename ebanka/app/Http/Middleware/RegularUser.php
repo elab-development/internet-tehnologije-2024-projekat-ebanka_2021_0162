@@ -18,7 +18,7 @@ class RegularUser
     {
         $user = $request->user();
 
-        if($user->role == "admin") {
+        if($user->role == "system_admin" || $user->role == "sub_admin") {
             return response()->json(['message' => 'Admins are not allowed to access this route'], 403);
         }
 

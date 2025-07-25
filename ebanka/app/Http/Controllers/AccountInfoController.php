@@ -52,14 +52,12 @@ class AccountInfoController extends Controller
     {
         $korisnik = Auth::user();
         return new UserResource($korisnik);
-        //return response()->json($korisnik->toArray());
     }
 
     public function showAdmin(User $user)
     {
         $admin = Auth::user();
         return new AdminResource($admin);
-        //return response()->json($korisnik->toArray());
     }
 
     /**

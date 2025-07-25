@@ -40,11 +40,6 @@ class RacunResource extends JsonResource
             'user'=>new UserResource($this->resource->user),
             'banka'=>new BankaResource($this->resource->banka),
             'detalji'=>$myController->pronadji_podtip($this->resource->id_podtipa,$this->resource->type),
-            /*'detalji'=>($this->resource->type=='tekuci') ? new TekuciRacunResource(TekuciRacun::findOrFail($this->resource->id_podtipa)) : 
-            (($this->resource->type=='stedni') ? new StedniRacunResource(StedniRacun::findOrFail($this->resource->id_podtipa)) : 
-            (($this->resource->type=='devizni') ? new DevizniRacunResource(DevizniRacun::findOrFail($this->resource->id_podtipa)) :
-            (($this->resource->type=='studentski') ? new StudentskiRacunResource(StudentskiRacun::findOrFail($this->resource->id_podtipa)): ' ')))*/
-         
         ];
 
         /*$tekuci=null;

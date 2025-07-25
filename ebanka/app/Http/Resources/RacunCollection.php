@@ -12,8 +12,9 @@ class RacunCollection extends ResourceCollection
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
-
+    public $collects = RacunResource::class;
     public static $wrap='racuni';
+    
     public function toArray($request)
     {
         return parent::toArray($request);

@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\BankaResource;
 
 class AdminResource extends JsonResource
 {
@@ -24,6 +25,7 @@ class AdminResource extends JsonResource
             'grad'=>$this->resource->grad,
             'role'=>$this->resource->role,
             'broj_legitimacije'=>$this->resource->broj_legitimacije,
+            'banka_id' =>new BankaResource($this->resource->banka)
         ];
     }
 }

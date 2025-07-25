@@ -74,7 +74,7 @@ class AuthController extends Controller
         return response()->json(['data'=>$user,'access_token'=>$token,'token_type'=>'Bearer']);
     }
 
-    public function logInAdmin(Request $request) {
+    public function logInSysAdmin(Request $request) {
         $request->validate([
             'email'=> 'required|email',
             'password'=> 'required|string|min:8'
@@ -89,6 +89,26 @@ class AuthController extends Controller
             return response()->json(['message' => 'Hi ' . $admin->name . ', welcome to admin home', 'access_token' => $token, 'token_type' => 'Bearer']);
         }
 
-        return respone()->json("greska pri log in-u admina");
+        return response()->json("greska pri log in-u admina");
+    }
+
+    public function logInSubAdmin(Request $request) {
+        $request->validate([
+            'email'=> 'required|email',
+            'password'=> 'required|string|min:8',
+            'banka_id'=> 'required|integer'
+        ]);
+
+        $admin = Admin::where('email', $request['email'])->firstOrFail();
+
+        if($admin && Hash::check($request->password, $admin->password)) {
+
+            $token = $admin->createToken('Admin Access Token')->plainTextToken;
+
+            return response()->json(['message' => 'Hi ' . $admin->name . ', welcome to admin home', 'access_token' => $token, 'token_type' => 'Bearer']);
+        }
+
+        return response()->json("greska pri log in-u admina");
     }
 }
+

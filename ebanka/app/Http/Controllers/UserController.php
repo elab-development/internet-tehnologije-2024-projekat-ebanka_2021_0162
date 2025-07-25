@@ -27,9 +27,6 @@ class UserController extends Controller
         $perPage = 7;
         $users = User::paginate($perPage);
         return response()->json($users);
-        
-        $korisnici = User::all();
-        return new UserCollection($korisnici);
     }
 
     /**
@@ -229,6 +226,7 @@ class UserController extends Controller
 
         return new RacunCollection($r);
     }
+
 
 
 }

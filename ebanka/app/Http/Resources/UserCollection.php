@@ -12,7 +12,7 @@ class UserCollection extends ResourceCollection
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
-
+    public $collects = UserResource::class;
     public static $wrap='users';
     public function toArray($request)
     {
