@@ -24,25 +24,64 @@ const LogInPageAdmin = () => {
 
     const [adminData, setAdminData] = useState({
         email: "",
-        password: "",    
+        password: "",
+        banka_id: 0,    
     });
 
-    function handleLogin(e) {
-        e.preventDefault();
+    const[selected, setSelected]=useState();
+    const[options, setOptions]=useState([]);
 
-        axios.post("http://127.0.0.1:8000/api/admin/login", adminData)
+
+    useEffect(()=>{
+      let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: 'http://127.0.0.1:8000/api/sve-banke',
+      };
+      axios.request(config)
+      .then((response) => {
+        console.log(response.data.banke);
+        setOptions(response.data.banke);
+      })
+      .catch((error) => {
+        console.log(error);
+      }); 
+
+    },[]);
+
+    function handleLogin(e) {
+        console.log(adminData);
+        e.preventDefault();
+        if(adminData.banka_id===0){
+          axios.post("http://127.0.0.1:8000/api/admin/login-system-admin", adminData)
+          .then( (res) => {
+              if(res.data.access_token) {
+                  console.log("success");
+                  console.log(res.data);
+                  window.sessionStorage.setItem("admin_auth_token", res.data.access_token);
+                  navigate('/admin/home');
+              }
+          })
+          .catch( (e) => {
+              alert("Neispravna email adresa i/ili lozinka!");
+              console.log(e);
+          }); 
+        }else{
+        axios.post("http://127.0.0.1:8000/api/admin/login-sub-admin", adminData)
         .then( (res) => {
             if(res.data.access_token) {
                 console.log("success");
                 console.log(res.data);
-                window.sessionStorage.setItem("admin_auth_token", res.data.access_token);
-                navigate('/admin/home');
+                window.sessionStorage.setItem("sub_admin_auth_token", res.data.access_token);
+                navigate('/admin/home/sub');
+                localStorage.setItem('banka_id',adminData.banka_id)
             }
         })
         .catch( (e) => {
             alert("Neispravna email adresa i/ili lozinka!");
             console.log(e);
-        });      
+        });   
+      } 
     }
 
     function handleInput(e) {
@@ -97,6 +136,19 @@ const LogInPageAdmin = () => {
                       Lozinka
                     </label>
                   </div>
+
+                  <div data-mdb-input-init="" className="form-outline mb-4">
+                  <select className="form-control form-control-lg" value={selected} onChange={handleInput} name='banka_id'>
+                    <option value='default' name='banka_id'></option>
+                    {options.map((b)=>(
+                      <option key={b.id} value={b.id} name='banka_id'>{b.naziv}</option>
+                    ))}
+                  </select>
+                  <label className="form-label" htmlFor="formPassword">
+                    Izaberite banku za koji imate nadležnost pristupa
+                  </label>
+                  </div>
+
                   <div className="pt-1 mb-4">
                     <button
                       data-mdb-button-init=""

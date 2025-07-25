@@ -48,6 +48,15 @@
     background-color: white !important;
    }
 
+   .tabela-kontejner-user-admin {
+    overflow-x: auto;
+    width: 96vw;
+    border: 2px solid black;
+    border-radius: 20px;
+    margin: 2em auto;
+    display: flex;
+    background-color: white !important;
+   }
 
    .tabela-kontejner-banka{
     overflow-x: auto;
@@ -81,6 +90,13 @@
     font-weight: 450;
   }
 
+  .red-sub-admin{
+    border: 1px solid #ccc; 
+    padding: .5em;
+    text-align: center;
+    font-weight: 550;
+  }
+
   .kolona{
     border: 1px solid black; 
     padding: 8px;
@@ -94,6 +110,9 @@
     background-color: lightgray;
   }
   
+  .red-sub-admin:hover{
+    background-color: lightgray;
+  }
   .zakljucan-background{
     overflow-y: hidden;
   }
@@ -204,6 +223,7 @@
     font-weight: 600;
     margin-right: 1em;
   }
+
 
   
 

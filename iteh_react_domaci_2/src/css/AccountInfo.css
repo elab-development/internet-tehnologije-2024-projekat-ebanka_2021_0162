@@ -217,7 +217,7 @@
 .container-info-admin{
   width: 60%; 
     margin: 2% auto; 
-    margin-top: 10em;
+    margin-top: 8em;
     padding: 20px; 
     border: 2px solid #4A90E2; 
     border-radius: 10px; 
@@ -245,11 +245,34 @@
 
 }
 
+.container-info-admin-3{
+  width: 60%; 
+    margin: 2% auto; 
+    padding: 20px; 
+    border: 2px solid #4A90E2; 
+    border-radius: 10px; 
+    background-color: #F9FBFE;
+
+}
 
 .user-data-admin {
   border-radius: 10px; 
   margin-top : .5em;
   padding: 20px; 
+  text-align: center;
+  background-color: #E6F1FB; 
+  color: #1C3A61; 
+  font-family: serif;
+  font-size: 1.2em;
+  font-weight: 750;
+}
+
+.user-data-admin-2 {
+  border-radius: 10px; 
+  margin-top : .5em;
+  padding: 20px;
+  padding-left: 7em;
+  padding-right: 7em; 
   text-align: center;
   background-color: #E6F1FB; 
   color: #1C3A61; 

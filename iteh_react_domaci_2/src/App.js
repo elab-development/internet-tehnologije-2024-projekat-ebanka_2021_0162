@@ -8,7 +8,6 @@ import UserHome from './components/UserHome';
 import AdminHome from './components/AdminHome';
 import UserLogout from './components/UserLogout';
 import AdminLogout from './components/AdminLogout';
-import NavBar from './components/NavBar';
 import KursnaLista from './components/KursnaLista';
 import AccountInfo from './components/AccountInfo';
 import ProfileImageUpload from './components/ProfileImageUpload';
@@ -21,6 +20,10 @@ import CreateNewUser from './components/CreateNewUser';
 import CreateNewBank from './components/CreateNewBank';
 import AccountInfoAdmin from './components/AccountInfoAdmin';
 import CreateNewAcc from './components/CreateNewAcc';
+import NewNavBar from './components/NewNavBar';
+import SubAdminHomeRacun from './components/SubAdminHomeRacun';
+import SubAdminHomeKorisnici from './components/SubAdminHome';
+import UsersAccPageForAdmin from './components/UsersAccPageForAdmin';
 
 function App() {
 
@@ -46,7 +49,7 @@ function App() {
           
           <Route path="/" element={<Navigate to="/user/login"/>} />
 
-          <Route path="/" element={<NavBar login={1}/>}>
+          <Route path="/" element={<NewNavBar login={1}/>}>
             <Route path="user/home" element={<UserHome accountFocus={handleAccountFocus} focusedAcc={focusedAcc}/> }/>
             <Route path="user/logout" element={<UserLogout handleLogInStatus={handleLogInStatus}/>} />
             <Route path="user/detalji-naloga" element={<AccountInfo/>}/>
@@ -59,7 +62,7 @@ function App() {
             <Route path="user/charts" element={<Charts focusedAcc={focusedAcc}/>}/>
           </Route>
 
-          <Route path="/" element={<NavBar login={2}/>}>
+          <Route path="/" element={<NewNavBar login={2}/>}>
             <Route path="admin/svi-korisnici" element={<Table tipTabele={'korisnici'}/>} />
             <Route path="admin/home" element={<AdminHome /> } />
             <Route path="admin/logout" element={<AdminLogout/>} />
@@ -67,15 +70,23 @@ function App() {
             <Route path="admin/kreiraj-korisnika" element={<CreateNewUser />} />
             <Route path="admin/sve-banke" element={<Table tipTabele={'banke'}/>}/>
             <Route path="admin/kreiranje-banke" element={<CreateNewBank/>}/>
-            <Route path="admin/informacije-o-nalogu" element={<AccountInfoAdmin/>}/>
+            <Route path="admin/informacije-o-nalogu-system-admin" element={<AccountInfoAdmin tip={'system'}/>}/>
             <Route path="admin/svi-korisnici/bankovni-racuni-korisnika" element={<Table tipTabele={'racuni-korisnika'} />} />
             <Route path="admin/svi-korisnici/bankovni-racuni-korisnika/tekuci" element={<CreateNewAcc tipRacuna={'tekuci'}/>}/>
             <Route path="admin/svi-korisnici/bankovni-racuni-korisnika/devizni" element={<CreateNewAcc tipRacuna={'devizni'}/>}/>
             <Route path="admin/svi-korisnici/bankovni-racuni-korisnika/stedni" element={<CreateNewAcc tipRacuna={'stedni'}/>}/>
             <Route path="admin/svi-korisnici/bankovni-racuni-korisnika/studentski" element={<CreateNewAcc tipRacuna={'studentski'}/>}/>
+            
           </Route>
 
-          <Route path="/" element={<NavBar login={0}/>} >
+          <Route path="/" element={<NewNavBar login={3}/>}>
+            <Route path="admin/home/sub" element={<SubAdminHomeKorisnici/>}/>
+            <Route path="admin/home/sub/racuni" element={<SubAdminHomeRacun/>}/>
+            <Route path="admin/informacije-o-nalogu-sub-admin" element={<AccountInfoAdmin tip={'sub'}/>}/>
+            <Route path="admin/home/racuni_izrabranog_korisnika" element={<UsersAccPageForAdmin/>}/>
+          </Route>
+
+          <Route path="/" element={<NewNavBar login={0}/>} >
             <Route path="user/login" element={<LogInPageUser handleLogInStatus={handleLogInStatus}/>}/>
             <Route path="user/register" element={<RegisterPageUser/>} />
             <Route path="kursna-lista" element={<KursnaLista date={"today"} logout={"yes"}/>}/>
